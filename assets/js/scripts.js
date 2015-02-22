@@ -16,6 +16,7 @@ jQuery(document).ready(function() {
     var now = new Date();
 	var goal = new Date();
 	goal.setFullYear(2015,2,8);
+	goal.setHours(24,0,0,0);
     //var countTo = 15 * 24 * 60 * 60 * 1000 + now.valueOf();
 	var countTo = (goal.getTime() - now.getTime()) + now.valueOf();
     $('.timer').countdown(countTo, function(event) {
