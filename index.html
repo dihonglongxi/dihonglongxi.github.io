@@ -1,109 +1,154 @@
-
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en-US">
     <head>
-
-        <meta charset="utf-8">
-		<meta name="robots" content="NOINDEX,FOLLOW,noarchive" />
-        <title>网站建设中</title>
+        <meta charset="utf-8"> 
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="">
-        <meta name="author" content="">
+        <meta name="author" content="郭世全" />
+        <meta name="copyright" content="郭世全" />
 
-        <!-- CSS -->
-        <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-        <link rel="stylesheet" href="assets/css/style.css">
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary">
 
-        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-        <!--[if lt IE 9]>
-            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
-
-        <!-- Favicon and touch icons -->
-        <link rel="shortcut icon" href="assets/ico/favicon.ico">
-        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/ico/apple-touch-icon-144-precomposed.png">
-        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png">
-        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png">
-        <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
-
+<meta property="og:title" content="我主要设计基于STC和Arduino的开源产品"/>
+<meta name="twitter:title" content="我主要设计基于STC和Arduino的开源产品">
+<meta property="og:url" content="http://localhost:8000" />
+<meta property="og:site_name" content="龙曦工作室" />
+<meta property="og:article:author" content="郭世全" />
+        <title>龙曦工作室
+</title>
+        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="http://localhost:8000/theme/css/pygments.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="http://localhost:8000/theme/tipuesearch/tipuesearch.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="http://localhost:8000/theme/css/elegant.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="http://localhost:8000/theme/css/custom.css" media="screen">
     </head>
-
     <body>
-
-        <!-- Header -->
-        <div class="container">
-            <div class="header row">
-                <div class="logo span4">
-                    <h1>龙曦工作室</h1>
-                </div>
-                <div class="call-us span8">
-                    <p>电话: <span>18642089178</span> | QQ: <span>510838401</span></p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Coming Soon -->
-        <div class="coming-soon">
-            <div class="inner-bg">
-                <div class="container">
-                    <div class="row">
-                        <div class="span12">
-                            <h2>网站上线倒计时</h2>
-                            <p>我非常努力在设计网站的新版本。请继续关注!</p>
-                            <div class="timer">
-                                <div class="days-wrapper">
-                                    <span class="days"></span> <br>天
-                                </div>
-                                <div class="hours-wrapper">
-                                    <span class="hours"></span> <br>时
-                                </div>
-                                <div class="minutes-wrapper">
-                                    <span class="minutes"></span> <br>钟
-                                </div>
-                                <div class="seconds-wrapper">
-                                    <span class="seconds"></span> <br>秒
-                                </div>
-                            </div>
-                        </div>
+        <div id="content-sans-footer">
+        <div class="navbar navbar-static-top">
+            <div class="navbar-inner">
+                <div class="container-fluid">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="http://localhost:8000/"><span class=site-name><span style="color:black;">龙曦工作室</span></span></a>
+                    <div class="nav-collapse collapse">
+                        <ul class="nav pull-right top-menu">
+                            <li  class="active"><a href="http://localhost:8000">Home</a></li>
+                            <li ><a href="http://localhost:8000/categories.html">Categories</a></li>
+                            <li ><a href="http://localhost:8000/tags.html">Tags</a></li>
+                            <li ><a href="http://localhost:8000/archives.html">Archives</a></li>
+                            <li><form class="navbar-search" action="http://localhost:8000/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span1"></div>
+                <div class="span10">
+<div class="row-fluid">
+    <header class="page-header span12">
+    <h1><a href="http://localhost:8000">我主要设计基于STC和Arduino的开源产品</a></h1>
+    </header>
 
-        <!-- Content -->
-        <div class="container">
-            <div class="row">
-                <div class="span12 subscribe">
-                    <h3>邮件订阅</h3>
-                    <p>现在注册订阅,你会第一个知道当站点动态:</p>
-                    <form class="form-inline" action="assets/sendmail.php" method="post">
-                        <input type="text" name="email" placeholder="输入邮箱地址">
-                        <button type="submit" class="btn">提交</button>
-                    </form>
-                    <div class="success-message"></div>
-                    <div class="error-message"></div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="span12 social">
-                    <a href="" class="facebook" rel="tooltip" data-placement="top" data-original-title="Facebook"></a>
-                    <a href="" class="twitter" rel="tooltip" data-placement="top" data-original-title="Twitter"></a>
-                    <a href="" class="dribbble" rel="tooltip" data-placement="top" data-original-title="Dribbble"></a>
-                    <a href="" class="googleplus" rel="tooltip" data-placement="top" data-original-title="Google Plus"></a>
-                    <a href="" class="pinterest" rel="tooltip" data-placement="top" data-original-title="Pinterest"></a>
-                    <a href="" class="flickr" rel="tooltip" data-placement="top" data-original-title="Flickr"></a>
-				</div>
+    <div class="row-fluid">
+        <div class="span8">
+            <header>
+            <h1 id="about-me">About me</h1>
+            </header>
+            <div class="article-content">
+                <div itemscope itemtype="http://schema.org/Person">
+        <p>我叫<span itemprop="name">郭世全</span>。
+       在Github上你可以通过搜索 <a href="https://github.com/longxi-team/" title="我的Github
+       主页" itemprop="url"><span itemprop="nickname">longxi-team</span></a> 找到我，当然你也可以添加我的<a
+       href="http://jianguoyun.com/p/DQY6cygQ17XmBRjUkws" title="我的微信名片" itemprop="url">个人名片</a> 到你的手机通讯录中。如果您更愿意通过邮件交流，这是我的<a
+       href="mailto:gsq510838401@gmail.com" title="我的邮件地址" itemprop="email">邮箱</a>。</p>
+       <p>目前，我在<a href="http://www.alsrobot.cn/"
+       title="公司主页" itemprop="affiliation">哈尔滨奥松机器人科技有限公司</a>工作，公司主要致力于教育化机器人和智能电子开源硬件的研发及普及推广。我在公司中担任研发部电子工程师一职，主要负责设计Arduino的相关产品的原理图和PCB设计，撰写技术文档，并解决客户在产品使用中遇到的问题。</p>
+       <p>我尝试努力创造可以改变世界的软硬件产品，使人们的生活更方便，为社会的进步做出自身的贡献。我相信使用各种具有独特功能的软硬件产品是改变我们生活的最有效方式。</p>
+       <p>我主要利用C（C51、ArduinoC）和AltiumDesigner设计我的产品，当然我也了解一些其他的语言，比如Python、VHDL、HTML等。我不喜欢把自己放在一个死的语言环境中。个人觉得，一个好的技术开发人员应该具有接受和学习新技术的能力。当然，为实现这样的目标，我也常常作为小白鼠帮忙测试一些开源项目、使用新型的电子产品和设备和使用测试版本程式。</p>
+       <p>除了编程与绘图，我也经常<a
+       href="http://book.douban.com/people/longxi-team/" title="我的豆瓣读书主页" itemprop="url">读书</a>、<a
+       href="http://www.mafengwo.cn/u/61519237.html" title="我的蚂蜂窝主页" itemprop="url">去旅游</a>和<a
+       href="http://music.douban.com/people/longxi-team/" title="我的豆瓣音乐主页" itemprop="url">听音乐</a>。</p>
+       <p>英语是我的第二外语。目前我正通过Busuu学习日语。</p></div>
             </div>
         </div>
-        <!-- Javascript -->
-        <script src="assets/js/jquery-1.8.2.min.js"></script>
-        <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-        <script src="assets/js/jquery.backstretch.min.js"></script>
-        <script src="assets/js/jquery.countdown.js"></script>
-        <script src="assets/js/scripts.js"></script>
 
+        <div class="span4">
+            <header>
+            <h1 id="my-projects">My Projects</h1>
+            </header>
+            <ul class="list-all-articles">
+                <li>
+                <a href="http://www.alsrobot.cn/goods-636.html" title="PIR Sensor（RobotBase）">PIR Sensor（RobotBase）</a> <span class="proj-desc">一款用来感知环境中是否存在会动的、可以散发红外电磁波的物体的模块</span>
+                </li>
+            </ul>
+            <ul class="list-all-articles">
+                <li>
+                <a href="http://www.alsrobot.cn/goods-633.html" title="GrayScale Sensor（RobotBase）">GrayScale Sensor（RobotBase）</a> <span class="proj-desc">用于足球机器人场地识别的一块模块</span>
+                </li>
+            </ul>
+            <ul class="list-all-articles">
+                <li>
+                <a href="http://www.alsrobot.cn/goods-629.html" title="Ceramic Piezo Vibration Sensor（RobotBase）">Ceramic Piezo Vibration Sensor（RobotBase）</a> <span class="proj-desc">一款应用在电子鼓当面的传感器模块</span>
+                </li>
+            </ul>
+            <ul class="list-all-articles">
+                <li>
+                <a href="http://www.alsrobot.cn/goods-626.html" title="Steam Sensor（RobotBase）">Steam Sensor（RobotBase）</a> <span class="proj-desc">一款可以感知环境中湿度的传感器</span>
+                </li>
+            </ul>
+            <ul class="list-all-articles">
+                <li>
+                <a href="http://www.alsrobot.cn/goods-627.html" title="Touch Sensor（RobotBase）">Touch Sensor（RobotBase）</a> <span class="proj-desc">一款可以用来制作触摸台灯，开关的小模块</span>
+                </li>
+            </ul>
+            <ul class="list-all-articles">
+                <li>
+                <a href="http://www.alsrobot.cn/goods-625.html" title="Prototype Shield for RasPi B+（RobotBase）">Prototype Shield for RasPi B+（RobotBase）</a> <span class="proj-desc">一款可以帮助树莓派B+的使用者快速搭建原型电路的产品</span>
+                </li>
+            </ul>
+            <ul class="list-all-articles">
+                <li>
+                <a href="http://www.alsrobot.cn/goods-599.html" title="PCB直尺（RobotBase）">PCB直尺（RobotBase）</a> <span class="proj-desc">一款电子爱好者必备的格尺</span>
+                </li>
+            </ul>
+            <ul class="list-all-articles">
+                <li>
+                <a href="http://www.alsrobot.cn/goods-592.html" title="Starduino（RobotBase）">Starduino（RobotBase）</a> <span class="proj-desc">一个搭载Arduino Leonardo、L298电机控制器、5V 3A供电电源的控制器</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+                </div>
+                <div class="span1"></div>
+            </div>
+        </div>
+        <div id="push"></div>
+    </div>
+<footer>
+<div id="footer">
+    <ul class="footer-content">
+        <li class="elegant-power">Powered by <a href="http://getpelican.com/" title="Pelican Home Page">Pelican</a>. Theme: <a href="http://oncrashreboot.com/pelican-elegant" title="Theme Elegant Home Page">Elegant</a> by <a href="http://oncrashreboot.com" title="Talha Mansoor Home Page">Talha Mansoor</a></li>
+    </ul>
+</div>
+</footer>        <script src="http://code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
     </body>
-
+    <!-- Theme: Elegant built for Pelican
+    License : http://oncrashreboot.com/pelican-elegant -->
 </html>
-
