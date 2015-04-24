@@ -34,7 +34,20 @@
         <link rel="apple-touch-icon" sizes="144x144" href="/theme/images/apple-touch-icon-144x144.png" type="image/png" />
         <link rel="apple-touch-icon" sizes="152x152" href="/theme/images/apple-touch-icon-152x152.png" type="image/png" />
         <script src="http://code.jquery.com/jquery.min.js"></script>
-        <script language="JavaScript" src="/theme/layer/layer.js"></script>
+        <script language="JavaScript" src="/theme/DetectMobileBrowser/DetectBrowser.js"></script>
+        <script language="javascript">
+        <!-- 
+            var str = navigator.userAgent;
+            if (str.indexOf("ndroid") > 0 || str.indexOf("iPhone") > 0|| str.indexOf("iPad") > 0||str.indexOf("iPod")>0) 
+            {
+                document.write("<script language='JavaScript' src='/theme/layer/mobile/layer.m.js'></script>"); 
+            } 
+            else 
+            {
+                document.write("<script language='JavaScript' src='/theme/layer/layer.js'></script>"); 
+            }
+        -->
+        </script>
     </head>
     <body>
         <div id="content-sans-footer">
@@ -87,7 +100,38 @@
        href="http://book.douban.com/people/longxi-team/" title="我的豆瓣读书主页" itemprop="url">读书</a>、<a
        href="http://www.mafengwo.cn/u/61519237.html" title="我的蚂蜂窝主页" itemprop="url">去旅游</a>和<a
        href="http://music.douban.com/people/longxi-team/" title="我的豆瓣音乐主页" itemprop="url">听音乐</a>。</p>
-       <p>英语是我的第二外语。目前我正通过Busuu学习日语。</p><script>$('#card').on('click', function(){layer.tips('<img src="home_page/business_card.png">' , '#card', {tips: [1, '#e1e1e1'],time: 5000,area: ['300px', '300px']});});</script></div>
+       <p>英语是我的第二外语。目前我正通过Busuu学习日语。</p>
+        <div id="business_card" class="hide layui-layer-wrap" style="display: none;"><img src="home_page/business_card.png"></div>
+        <script>
+        <!-- 
+            $('#card').on('click', function(){
+                            var str = navigator.userAgent;
+                            if (str.indexOf("ndroid") > 0 || str.indexOf("iPhone") > 0|| str.indexOf("iPad") > 0||str.indexOf("iPod")>0) 
+                            { 
+                                //alert(1);
+                                layer.open({
+                                        type: 1,
+                                        content: "<img src='home_page/business_card.png'>",
+                                        style: 'width:300px; height:300px; padding:0px; background-color:#e1e1e1; border:none;'
+                                    });
+                            }
+                            else
+                            {
+                                //alert(2);
+                                layer.open({
+                                    type: 1,
+                                    title: false,
+                                    closeBtn: false,
+                                    area:'auto',
+                                    skin: 'layui-layer-nobg',
+                                    shadeClose: true,
+                                    content: $('#business_card')
+                                });
+                            }
+                        });  
+        -->
+        </script>
+       </div>
             </div>
         </div>
 
