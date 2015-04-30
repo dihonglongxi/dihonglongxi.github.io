@@ -1,5 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>帝鴻龍曦</title><link href="http://dhlx.wang/" rel="alternate"></link><link href="http://dhlx.wang/feeds/test.atom.xml" rel="self"></link><id>http://dhlx.wang/</id><updated>2015-03-10T19:33:00+08:00</updated><entry><title>Hello World</title><link href="http://dhlx.wang/test.html" rel="alternate"></link><updated>2015-03-10T19:33:00+08:00</updated><author><name>郭世全</name></author><id>tag:dhlx.wang,2015-03-10:test.html</id><summary type="html">
+<feed xmlns="http://www.w3.org/2005/Atom"><title>帝鴻龍曦</title><link href="http://dhlx.wang/" rel="alternate"></link><link href="http://dhlx.wang/feeds/test.atom.xml" rel="self"></link><id>http://dhlx.wang/</id><updated>2015-04-29T23:00:00+08:00</updated><entry><title>Hello World</title><link href="http://dhlx.wang/test.html" rel="alternate"></link><updated>2015-04-29T23:00:00+08:00</updated><author><name>郭世全</name></author><id>tag:dhlx.wang,2015-03-10:test.html</id><summary type="html">
 &lt;h2 id="_1"&gt;现在测试左侧标题&lt;a class="headerlink" href="#_1" title="Permanent link"&gt;¶&lt;/a&gt;&lt;/h2&gt;
-&lt;h2 id="_2"&gt;测试&lt;a class="headerlink" href="#_2" title="Permanent link"&gt;¶&lt;/a&gt;&lt;/h2&gt;
-&lt;p&gt;您好，世界，这里是龙曦工作室，向您问好！&lt;/p&gt;</summary><category term="test"></category></entry></feed>
+&lt;p&gt;&lt;span class="math"&gt;\(e=mc^2\)&lt;/span&gt;&lt;/p&gt;
+&lt;h2 id="emc2"&gt;测试&lt;span class="math"&gt;\(e=mc^2\)&lt;/span&gt;&lt;a class="headerlink" href="#emc2" title="Permanent link"&gt;¶&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;您好，世界，这里&lt;span class="math"&gt;\(e=mc^2\)&lt;/span&gt;是龙曦工作室，向您问好！&lt;span class="math"&gt;\(e=mc^2\)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Categories accordions collapsed" src="http://dhlx.wang/images/elegant-theme_category-accordions-collapsed.png"/&gt;
+huhuhu&lt;/p&gt;
+&lt;p&gt;huhu&lt;/p&gt;
+&lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width &lt; 768) ? "left" : align;
+        indent = (screen.width &lt; 768) ? "0em" : indent;
+        linebreak = (screen.width &lt; 768) ? 'true' : linebreak;
+    }
+    
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); ";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+&lt;/script&gt;</summary><category term="test"></category></entry></feed>
