@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>帝鴻龍曦</title><link href="http://dhlx.wang/" rel="alternate"></link><link href="http://dhlx.wang/feeds/hello-world.atom.xml" rel="self"></link><id>http://dhlx.wang/</id><updated>2013-04-04T00:00:00+08:00</updated><entry><title>My super title</title><link href="http://dhlx.wang/my-super-title.html" rel="alternate"></link><updated>2013-04-04T00:00:00+08:00</updated><author><name>郭世全</name></author><id>tag:dhlx.wang,2013-04-04:my-super-title.html</id><summary type="html">
-&lt;h1 id="heading-1"&gt;Heading 1&lt;/h1&gt;
-&lt;p&gt;Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.&lt;/p&gt;</summary><category term="thats"></category><category term="awesome"></category></entry></feed>
