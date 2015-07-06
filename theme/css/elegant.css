@@ -108,7 +108,7 @@ td {
     }
 }
 .linenos {
-    width: 30px;
+    width: 40px; 
 }
 .linenos div pre {
     text-align: right;
@@ -188,7 +188,7 @@ article div.article-content ul:not(.articles-timeline) a:hover {
     text-align: justify;
 }
 .article-content {
-    max-width: 50em;
+    max-width: 70em;
 }
 .article-content p, div.recent-posts p {
     font-size: inherit;

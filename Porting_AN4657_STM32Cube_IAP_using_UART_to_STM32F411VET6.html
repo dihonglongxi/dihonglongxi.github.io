@@ -134,9 +134,9 @@
 <p>AN4657-STM32Cube_IAP_using_UART\Projects\STM3210C_EVAL\IAP_Main\Inc
 AN4657-STM32Cube_IAP_using_UART\Projects\STM3210C_EVAL\IAP_Main\Src</p>
 <h1 id="_2">二、拷贝需要的文件到工程目录下<a class="headerlink" href="#_2" title="Permanent link">¶</a></h1>
-<p>1、解压缩通过下载得到的AN4657压缩包。
-2、拷贝路径（AN4657-STM32Cube_IAP_using_UART\Projects\STM3210C_EVAL\IAP_Main\Inc）中的<code>common.h</code>、<code>flash_if.h</code>、<code>menu.h</code>、<code>ymodem.h</code>到我们自己的工程路径下的Inc文件夹中。
-3、拷贝路径（AN4657-STM32Cube_IAP_using_UART\Projects\STM3210C_EVAL\IAP_Main\Src）中的<code>common.c</code>、<code>flash_if.c</code>、<code>menu.c</code>、<code>ymodem.c</code>到我们自己的工程路径下的Src文件夹中，并在keil中添加相应的文件。</p>
+<p>1、解压缩通过下载得到的AN4657压缩包。</p>
+<p>2、拷贝路径（AN4657-STM32Cube_IAP_using_UART\Projects\STM3210C_EVAL\IAP_Main\Inc）中的<code>common.h</code>、<code>flash_if.h</code>、<code>menu.h</code>、<code>ymodem.h</code>到我们自己的工程路径下的Inc文件夹中。</p>
+<p>3、拷贝路径（AN4657-STM32Cube_IAP_using_UART\Projects\STM3210C_EVAL\IAP_Main\Src）中的<code>common.c</code>、<code>flash_if.c</code>、<code>menu.c</code>、<code>ymodem.c</code>到我们自己的工程路径下的Src文件夹中，并在keil中添加相应的文件。</p>
 <h1 id="_3">三、修改串口的基本设置<a class="headerlink" href="#_3" title="Permanent link">¶</a></h1>
 <p>串口的基本设置在STM32Cube可以进行设置，并生成相应的设置代码，但在我们的移植文件中需要用到串口设置，故我们需要在<code>common.c</code>、<code>menu.c</code>、<code>ymodem.c</code>三个文件中进行修改，我的示例代码是用USART1作为演示。</p>
 <p><code>common.c</code>修改部分如下所示：</p>

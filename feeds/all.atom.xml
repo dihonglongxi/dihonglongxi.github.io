@@ -13,8 +13,8 @@
 &lt;/ul&gt;
 &lt;p&gt;在移植过程中，主要用到芯片的外设有USART1（PB6、PB7）和TIMER11，请您根据实际情况进行设置。其中TIMER的设置，您需要设置时钟的信号基准为50uS，时钟产生中断的时间为1750uS（串口波特率大于19200时，在mbrtu.c中有具体的描述），也就是35个基准时间。&lt;/p&gt;
 &lt;h1 id="_2"&gt;二、拷贝需要的文件到工程目录下&lt;a class="headerlink" href="#_2" title="Permanent link"&gt;¶&lt;/a&gt;&lt;/h1&gt;
-&lt;p&gt;1、解压缩通过下载得到的freemodbus-v1.5.zip。
-2、按照下列的文件列表拷贝相应的文件到对应的目录（没有路径，需要自己建），并在
+&lt;p&gt;1、解压缩通过下载得到的freemodbus-v1.5.zip。&lt;/p&gt;
+&lt;p&gt;2、按照下列的文件列表拷贝相应的文件到对应的目录（没有路径，需要自己建），并在
 keil中设置好相应的头文件引用路径和源码文件的引用。&lt;/p&gt;
 &lt;p&gt;拷贝文件到工程文件夹示例：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nx"&gt;工程文件夹&lt;/span&gt;
@@ -1517,9 +1517,9 @@ keil中设置好相应的头文件引用路径和源码文件的引用。&lt;/p&
 &lt;p&gt;AN4657-STM32Cube_IAP_using_UART\Projects\STM3210C_EVAL\IAP_Main\Inc
 AN4657-STM32Cube_IAP_using_UART\Projects\STM3210C_EVAL\IAP_Main\Src&lt;/p&gt;
 &lt;h1 id="_2"&gt;二、拷贝需要的文件到工程目录下&lt;a class="headerlink" href="#_2" title="Permanent link"&gt;¶&lt;/a&gt;&lt;/h1&gt;
-&lt;p&gt;1、解压缩通过下载得到的AN4657压缩包。
-2、拷贝路径（AN4657-STM32Cube_IAP_using_UART\Projects\STM3210C_EVAL\IAP_Main\Inc）中的&lt;code&gt;common.h&lt;/code&gt;、&lt;code&gt;flash_if.h&lt;/code&gt;、&lt;code&gt;menu.h&lt;/code&gt;、&lt;code&gt;ymodem.h&lt;/code&gt;到我们自己的工程路径下的Inc文件夹中。
-3、拷贝路径（AN4657-STM32Cube_IAP_using_UART\Projects\STM3210C_EVAL\IAP_Main\Src）中的&lt;code&gt;common.c&lt;/code&gt;、&lt;code&gt;flash_if.c&lt;/code&gt;、&lt;code&gt;menu.c&lt;/code&gt;、&lt;code&gt;ymodem.c&lt;/code&gt;到我们自己的工程路径下的Src文件夹中，并在keil中添加相应的文件。&lt;/p&gt;
+&lt;p&gt;1、解压缩通过下载得到的AN4657压缩包。&lt;/p&gt;
+&lt;p&gt;2、拷贝路径（AN4657-STM32Cube_IAP_using_UART\Projects\STM3210C_EVAL\IAP_Main\Inc）中的&lt;code&gt;common.h&lt;/code&gt;、&lt;code&gt;flash_if.h&lt;/code&gt;、&lt;code&gt;menu.h&lt;/code&gt;、&lt;code&gt;ymodem.h&lt;/code&gt;到我们自己的工程路径下的Inc文件夹中。&lt;/p&gt;
+&lt;p&gt;3、拷贝路径（AN4657-STM32Cube_IAP_using_UART\Projects\STM3210C_EVAL\IAP_Main\Src）中的&lt;code&gt;common.c&lt;/code&gt;、&lt;code&gt;flash_if.c&lt;/code&gt;、&lt;code&gt;menu.c&lt;/code&gt;、&lt;code&gt;ymodem.c&lt;/code&gt;到我们自己的工程路径下的Src文件夹中，并在keil中添加相应的文件。&lt;/p&gt;
 &lt;h1 id="_3"&gt;三、修改串口的基本设置&lt;a class="headerlink" href="#_3" title="Permanent link"&gt;¶&lt;/a&gt;&lt;/h1&gt;
 &lt;p&gt;串口的基本设置在STM32Cube可以进行设置，并生成相应的设置代码，但在我们的移植文件中需要用到串口设置，故我们需要在&lt;code&gt;common.c&lt;/code&gt;、&lt;code&gt;menu.c&lt;/code&gt;、&lt;code&gt;ymodem.c&lt;/code&gt;三个文件中进行修改，我的示例代码是用USART1作为演示。&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;common.c&lt;/code&gt;修改部分如下所示：&lt;/p&gt;
