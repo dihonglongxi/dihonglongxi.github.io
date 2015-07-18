@@ -13,7 +13,7 @@
 <meta name="keywords" content="IAP, STM32F411VET6, STM32CubeF4, STM32F411VET6, IAP, STM32F411VET6, STM32CubeF4" />
 
 <meta property="og:title" content="移植AN4657到STM32F411VET6  - STM32Cube IAP using UART "/>
-<meta property="og:url" content="http://dhlx.wang/Porting_AN4657_STM32Cube_IAP_using_UART_to_STM32F411VET6.html" />
+<meta property="og:url" content="http://dhlx.wang/STM32F411VET6/Porting_AN4657_STM32Cube_IAP_using_UART_to_STM32F411VET6.html" />
 <meta property="og:description" content="记录移植AN4657工程到STM32F411VET6的过程" />
 <meta property="og:site_name" content="帝鴻龍曦" />
 <meta property="og:article:author" content="郭世全" />
@@ -95,7 +95,7 @@
 <article>
 <div class="row-fluid">
     <header class="page-header span10 offset2">
-    <h1><a href="http://dhlx.wang/Porting_AN4657_STM32Cube_IAP_using_UART_to_STM32F411VET6.html"> 移植AN4657到STM32F411VET6  <small> STM32Cube IAP using UART </small>  </a></h1>
+    <h1><a href="http://dhlx.wang/STM32F411VET6/Porting_AN4657_STM32Cube_IAP_using_UART_to_STM32F411VET6.html"> 移植AN4657到STM32F411VET6  <small> STM32Cube IAP using UART </small>  </a></h1>
     </header>
 </div>
 
@@ -764,7 +764,7 @@ PB6、PB7，才可以正常使用，默认的TX引脚上接了一个uF级的电�
 
     <span class="cm">/* Get the sector where start the user flash area */</span>
     <span class="n">UserStartSector</span> <span class="o">=</span> <span class="n">GetSector</span><span class="p">(</span><span class="n">APPLICATION_ADDRESS</span><span class="p">);</span>
-    <span class="n">NbrOfSector</span> <span class="o">=</span> <span class="n">FLASH_SECTOR_7</span> <span class="o">-</span> <span class="n">UserStartSector</span><span class="p">;</span>
+    <span class="n">NbrOfSector</span> <span class="o">=</span> <span class="n">FLASH_SECTOR_7</span> <span class="o">-</span> <span class="n">UserStartSector</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
 
     <span class="n">pEraseInit</span><span class="p">.</span><span class="n">TypeErase</span> <span class="o">=</span> <span class="n">FLASH_TYPEERASE_SECTORS</span><span class="p">;</span>
     <span class="n">pEraseInit</span><span class="p">.</span><span class="n">Sector</span> <span class="o">=</span> <span class="n">UserStartSector</span><span class="p">;</span>
@@ -984,7 +984,7 @@ PB6、PB7，才可以正常使用，默认的TX引脚上接了一个uF级的电�
         <div class="accordion-heading">
             <a class="accordion-toggle disqus-comment-count" data-toggle="collapse" data-parent="#accordion2"
                     data-disqus-identifier="G00006-Porting-AN4657-STM32Cube-IAP-using-UART-to-STM32F411VET6"
-                href="http://dhlx.wang/Porting_AN4657_STM32Cube_IAP_using_UART_to_STM32F411VET6.html#disqus_thread">
+                href="http://dhlx.wang/STM32F411VET6/Porting_AN4657_STM32Cube_IAP_using_UART_to_STM32F411VET6.html#disqus_thread">
                 Comments
             </a>
         </div>
@@ -995,7 +995,7 @@ PB6、PB7，才可以正常使用，默认的TX引脚上接了一个uF级的电�
 <script type="text/javascript">
     var disqus_shortname = 'dihonglongxi';
         var disqus_identifier = 'G00006-Porting-AN4657-STM32Cube-IAP-using-UART-to-STM32F411VET6';
-    var disqus_url = 'http://dhlx.wang/Porting_AN4657_STM32Cube_IAP_using_UART_to_STM32F411VET6.html';
+    var disqus_url = 'http://dhlx.wang/STM32F411VET6/Porting_AN4657_STM32Cube_IAP_using_UART_to_STM32F411VET6.html';
 
     (function() {
          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
@@ -1017,8 +1017,8 @@ PB6、PB7，才可以正常使用，默认的TX引脚上接了一个uF级的电�
             <aside>
             <nav>
             <ul class="articles-timeline">
-                <li class="previous-article">« <a href="http://dhlx.wang/Simple_transplant_IAP_STSW-STM32067_to_STM32F411VET6.html" title="Previous: 简单移植IAP（STSW-STM32067）到STM32F411VET6">简单移植IAP（STSW-STM32067）到STM32F411VET6</a></li>
-                <li class="next-article"><a href="http://dhlx.wang/Porting_FreeModbus_to_STM32F411VET6_based_on_STM32CubeF4.html" title="Next: 基于STM32CubeF4移植FreeModbus到STM32F411VET6">基于STM32CubeF4移植FreeModbus到STM32F411VET6</a> »</li>
+                <li class="previous-article">« <a href="http://dhlx.wang/STM32F411VET6/Simple_transplant_IAP_STSW-STM32067_to_STM32F411VET6.html" title="Previous: 简单移植IAP（STSW-STM32067）到STM32F411VET6">简单移植IAP（STSW-STM32067）到STM32F411VET6</a></li>
+                <li class="next-article"><a href="http://dhlx.wang/STM32F411VET6/Porting_FreeModbus_to_STM32F411VET6_based_on_STM32CubeF4.html" title="Next: 基于STM32CubeF4移植FreeModbus到STM32F411VET6">基于STM32CubeF4移植FreeModbus到STM32F411VET6</a> »</li>
             </ul>
             </nav>
             </aside>

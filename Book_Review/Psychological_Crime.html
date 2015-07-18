@@ -10,19 +10,19 @@
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
-<meta name="keywords" content="Windows 8.1 Update, SSD, HDD, Windows, Windows 8.1 update, SSD, HDD" />
+<meta name="keywords" content="心理罪, 雷米, 方木, 书评, 心理罪, 雷米, 方木" />
 
-<meta property="og:title" content="Windows 8.1 Update 系统迁移 "/>
-<meta property="og:url" content="http://dhlx.wang/Win8-1-Update-System-Migration.html" />
-<meta property="og:description" content="通过DiskGenius和PE完成Windows 8.1 Update的系统迁移（从旧的SSD迁移到新的SSD）" />
+<meta property="og:title" content="雷米《心理罪》系列书评  - 轮回、抉择 "/>
+<meta property="og:url" content="http://dhlx.wang/Book_Review/Psychological_Crime.html" />
+<meta property="og:description" content="" />
 <meta property="og:site_name" content="帝鴻龍曦" />
 <meta property="og:article:author" content="郭世全" />
-<meta property="og:article:published_time" content="2015-05-11T19:15:00+08:00" />
-<meta property="" content="2015-05-15T13:19:00+08:00" />
-<meta name="twitter:title" content="Windows 8.1 Update 系统迁移 ">
-<meta name="twitter:description" content="通过DiskGenius和PE完成Windows 8.1 Update的系统迁移（从旧的SSD迁移到新的SSD）">
+<meta property="og:article:published_time" content="2015-07-18T17:39:00+08:00" />
+<meta property="" content="2015-07-18T17:39:00+08:00" />
+<meta name="twitter:title" content="雷米《心理罪》系列书评  - 轮回、抉择 ">
+<meta name="twitter:description" content="">
 
-        <title>Windows 8.1 Update 系统迁移  · 帝鴻龍曦
+        <title>雷米《心理罪》系列书评  - 轮回、抉择  · 帝鴻龍曦
 </title>
         <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
         <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
@@ -95,7 +95,7 @@
 <article>
 <div class="row-fluid">
     <header class="page-header span10 offset2">
-    <h1><a href="http://dhlx.wang/Win8-1-Update-System-Migration.html"> Windows 8.1 Update 系统迁移  </a></h1>
+    <h1><a href="http://dhlx.wang/Book_Review/Psychological_Crime.html"> 雷米《心理罪》系列书评  <small> 轮回、抉择 </small>  </a></h1>
     </header>
 </div>
 
@@ -104,16 +104,7 @@
         <nav>
         <h4>Contents</h4>
         <div class="toc">
-<ul>
-<li><a href="#_1">一、准备工具</a></li>
-<li><a href="#winodws-81-upadate-u">二、制作Winodws 8.1 Upadate U盘安装盘</a></li>
-<li><a href="#winodws-81-upadate">三、安装Winodws 8.1 Upadate到新系统盘</a></li>
-<li><a href="#upe">四、安装天意U盘PE</a></li>
-<li><a href="#_2">五、备份旧系统盘数据</a></li>
-<li><a href="#_3">六、还原旧系统盘数据到新系统盘</a></li>
-<li><a href="#_4">七、重新设置引导参数</a></li>
-<li><a href="#_5">八、结语</a></li>
-</ul>
+<ul></ul>
 </div>
         </nav>
     </div>
@@ -122,59 +113,26 @@
 
             
             
-<p>上周的周末，新买的SSD硬盘到了，需要把旧系统盘的数据迁移至新的SSD上，最开始考虑了Winodws系统映像的方法进行迁移，但通过恢复U盘进入到恢复步骤时，总是提示我无法格式化硬盘，所以放弃了这个方案。</p>
-<p>在查询无数资料后，考虑到Win 8.1 Update的组成，突然灵光一现，尝试用Win 8.1的系统盘格式化新的SSD，从而使新的磁盘系统分区和原来的保持一致，通过备份分区数据，还原分区数据的方式，完成系统迁移。</p>
-<p>本文就是就是记录下这个操作流程，以备后人参考，如果您有更好的方法，请您不吝赐教，谢谢！</p>
-<p>废话也说完了，我们下面进入到正题。</p>
-<h1 id="_1">一、准备工具<a class="headerlink" href="#_1" title="Permanent link">¶</a></h1>
-<ul>
-<li><a href="http://bbs.winpe.cc/thread-85876-1-1.html">天意u盘维护系统技术员版3.0</a></li>
-<li><a href="http://cn.ezbsystems.com/ultraiso/index.html">UltraISO</a></li>
-<li><a href="ed2k://|file|cn_windows_8.1_with_update_x64_dvd_6051473.iso|4504475648|D66BEF759548656EDA981D902A957545|/">cn_windows_8.1_with_update_x64_dvd_6051473.iso</a></li>
-<li><a href="ed2k://|file|cn_windows_8.1_with_update_x86_dvd_6051523.iso|3349960704|C1B8A61BD8F1300825BF03C4D31B35A0|/">cn_windows_8.1_with_update_x86_dvd_6051523.iso</a></li>
-<li><a href="http://down.tech.sina.com.cn/content/54189.html">Windows 8 USB Installer Maker</a></li>
-<li><a href="http://www.diskgenius.cn/download.php">DiskGenius v4.7.1 免费版</a></li>
-<li>16G U盘 可量产</li>
-</ul>
-<p>如果遇到上述链接无法访问，请您自行想办法。</p>
-<p><em>友情提示：中国拥有世界八大奇迹——长城。</em></p>
-<h1 id="winodws-81-upadate-u">二、制作Winodws 8.1 Upadate U盘安装盘<a class="headerlink" href="#winodws-81-upadate-u" title="Permanent link">¶</a></h1>
-<p>这个大家应该已经很熟悉了吧！用我提供的Windows 8 USB Installer Maker工具，基本制作过程是傻瓜式安装。</p>
-<h1 id="winodws-81-upadate">三、安装Winodws 8.1 Upadate到新系统盘<a class="headerlink" href="#winodws-81-upadate" title="Permanent link">¶</a></h1>
-<p>这步我也就简单说下，基本上都会做，说一下几个需要注意的地方。</p>
-<p>1、重启进入Bios把安全启动关闭，以免后续从PE、U盘安装盘启动不了。
-2、一定保证新盘的分区方式和旧盘一样，我一般采用的系统盘自动分区。
-3、进入不进入系统都可以，等会儿都要覆盖的。</p>
-<h1 id="upe">四、安装天意U盘PE<a class="headerlink" href="#upe" title="Permanent link">¶</a></h1>
-<p>这步在天意大大贴子中已经写的很清楚了，我就不重复给出制作U盘PE的教程了。这里仅给出一个UltraISO可用的用户名和注册码。</p>
-<div class="highlight"><pre>用户名：王涛 注册码：7C81-1689-4046-626F
+<p>好像从初中毕业后，也看过不少的书籍，有专业书籍，也有小说、散文等，但好像从初中毕业以后就没有写过读后感和书评了。今天把雷米写的心理罪系列的小说看完了，忽然想要写下我自己的书评，或许这个系列小说，给我的印象太深刻了吧！即使您不是一个喜欢看犯罪类、刑侦类小说的人，我个人也建议您有时间可以看下，您会喜欢上心理罪的。</p>
+<p><a href="http://www.amazon.cn/dp/B00VSXL066/ref=tmm_kin_swatch_0?_encoding=UTF8&amp;sr=8-1&amp;qid=1437210148">心理罪</a>，我个人认为是值得为之付出RMB的，故在此给出正版书籍的购买链接，希望大家可以支持下作者。</p>
+<p>如果您的资金有限，又想赏读大师之作，你可以通过<a href="http://pan.baidu.com/s/1AZo6q">百度网盘链接</a>和密码(qshi)进行下载阅读试看，但个人真心希望您在看完免费的以后，会和我一样，购买一套正版书籍进行收藏。</p>
+<p>不管您是否购买了正版书籍，您都应当下载下电子版的书籍，因为电子版中有四篇番外篇不曾出版，这四篇番外篇会帮助您更好的理解心理罪。以下是我推荐给您的心理罪系列小说的阅读顺序。</p>
+<div class="highlight"><pre>1、前传 第七个读者
+2、番外一 毒树之果
+3、心理罪一 画像
+4、番外二 斯金纳之箱
+5、心理罪二 教化场
+6、番外三 月光的谎言
+7、心理罪三 暗河
+8、心理罪四 城市之光
+9、番外四 两生花
 </pre></div>
-<h1 id="_2">五、备份旧系统盘数据<a class="headerlink" href="#_2" title="Permanent link">¶</a></h1>
-<p>1、如下图所示，进入到天意PE中，打开DiskGenius。</p>
-<p><img alt="Windows-8-1-Update-System-Migration-image-0" src="http://7xixm3.com1.z0.glb.clouddn.com/images/2015/5/Windows-8-1-Update-System-Migration-image-0.png"/></p>
-<p>2、选中原系统分区，单机鼠标右键，可以看到备份分区到镜像文件，点击它。</p>
-<p><img alt="Windows-8-1-Update-System-Migration-image-1" src="http://7xixm3.com1.z0.glb.clouddn.com/images/2015/5/Windows-8-1-Update-System-Migration-image-1.png"/></p>
-<p>在这里您需要注意查看下旧系统分区的数据量是否远小于新系统盘的分区大小。</p>
-<p>3、选择文件路径，并点击开始，就可以开始备份了。</p>
-<p><img alt="Windows-8-1-Update-System-Migration-image-2" src="http://7xixm3.com1.z0.glb.clouddn.com/images/2015/5/Windows-8-1-Update-System-Migration-image-2.png"/></p>
-<h1 id="_3">六、还原旧系统盘数据到新系统盘<a class="headerlink" href="#_3" title="Permanent link">¶</a></h1>
-<p>1、选中新系统分区，单机鼠标右键，可以看到从镜像文件还原分区，点击它。</p>
-<p><img alt="Windows-8-1-Update-System-Migration-image-3" src="http://7xixm3.com1.z0.glb.clouddn.com/images/2015/5/Windows-8-1-Update-System-Migration-image-3.png"/></p>
-<p>2、选择刚刚备份的文件，并点击开始，进行系统迁移。</p>
-<p><img alt="Windows-8-1-Update-System-Migration-image-4" src="http://7xixm3.com1.z0.glb.clouddn.com/images/2015/5/Windows-8-1-Update-System-Migration-image-4.png"/></p>
-<h1 id="_4">七、重新设置引导参数<a class="headerlink" href="#_4" title="Permanent link">¶</a></h1>
-<p>1、在天意PE中默认没有给引导分区指派盘符，所以我们需要找到系统的引导分区，单机鼠标右键，可以指派新的驱动器号，点击它。</p>
-<p><img alt="Windows-8-1-Update-System-Migration-image-5" src="http://7xixm3.com1.z0.glb.clouddn.com/images/2015/5/Windows-8-1-Update-System-Migration-image-5.png"/></p>
-<p>2、选择您想要赋予的盘符，选择它，记住它，并单击确定。</p>
-<p><img alt="Windows-8-1-Update-System-Migration-image-6" src="http://7xixm3.com1.z0.glb.clouddn.com/images/2015/5/Windows-8-1-Update-System-Migration-image-6.png"/></p>
-<p>3、打开开始菜单，找到BIOS+UEFI引导修复工具，打开它。</p>
-<p><img alt="Windows-8-1-Update-System-Migration-image-7" src="http://7xixm3.com1.z0.glb.clouddn.com/images/2015/5/Windows-8-1-Update-System-Migration-image-7.png"/></p>
-<p>4、按照提示填写Windows系统分区盘符，引导分区盘符，并按下回车，确认信息后，再次按下回车。</p>
-<p><img alt="Windows-8-1-Update-System-Migration-image-8" src="http://7xixm3.com1.z0.glb.clouddn.com/images/2015/5/Windows-8-1-Update-System-Migration-image-8.png"/></p>
-<p>5、出现上图最后一行的提示，您可以关闭程序，并重启电脑。</p>
-<h1 id="_5">八、结语<a class="headerlink" href="#_5" title="Permanent link">¶</a></h1>
-<p>以上就是我此次系统迁移的基本过程，如果您有没看懂的地方，您可以留言，我看到后会及时回复。</p>
-<p>P.S. 天意大大说我提供这个版本PE中DiskGenius有一些问题，但是在操作过程中我没有遇到，如果您遇到了，可以用DiskGenius的原版（在第一章节中有提供下载地址）尝试下。</p>
+<p>心理罪系列小说既是连贯的，也是独立的。说它是连贯的，是因为这部小说，您必须从第一部开始都，才能真正的体会到作者对人性的理解。说它是各部分是独立的，是因为每部小说中发生的案件，与前后会有一些关联，单都可以独立成文，案件前后并无悬念。</p>
+<p>主人公：方木，天才犯罪心理学家，也是一个悲剧的猪脚，或许天生自带灾难光环吧。但不影响我们看出他的个性以及天赋，在大学中就连破大案，看透人性。但随着时间和案件的发展，他的信仰摇摇欲坠，作者赋予他了破案的天赋，但缺利用这种天赋塑造了一个悲剧的开始，和一个还算美好的轮回。</p>
+<p>或许很长时间没有写书评了，都不会写内容的简介了，那我再此也不要献丑了，详细的内容，还是由大家自己去看心理罪的书籍吧！我这里只能说，光明不存在，存在的或许只是黑暗中一盏指路的明灯。或许悲观，或许有些宗教，但是我们不正是这样劝自己活着幸福就好，但幸福是什么，谁也说不清，道不明。</p>
+<p>看完本书之后，我只想说世上多是轮回，在罪恶之深处的轮回。也许没有他方木，就不会带来这么多死亡…… </p>
+<p>最后说下，我推荐心理罪的原因吧，原因有三，一是非常好的犯罪小说，二是它同时也是一部非常好的悬疑小说，三是来看看这个叫方木这个男人吧！</p>
+<p>感谢雷米（lane_lau）大侠给了我这么一本书，这么一个让我可以经历不同人生的书。我最喜欢的一句话就是一段光影，一段人生，我想现在我可以将它改为一段光阴，一段人生，一部书籍，一个世界。</p>
             
             <section>
 <p id="comment-message">请问您是否有什么想法？或者您认为哪里有不对？有一些地方您没看明白？当然您可也以在下面留下您的见解。 </p>
@@ -182,8 +140,8 @@
     <div class="accordion-group">
         <div class="accordion-heading">
             <a class="accordion-toggle disqus-comment-count" data-toggle="collapse" data-parent="#accordion2"
-                    data-disqus-identifier="G00003-Win8-1-Update-System-Migration"
-                href="http://dhlx.wang/Win8-1-Update-System-Migration.html#disqus_thread">
+                    data-disqus-identifier="G00007-Psychological-Crime"
+                href="http://dhlx.wang/Book_Review/Psychological_Crime.html#disqus_thread">
                 Comments
             </a>
         </div>
@@ -193,8 +151,8 @@
                     <div id="disqus_thread"></div>
 <script type="text/javascript">
     var disqus_shortname = 'dihonglongxi';
-        var disqus_identifier = 'G00003-Win8-1-Update-System-Migration';
-    var disqus_url = 'http://dhlx.wang/Win8-1-Update-System-Migration.html';
+        var disqus_identifier = 'G00007-Psychological-Crime';
+    var disqus_url = 'http://dhlx.wang/Book_Review/Psychological_Crime.html';
 
     (function() {
          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
@@ -216,7 +174,7 @@
             <aside>
             <nav>
             <ul class="articles-timeline">
-                <li class="next-article"><a href="http://dhlx.wang/Simple_transplant_IAP_STSW-STM32067_to_STM32F411VET6.html" title="Next: 简单移植IAP（STSW-STM32067）到STM32F411VET6">简单移植IAP（STSW-STM32067）到STM32F411VET6</a> »</li>
+                <li class="previous-article">« <a href="http://dhlx.wang/STM32F411VET6/Porting_FreeModbus_to_STM32F411VET6_based_on_STM32CubeF4.html" title="Previous: 基于STM32CubeF4移植FreeModbus到STM32F411VET6">基于STM32CubeF4移植FreeModbus到STM32F411VET6</a></li>
             </ul>
             </nav>
             </aside>
@@ -224,22 +182,22 @@
         <section>
         <div class="span2" style="float:right;font-size:0.9em;">
             <h4>Published</h4>
-            <time pubdate="pubdate" datetime="2015-05-11T19:15:00+08:00">5月 11, 2015</time>
+            <time pubdate="pubdate" datetime="2015-07-18T17:39:00+08:00">7月 18, 2015</time>
 
 <h4>Last Updated</h4>
-<time datetime="2015-05-15T13:19:00+08:00">5月 15, 2015</time>
+<time datetime="2015-07-18T17:39:00+08:00">7月 18, 2015</time>
 
             <h4>Category</h4>
-            <a class="category-link" href="http://dhlx.wang/categories.html#windows-ref">Windows</a>
+            <a class="category-link" href="http://dhlx.wang/categories.html#shu-ping-ref">书评</a>
             <h4>Tags</h4>
             <ul class="list-of-tags tags-in-article">
-                <li><a href="http://dhlx.wang/tags.html#hdd-ref">HDD
+                <li><a href="http://dhlx.wang/tags.html#fang-mu-ref">方木
                     <span>1</span>
 </a></li>
-                <li><a href="http://dhlx.wang/tags.html#ssd-ref">SSD
+                <li><a href="http://dhlx.wang/tags.html#lei-mi-ref">雷米
                     <span>1</span>
 </a></li>
-                <li><a href="http://dhlx.wang/tags.html#windows-81-update-ref">Windows 8.1 Update
+                <li><a href="http://dhlx.wang/tags.html#xin-li-zui-ref">心理罪
                     <span>1</span>
 </a></li>
             </ul>
