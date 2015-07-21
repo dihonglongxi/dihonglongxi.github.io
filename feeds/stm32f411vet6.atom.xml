@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>帝鴻龍曦</title><link href="http://dhlx.wang/" rel="alternate"></link><link href="http://dhlx.wang/feeds/stm32f411vet6.atom.xml" rel="self"></link><id>http://dhlx.wang/</id><updated>2015-07-06T17:35:00+08:00</updated><entry><title>基于STM32CubeF4移植FreeModbus到STM32F411VET6</title><link href="http://dhlx.wang/STM32F411VET6/Porting_FreeModbus_to_STM32F411VET6_based_on_STM32CubeF4.html" rel="alternate"></link><updated>2015-07-06T17:35:00+08:00</updated><author><name>郭世全</name></author><id>tag:dhlx.wang,2015-07-06:STM32F411VET6/Porting_FreeModbus_to_STM32F411VET6_based_on_STM32CubeF4.html</id><summary type="html">
+<feed xmlns="http://www.w3.org/2005/Atom"><title>帝鴻龍曦</title><link href="http://dhlx.wang/" rel="alternate"></link><link href="http://dhlx.wang/feeds/stm32f411vet6.atom.xml" rel="self"></link><id>http://dhlx.wang/</id><updated>2015-07-21T17:12:00+08:00</updated><entry><title>基于STM32CubeF4移植FreeModbus到STM32F411VET6</title><link href="http://dhlx.wang/STM32F411VET6/Porting_FreeModbus_to_STM32F411VET6_based_on_STM32CubeF4.html" rel="alternate"></link><updated>2015-07-06T17:35:00+08:00</updated><author><name>郭世全</name></author><id>tag:dhlx.wang,2015-07-06:STM32F411VET6/Porting_FreeModbus_to_STM32F411VET6_based_on_STM32CubeF4.html</id><summary type="html">
 &lt;p&gt;首先，本人需要声明一下，本文所移植FreeModbus的过程仅能用作参考，虽然FreeModbus的库已经用在工程很多年，但是由于移植的代码，本人经验等问题，所以本人不建议您直接用在工程中，但是可以作为工程测试、调试和个人DIY所用。&lt;/p&gt;
 &lt;h1 id="_1"&gt;一、准备移植程序和工具&lt;a class="headerlink" href="#_1" title="Permanent link"&gt;¶&lt;/a&gt;&lt;/h1&gt;
 &lt;p&gt;我在此次移植过程中，主要用到以下几个程序与工具：&lt;/p&gt;
@@ -1502,7 +1502,7 @@ keil中设置好相应的头文件引用路径和源码文件的引用。&lt;/p&
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;h1 id="_6"&gt;七、结语&lt;a class="headerlink" href="#_6" title="Permanent link"&gt;¶&lt;/a&gt;&lt;/h1&gt;
-&lt;p&gt;本次移植过程也是个人摸索得出的，如果有不尽完善的地方，欢迎您提出，我进行验证更正。&lt;/p&gt;</summary><category term="FreeModbus"></category><category term="STM32F411VET6"></category><category term="STM32CubeF4"></category></entry><entry><title>移植AN4657到STM32F411VET6</title><link href="http://dhlx.wang/STM32F411VET6/Porting_AN4657_STM32Cube_IAP_using_UART_to_STM32F411VET6.html" rel="alternate"></link><updated>2015-07-03T16:00:00+08:00</updated><author><name>郭世全</name></author><id>tag:dhlx.wang,2015-07-03:STM32F411VET6/Porting_AN4657_STM32Cube_IAP_using_UART_to_STM32F411VET6.html</id><summary type="html">
+&lt;p&gt;本次移植过程也是个人摸索得出的，如果有不尽完善的地方，欢迎您提出，我进行验证更正。&lt;/p&gt;</summary><category term="FreeModbus"></category><category term="STM32F411VET6"></category><category term="STM32CubeF4"></category></entry><entry><title>移植AN4657到STM32F411VET6</title><link href="http://dhlx.wang/STM32F411VET6/Porting_AN4657_STM32Cube_IAP_using_UART_to_STM32F411VET6.html" rel="alternate"></link><updated>2015-07-21T17:12:00+08:00</updated><author><name>郭世全</name></author><id>tag:dhlx.wang,2015-07-03:STM32F411VET6/Porting_AN4657_STM32Cube_IAP_using_UART_to_STM32F411VET6.html</id><summary type="html">
 &lt;p&gt;首先，我需要声明一下，本文所移植的IAP程序仅能用作参考，虽然加入了ymodem的通讯协议，提高了程序文件下载过程中的稳定性，但是由于移植的代码，本身就是示例程序，所以个人不建议直接用在工程中，但是可以作为工程测试、调试和个人DIY所用。&lt;/p&gt;
 &lt;h1 id="_1"&gt;一、准备移植程序和工具&lt;a class="headerlink" href="#_1" title="Permanent link"&gt;¶&lt;/a&gt;&lt;/h1&gt;
 &lt;p&gt;我们在移植AN4657到STM32F411VET6的过程中主要用到以下程序和工具：&lt;/p&gt;
@@ -2353,11 +2353,25 @@ PB6、PB7，才可以正常使用，默认的TX引脚上接了一个uF级的电�
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;h1 id="keil"&gt;四、Keil需要修改的位置&lt;a class="headerlink" href="#keil" title="Permanent link"&gt;¶&lt;/a&gt;&lt;/h1&gt;
-&lt;p&gt;1、需要根据设置的APP程序起始的位置，设置KEIL的起始编译位置与程序空间大小&lt;/p&gt;
+&lt;p&gt;1、需要根据设置的APP程序起始的位置，设置KEIL中APP程序起始位置与程序空间大小&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Porting-AN4657-STM32Cube-IAP-using-UART-to-STM32F411VET6-image-0" src="http://7xixm3.com1.z0.glb.clouddn.com/images/2015/7/Porting-AN4657-STM32Cube-IAP-using-UART-to-STM32F411VET6-image-0.png"/&gt;&lt;/p&gt;
 &lt;p&gt;2、需要在User选项卡中增加自定义处理字符串，&lt;code&gt;C:\Program Files\Keil\ARM\ARMCC\bin\fromelf.exe --bin -o .\存放bin的路径\bin文件的名称.bin .\Keil编译后生成的axf的路径\axf文件的名称.axf&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Porting-AN4657-STM32Cube-IAP-using-UART-to-STM32F411VET6-image-1" src="http://7xixm3.com1.z0.glb.clouddn.com/images/2015/7/Porting-AN4657-STM32Cube-IAP-using-UART-to-STM32F411VET6-image-1.png"/&gt;&lt;/p&gt;
-&lt;h1 id="_4"&gt;五、结语&lt;a class="headerlink" href="#_4" title="Permanent link"&gt;¶&lt;/a&gt;&lt;/h1&gt;
+&lt;h1 id="_4"&gt;五、设置中断向量表偏移&lt;a class="headerlink" href="#_4" title="Permanent link"&gt;¶&lt;/a&gt;&lt;/h1&gt;
+&lt;p&gt;修改&lt;code&gt;system_stm32f4xx.c&lt;/code&gt;文件中的&lt;code&gt;VECT_TAB_OFFSET&lt;/code&gt;设置。&lt;/p&gt;
+&lt;p&gt;system_stm32f4xx.c修改后的代码示意如下：&lt;/p&gt;
+&lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1
+2
+3
+4
+5&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/*!&amp;lt; Uncomment the following line if you need to relocate your vector Table in Internal SRAM. */&lt;/span&gt;
+&lt;span class="cm"&gt;/* #define VECT_TAB_SRAM */&lt;/span&gt;
+&lt;span class="cm"&gt;/*数值修改为Bootloader程序所占用空间的大小，也就是示例中的0x4000*/&lt;/span&gt;
+&lt;span class="cp"&gt;#define VECT_TAB_OFFSET  0x4000 &lt;/span&gt;&lt;span class="cm"&gt;/*!&amp;lt; Vector Table base offset field. &lt;/span&gt;
+&lt;span class="cm"&gt;                            This value must be a multiple of 0x200. */&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;h1 id="_5"&gt;六、结语&lt;a class="headerlink" href="#_5" title="Permanent link"&gt;¶&lt;/a&gt;&lt;/h1&gt;
 &lt;p&gt;关于具体的下载流程及操作，我在这里就不多做叙述了，官方文档中说的已经非常清楚。本次移植过程也是个人摸索得出的，如果有不尽完善的地方，欢迎您提出，我进行验证更正。&lt;/p&gt;</summary><category term="IAP"></category><category term="STM32F411VET6"></category><category term="STM32CubeF4"></category></entry><entry><title>简单移植IAP（STSW-STM32067）到STM32F411VET6</title><link href="http://dhlx.wang/STM32F411VET6/Simple_transplant_IAP_STSW-STM32067_to_STM32F411VET6.html" rel="alternate"></link><updated>2015-06-12T12:15:00+08:00</updated><author><name>郭世全</name></author><id>tag:dhlx.wang,2015-06-12:STM32F411VET6/Simple_transplant_IAP_STSW-STM32067_to_STM32F411VET6.html</id><summary type="html">
 &lt;p&gt;首先，我需要声明一下，本文所移植的IAP程序仅能用作参考，虽然加入了ymodem的通讯协议，提高了程序文件下载过程中的稳定性，但是由于移植的代码，本身就是示例程序，所以个人不建议直接用在工程中，但是可以作为工程测试、调试和个人DIY所用。&lt;/p&gt;
 &lt;h1 id="_1"&gt;一、准备移植程序和工具&lt;a class="headerlink" href="#_1" title="Permanent link"&gt;¶&lt;/a&gt;&lt;/h1&gt;
