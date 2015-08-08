@@ -10,19 +10,19 @@
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
-<meta name="keywords" content="浪潮之巅, 吴军, 纪实, 书评, 浪潮之巅, 吴军, 纪实" />
+<meta name="keywords" content="NETGEAR 8000, 路由, 超频, Computer Hardware, NETGEAR 8000, 路由, 超频" />
 
-<meta property="og:title" content="吴军《浪潮之巅》书评 "/>
-<meta property="og:url" content="http://dhlx.wang/Book_Review/On_Top_of_Tides.html" />
-<meta property="og:description" content="" />
+<meta property="og:title" content="超频变砖不用怕，自己动手不求人  - NETGEAR 8000 "/>
+<meta property="og:url" content="http://dhlx.wang/Computer-Hardware/Overclocking-brick-do-not-be-afraid-do-it-yourself-yourself.html" />
+<meta property="og:description" content="通过线刷（TTL）解决路由器变砖的问题。" />
 <meta property="og:site_name" content="帝鴻龍曦" />
 <meta property="og:article:author" content="郭世全" />
-<meta property="og:article:published_time" content="2015-07-21T17:39:00+08:00" />
-<meta property="" content="2015-07-21T17:39:00+08:00" />
-<meta name="twitter:title" content="吴军《浪潮之巅》书评 ">
-<meta name="twitter:description" content="">
+<meta property="og:article:published_time" content="2015-08-08T18:57:00+08:00" />
+<meta property="" content="2015-08-08T18:57:00+08:00" />
+<meta name="twitter:title" content="超频变砖不用怕，自己动手不求人  - NETGEAR 8000 ">
+<meta name="twitter:description" content="通过线刷（TTL）解决路由器变砖的问题。">
 
-        <title>吴军《浪潮之巅》书评  · 帝鴻龍曦
+        <title>超频变砖不用怕，自己动手不求人  - NETGEAR 8000  · 帝鴻龍曦
 </title>
         <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
         <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
@@ -95,7 +95,7 @@
 <article>
 <div class="row-fluid">
     <header class="page-header span10 offset2">
-    <h1><a href="http://dhlx.wang/Book_Review/On_Top_of_Tides.html"> 吴军《浪潮之巅》书评  </a></h1>
+    <h1><a href="http://dhlx.wang/Computer-Hardware/Overclocking-brick-do-not-be-afraid-do-it-yourself-yourself.html"> 超频变砖不用怕，自己动手不求人  <small> NETGEAR 8000 </small>  </a></h1>
     </header>
 </div>
 
@@ -105,9 +105,12 @@
         <h4>Contents</h4>
         <div class="toc">
 <ul>
-<li><a href="#_1">一、您在哪里可以找到它</a></li>
-<li><a href="#_2">二、这本书写了些什么</a></li>
-<li><a href="#_3">三、我了解到了什么</a></li>
+<li><a href="#_1">一、准备工具</a></li>
+<li><a href="#tftp">二、安装TFTP客户端</a></li>
+<li><a href="#r8000ttl">三、拆解R8000，并连接TTL</a></li>
+<li><a href="#putty">四、设置Putty</a></li>
+<li><a href="#_2">五、满血复活</a></li>
+<li><a href="#_3">六、结束语</a></li>
 </ul>
 </div>
         </nav>
@@ -117,20 +120,66 @@
 
             
             
-<p>  这本书读完有一段时间了，一直不知道怎么把它推荐给大家，其中虽没有光怪陆离的世界，但有互联网过去几十年的发展历程，或许其中带有一些作者的主观色彩，但总体来说还是以局外人纪实写些发生的事情，初起的时候，我并不是很喜欢这本书，但读着读着，我也喜欢这本书的叙事风格，平实不乏有趣，又了解了IT行业的历史和更迭。</p>
-<h1 id="_1">一、您在哪里可以找到它<a class="headerlink" href="#_1" title="Permanent link">¶</a></h1>
-<p>  1、<a href="http://googlechinablog.blogspot.com/search?q=%E6%B5%AA%E6%BD%AE%E4%B9%8B%E5%B7%85">google的黑板报</a></p>
-<p>  2、<a href="http://www.amazon.cn/%E6%B5%AA%E6%BD%AE%E4%B9%8B%E5%B7%85-%E5%90%B4%E5%86%9B/dp/B00D73BJWK/ref=sr_1_1?s=books&amp;ie=UTF8&amp;qid=1437470867&amp;sr=1-1&amp;keywords=%E6%B5%AA%E6%BD%AE%E4%B9%8B%E5%B7%85">亚马逊</a></p>
-<h1 id="_2">二、这本书写了些什么<a class="headerlink" href="#_2" title="Permanent link">¶</a></h1>
-<p>  计算机领域的发展在吴军看来是一波波的浪潮，幸运的公司可以借浪前行，但更多的是在大海深处长眠。互联网、计算机使得时间变短，也就意味着技术更迭加快，浪潮的时间短，三年河东三年河西，变为了现实，记得我刚上高中时，我都不知道iphone是什么品牌，只知道诺基亚和三星，三年过后，我拿着iphone进入到大学中，同学都问我这是什么手机，当时很多人真的只是喜欢iphone的简洁易用，现在iphone已经满大街都是，已经成了一款装逼利器，很少见到有人能用明白iphone，100%发挥其功能的，但不管怎么说，Apple公司在智能手持终端这个浪潮中赚的盆满钵满。</p>
-<p>  这本书也是详细讲诉了浪潮的形成原因、过程，和过往的公司的丰功伟绩、过失。详细的展现了IT领域的70-20-10的规律，就是在一个细分的市场，往往只能容下一家大的，占有7成的市场份额，还有一家老二，占有2成的份额，其它的若干公司，只能分剩下的1成份额。赢者通吃，在IT领域显现的尤为明显。所以如果做不成老大，是很难办的。就像今天的云服务、大数据、机器人、无人机等行业，百家争鸣，确实热闹，我们都能看到这是未来发展的趋势，但无限的机会中并不代表你就可以借浪前行。 
-　　 
-  这时你会问，传统的巨头就这么看着你们蚕食它们的市场吗？答案很明显，是已经固化的基因和思维阻挡了他们的前行的脚步，就像人的性格和思维很难改变一样，公司的基因和思维方式也是很难改变的。在吴军的书中是这么写的：一个公司在一个领域越成功，它积累的文化、做事方式、流程、决策机制等，越适合这一个领域，那么在面对新市场时，越扭转不过来思维。</p>
-<p>  书中描述了一波波浪潮的特征。但就像说人这一辈子一样，虽然生来含着金汤匙，但不是一辈子就能永远顺风顺水。公司的发展不可能只靠浪潮来推进，这样的公司也做不大。管理、创始人的个人能力、资源等等，都是影响到一个公司的未来发展的者重要因素。但了解浪潮，可以避免自己在择业、创业过程中不要做出不自量力的事。 
-　　 </p>
-<h1 id="_3">三、我了解到了什么<a class="headerlink" href="#_3" title="Permanent link">¶</a></h1>
-<p>  “读史使人明智”，这句话不是白说的，至少我了解了一些大公司的过往，所谓的天使投资、风投等一些经济常识。这本可以说是IT界的《史记》，从过往的公司，历史留名的人物，描述了一个IT时代历史。当然，由于作者的时间和学识有限，从中了解历史十分有限，不够详细，很多时候要查一些资料才能更了解当时的情况，但大纲讲的已经比较清晰明了。</p>
-<p>  最后，值得说的是，吴军的文笔实在太好了，读起他的文字完全是一种享受，很平实，很靠谱。</p>
+<p>人非圣贤，马有失蹄。虽然说NETGEAR 8000刷机和设置过程还是相对安全的，万一遇到断电等不可抗因素和设置过程中误设置，还是有成砖头的危险。一般来说，只要硬件无损坏，不去刷死CFE，都是可以救回来的。</p>
+<p>如何刷DD固件就不在这里说了，直接升级就可以了！想刷回固件也很方便，第一种方法也是采用直接升级就好了，第二种就是下面这种应付各种意外情况的刷机。</p>
+<h1 id="_1">一、准备工具<a class="headerlink" href="#_1" title="Permanent link">¶</a></h1>
+<ul>
+<li><a href="https://item.taobao.com/item.htm?spm=a1z09.2.9.11.CjhKsM&amp;id=19328552567&amp;_u=8j8md6c6278">Waveshare FT232 USB to TTL</a></li>
+<li><a href="http://www.chiark.greenend.org.uk/~sgtatham/putty/">Putty</a></li>
+<li><a href="http://support.netgear.cn/Upfilepath/R8000-V1.0.2.44_1.0.96.chk">R8000-V1.0.2.44_1.0.96.chk</a></li>
+</ul>
+<p>如果遇到上述链接无法访问，请您自行想办法。</p>
+<p><em>友情提示：中国拥有世界上第八大奇迹——长城。</em></p>
+<h1 id="tftp">二、安装TFTP客户端<a class="headerlink" href="#tftp" title="Permanent link">¶</a></h1>
+<p>这步基本上很简单，按照下面图示操作就好了。</p>
+<p>基本流程就是：找到计算机中的卸载或更改程序（程序和功能），在左侧的打开或关闭Windows功能中，勾选TFTP客户，点击确定就好。</p>
+<p><img alt="Overclocking-brick-do-not-be-afraid-do-it-yourself-yourself-image-0" src="http://7xixm3.com1.z0.glb.clouddn.com/images/2015/8/Overclocking-brick-do-not-be-afraid-do-it-yourself-yourself-image-0.png"/></p>
+<p><img alt="Overclocking-brick-do-not-be-afraid-do-it-yourself-yourself-image-1" src="http://7xixm3.com1.z0.glb.clouddn.com/images/2015/8/Overclocking-brick-do-not-be-afraid-do-it-yourself-yourself-image-1.png"/></p>
+<p><img alt="Overclocking-brick-do-not-be-afraid-do-it-yourself-yourself-image-2" src="http://7xixm3.com1.z0.glb.clouddn.com/images/2015/8/Overclocking-brick-do-not-be-afraid-do-it-yourself-yourself-image-2.png"/></p>
+<p><img alt="Overclocking-brick-do-not-be-afraid-do-it-yourself-yourself-image-3" src="http://7xixm3.com1.z0.glb.clouddn.com/images/2015/8/Overclocking-brick-do-not-be-afraid-do-it-yourself-yourself-image-3.png"/></p>
+<p><img alt="Overclocking-brick-do-not-be-afraid-do-it-yourself-yourself-image-4" src="http://7xixm3.com1.z0.glb.clouddn.com/images/2015/8/Overclocking-brick-do-not-be-afraid-do-it-yourself-yourself-image-4.png"/></p>
+<h1 id="r8000ttl">三、拆解R8000，并连接TTL<a class="headerlink" href="#r8000ttl" title="Permanent link">¶</a></h1>
+<p>要说明的是，拆解会让你的R8000失去保修。拆掉R8000螃蟹壳上的10壳螺丝，其中有一颗螺丝在贴纸下方，需要揭掉贴纸。并拆掉天线连接，拿出主板，按照下图说明，和买来USB to TTL连接，进入准备刷机的状态。</p>
+<p>P.S. 建议拆机，手接触主板之前，用手摸摸暖气，把自己脱个精光。</p>
+<p><img alt="Overclocking-brick-do-not-be-afraid-do-it-yourself-yourself-image-5" src="http://7xixm3.com1.z0.glb.clouddn.com/images/2015/8/Overclocking-brick-do-not-be-afraid-do-it-yourself-yourself-image-5.jpg"/></p>
+<h1 id="putty">四、设置Putty<a class="headerlink" href="#putty" title="Permanent link">¶</a></h1>
+<p>1、在计算机的设备管理器中检查COM端口，并设置为“115200”，数据位“8”，停止位“1”。</p>
+<p><img alt="Overclocking-brick-do-not-be-afraid-do-it-yourself-yourself-image-6" src="http://7xixm3.com1.z0.glb.clouddn.com/images/2015/8/Overclocking-brick-do-not-be-afraid-do-it-yourself-yourself-image-6.png"/></p>
+<p><img alt="Overclocking-brick-do-not-be-afraid-do-it-yourself-yourself-image-7" src="http://7xixm3.com1.z0.glb.clouddn.com/images/2015/8/Overclocking-brick-do-not-be-afraid-do-it-yourself-yourself-image-7.png"/></p>
+<p>2、打开PuTTY，按照下图进行设置。</p>
+<p><img alt="Overclocking-brick-do-not-be-afraid-do-it-yourself-yourself-image-8" src="http://7xixm3.com1.z0.glb.clouddn.com/images/2015/8/Overclocking-brick-do-not-be-afraid-do-it-yourself-yourself-image-8.png"/></p>
+<p>3、回到PuTTY的主页面，选择连接方式为Serial并填入相对的COM端口，传输速率会自动变成之前设置好的。</p>
+<p><img alt="Overclocking-brick-do-not-be-afraid-do-it-yourself-yourself-image-9" src="http://7xixm3.com1.z0.glb.clouddn.com/images/2015/8/Overclocking-brick-do-not-be-afraid-do-it-yourself-yourself-image-9.png"/></p>
+<p>4、运行PuTTY，在R8000未通电开启之前，PuTTY窗口样式为下图。</p>
+<p><img alt="Overclocking-brick-do-not-be-afraid-do-it-yourself-yourself-image-10" src="http://7xixm3.com1.z0.glb.clouddn.com/images/2015/8/Overclocking-brick-do-not-be-afraid-do-it-yourself-yourself-image-10.png"/></p>
+<h1 id="_2">五、满血复活<a class="headerlink" href="#_2" title="Permanent link">¶</a></h1>
+<p>1、插入R8000电源，可以看到Putty界面上会显示一堆初始化，开机信息，这个时候，点进Puttty窗口中，不断的按CTRL-C，终止初始化，进入CFE模式，此时会显示如下信息：</p>
+<div class="highlight"><pre>Startup Canceled
+CFE&gt;
+</pre></div>
+<p>2、通过以下命令擦除现有固件</p>
+<div class="highlight"><pre>CFE&gt; nvram erase
+</pre></div>
+<p>3、重启R8000</p>
+<div class="highlight"><pre>CFE&gt; reboot
+</pre></div>
+<p>4、重复1中的动作，再次进入CFE模式。</p>
+<p>5、进入TFTP模式，键入命令后，会出现如下界面。</p>
+<div class="highlight"><pre>CFE&gt; tftpd
+Start TFTP Server
+Reading : :
+</pre></div>
+<p>6、到此路由器设置，完毕，下面我们将网线插入R800的LAN口中，另一端与电脑相连，并在电脑上对以太网属性，进行如下设置。</p>
+<p><img alt="Overclocking-brick-do-not-be-afraid-do-it-yourself-yourself-image-11" src="http://7xixm3.com1.z0.glb.clouddn.com/images/2015/8/Overclocking-brick-do-not-be-afraid-do-it-yourself-yourself-image-11.png"/></p>
+<p>7、以管理员打开命令提示符，并确认R8000进入TFTP模式（TTL = 100）。</p>
+<div class="highlight"><pre>ping 192.168.1.1
+</pre></div>
+<p>8、使用CMD的CD命令定位刚刚下载的CHK文件的所在目录，并执行以下命令上传至R8000。</p>
+<div class="highlight"><pre>tftp -i 192.168.1.1 PUT R8000-V1.0.2.44_1.0.96.chk
+</pre></div>
+<p>9、等待，大概需要3-5分钟，访问192.168.1.1会看到熟悉的界面。</p>
+<h1 id="_3">六、结束语<a class="headerlink" href="#_3" title="Permanent link">¶</a></h1>
+<p>因为误设置导致R8000变砖，但实际刷完DD-WRT，感觉性能还不如原版固件，不知道是不是因为我设置不对的问题，求大神讲解设置过程。</p>
             
             <section>
 <p id="comment-message">请问您是否有什么想法？或者您认为哪里有不对？有一些地方您没看明白？当然您可也以在下面留下您的见解。 </p>
@@ -138,8 +187,8 @@
     <div class="accordion-group">
         <div class="accordion-heading">
             <a class="accordion-toggle disqus-comment-count" data-toggle="collapse" data-parent="#accordion2"
-                    data-disqus-identifier="G00008-On-Top-of-Tides"
-                href="http://dhlx.wang/Book_Review/On_Top_of_Tides.html#disqus_thread">
+                    data-disqus-identifier="G00009-Overclocking-brick-do-not-be-afraid-do-it-yourself-yourself"
+                href="http://dhlx.wang/Computer-Hardware/Overclocking-brick-do-not-be-afraid-do-it-yourself-yourself.html#disqus_thread">
                 Comments
             </a>
         </div>
@@ -149,8 +198,8 @@
                     <div id="disqus_thread"></div>
 <script type="text/javascript">
     var disqus_shortname = 'dihonglongxi';
-        var disqus_identifier = 'G00008-On-Top-of-Tides';
-    var disqus_url = 'http://dhlx.wang/Book_Review/On_Top_of_Tides.html';
+        var disqus_identifier = 'G00009-Overclocking-brick-do-not-be-afraid-do-it-yourself-yourself';
+    var disqus_url = 'http://dhlx.wang/Computer-Hardware/Overclocking-brick-do-not-be-afraid-do-it-yourself-yourself.html';
 
     (function() {
          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
@@ -172,8 +221,7 @@
             <aside>
             <nav>
             <ul class="articles-timeline">
-                <li class="previous-article">« <a href="http://dhlx.wang/Book_Review/Psychological_Crime.html" title="Previous: 雷米《心理罪》系列书评 - 轮回、抉择">雷米《心理罪》系列书评 <small>轮回、抉择</small></a></li>
-                <li class="next-article"><a href="http://dhlx.wang/Computer-Hardware/Overclocking-brick-do-not-be-afraid-do-it-yourself-yourself.html" title="Next: 超频变砖不用怕，自己动手不求人 - NETGEAR 8000">超频变砖不用怕，自己动手不求人 <small>NETGEAR 8000</small></a> »</li>
+                <li class="previous-article">« <a href="http://dhlx.wang/Book_Review/On_Top_of_Tides.html" title="Previous: 吴军《浪潮之巅》书评">吴军《浪潮之巅》书评</a></li>
             </ul>
             </nav>
             </aside>
@@ -181,22 +229,22 @@
         <section>
         <div class="span2" style="float:right;font-size:0.9em;">
             <h4>Published</h4>
-            <time pubdate="pubdate" datetime="2015-07-21T17:39:00+08:00">7月 21, 2015</time>
+            <time pubdate="pubdate" datetime="2015-08-08T18:57:00+08:00">8月 8, 2015</time>
 
 <h4>Last Updated</h4>
-<time datetime="2015-07-21T17:39:00+08:00">7月 21, 2015</time>
+<time datetime="2015-08-08T18:57:00+08:00">8月 8, 2015</time>
 
             <h4>Category</h4>
-            <a class="category-link" href="http://dhlx.wang/categories.html#shu-ping-ref">书评</a>
+            <a class="category-link" href="http://dhlx.wang/categories.html#computer-hardware-ref">Computer Hardware</a>
             <h4>Tags</h4>
             <ul class="list-of-tags tags-in-article">
-                <li><a href="http://dhlx.wang/tags.html#ji-shi-ref">纪实
+                <li><a href="http://dhlx.wang/tags.html#chao-pin-ref">超频
                     <span>1</span>
 </a></li>
-                <li><a href="http://dhlx.wang/tags.html#lang-chao-zhi-dian-ref">浪潮之巅
+                <li><a href="http://dhlx.wang/tags.html#lu-you-ref">路由
                     <span>1</span>
 </a></li>
-                <li><a href="http://dhlx.wang/tags.html#wu-jun-ref">吴军
+                <li><a href="http://dhlx.wang/tags.html#netgear-8000-ref">NETGEAR 8000
                     <span>1</span>
 </a></li>
             </ul>

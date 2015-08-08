@@ -1,5 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>帝鴻龍曦</title><link href="http://dhlx.wang/" rel="alternate"></link><link href="http://dhlx.wang/feeds/all.atom.xml" rel="self"></link><id>http://dhlx.wang/</id><updated>2015-07-21T17:39:00+08:00</updated><entry><title>吴军《浪潮之巅》书评</title><link href="http://dhlx.wang/Book_Review/On_Top_of_Tides.html" rel="alternate"></link><updated>2015-07-21T17:39:00+08:00</updated><author><name>郭世全</name></author><id>tag:dhlx.wang,2015-07-21:Book_Review/On_Top_of_Tides.html</id><summary type="html">
+<feed xmlns="http://www.w3.org/2005/Atom"><title>帝鴻龍曦</title><link href="http://dhlx.wang/" rel="alternate"></link><link href="http://dhlx.wang/feeds/all.atom.xml" rel="self"></link><id>http://dhlx.wang/</id><updated>2015-08-09T17:18:00+08:00</updated><entry><title>超频变砖不用怕，自己动手不求人</title><link href="http://dhlx.wang/Computer-Hardware/Overclocking-brick-do-not-be-afraid-do-it-yourself-yourself.html" rel="alternate"></link><updated>2015-08-08T18:57:00+08:00</updated><author><name>郭世全</name></author><id>tag:dhlx.wang,2015-08-08:Computer-Hardware/Overclocking-brick-do-not-be-afraid-do-it-yourself-yourself.html</id><summary type="html">
+&lt;p&gt;人非圣贤，马有失蹄。虽然说NETGEAR 8000刷机和设置过程还是相对安全的，万一遇到断电等不可抗因素和设置过程中误设置，还是有成砖头的危险。一般来说，只要硬件无损坏，不去刷死CFE，都是可以救回来的。&lt;/p&gt;
+&lt;p&gt;如何刷DD固件就不在这里说了，直接升级就可以了！想刷回固件也很方便，第一种方法也是采用直接升级就好了，第二种就是下面这种应付各种意外情况的刷机。&lt;/p&gt;
+&lt;h1 id="_1"&gt;一、准备工具&lt;a class="headerlink" href="#_1" title="Permanent link"&gt;¶&lt;/a&gt;&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://item.taobao.com/item.htm?spm=a1z09.2.9.11.CjhKsM&amp;amp;id=19328552567&amp;amp;_u=8j8md6c6278"&gt;Waveshare FT232 USB to TTL&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.chiark.greenend.org.uk/~sgtatham/putty/"&gt;Putty&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://support.netgear.cn/Upfilepath/R8000-V1.0.2.44_1.0.96.chk"&gt;R8000-V1.0.2.44_1.0.96.chk&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;如果遇到上述链接无法访问，请您自行想办法。&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;友情提示：中国拥有世界上第八大奇迹——长城。&lt;/em&gt;&lt;/p&gt;
+&lt;h1 id="tftp"&gt;二、安装TFTP客户端&lt;a class="headerlink" href="#tftp" title="Permanent link"&gt;¶&lt;/a&gt;&lt;/h1&gt;
+&lt;p&gt;这步基本上很简单，按照下面图示操作就好了。&lt;/p&gt;
+&lt;p&gt;基本流程就是：找到计算机中的卸载或更改程序（程序和功能），在左侧的打开或关闭Windows功能中，勾选TFTP客户，点击确定就好。&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Overclocking-brick-do-not-be-afraid-do-it-yourself-yourself-image-0" src="http://7xixm3.com1.z0.glb.clouddn.com/images/2015/8/Overclocking-brick-do-not-be-afraid-do-it-yourself-yourself-image-0.png"/&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Overclocking-brick-do-not-be-afraid-do-it-yourself-yourself-image-1" src="http://7xixm3.com1.z0.glb.clouddn.com/images/2015/8/Overclocking-brick-do-not-be-afraid-do-it-yourself-yourself-image-1.png"/&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Overclocking-brick-do-not-be-afraid-do-it-yourself-yourself-image-2" src="http://7xixm3.com1.z0.glb.clouddn.com/images/2015/8/Overclocking-brick-do-not-be-afraid-do-it-yourself-yourself-image-2.png"/&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Overclocking-brick-do-not-be-afraid-do-it-yourself-yourself-image-3" src="http://7xixm3.com1.z0.glb.clouddn.com/images/2015/8/Overclocking-brick-do-not-be-afraid-do-it-yourself-yourself-image-3.png"/&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Overclocking-brick-do-not-be-afraid-do-it-yourself-yourself-image-4" src="http://7xixm3.com1.z0.glb.clouddn.com/images/2015/8/Overclocking-brick-do-not-be-afraid-do-it-yourself-yourself-image-4.png"/&gt;&lt;/p&gt;
+&lt;h1 id="r8000ttl"&gt;三、拆解R8000，并连接TTL&lt;a class="headerlink" href="#r8000ttl" title="Permanent link"&gt;¶&lt;/a&gt;&lt;/h1&gt;
+&lt;p&gt;要说明的是，拆解会让你的R8000失去保修。拆掉R8000螃蟹壳上的10壳螺丝，其中有一颗螺丝在贴纸下方，需要揭掉贴纸。并拆掉天线连接，拿出主板，按照下图说明，和买来USB to TTL连接，进入准备刷机的状态。&lt;/p&gt;
+&lt;p&gt;P.S. 建议拆机，手接触主板之前，用手摸摸暖气，把自己脱个精光。&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Overclocking-brick-do-not-be-afraid-do-it-yourself-yourself-image-5" src="http://7xixm3.com1.z0.glb.clouddn.com/images/2015/8/Overclocking-brick-do-not-be-afraid-do-it-yourself-yourself-image-5.jpg"/&gt;&lt;/p&gt;
+&lt;h1 id="putty"&gt;四、设置Putty&lt;a class="headerlink" href="#putty" title="Permanent link"&gt;¶&lt;/a&gt;&lt;/h1&gt;
+&lt;p&gt;1、在计算机的设备管理器中检查COM端口，并设置为“115200”，数据位“8”，停止位“1”。&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Overclocking-brick-do-not-be-afraid-do-it-yourself-yourself-image-6" src="http://7xixm3.com1.z0.glb.clouddn.com/images/2015/8/Overclocking-brick-do-not-be-afraid-do-it-yourself-yourself-image-6.png"/&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Overclocking-brick-do-not-be-afraid-do-it-yourself-yourself-image-7" src="http://7xixm3.com1.z0.glb.clouddn.com/images/2015/8/Overclocking-brick-do-not-be-afraid-do-it-yourself-yourself-image-7.png"/&gt;&lt;/p&gt;
+&lt;p&gt;2、打开PuTTY，按照下图进行设置。&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Overclocking-brick-do-not-be-afraid-do-it-yourself-yourself-image-8" src="http://7xixm3.com1.z0.glb.clouddn.com/images/2015/8/Overclocking-brick-do-not-be-afraid-do-it-yourself-yourself-image-8.png"/&gt;&lt;/p&gt;
+&lt;p&gt;3、回到PuTTY的主页面，选择连接方式为Serial并填入相对的COM端口，传输速率会自动变成之前设置好的。&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Overclocking-brick-do-not-be-afraid-do-it-yourself-yourself-image-9" src="http://7xixm3.com1.z0.glb.clouddn.com/images/2015/8/Overclocking-brick-do-not-be-afraid-do-it-yourself-yourself-image-9.png"/&gt;&lt;/p&gt;
+&lt;p&gt;4、运行PuTTY，在R8000未通电开启之前，PuTTY窗口样式为下图。&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Overclocking-brick-do-not-be-afraid-do-it-yourself-yourself-image-10" src="http://7xixm3.com1.z0.glb.clouddn.com/images/2015/8/Overclocking-brick-do-not-be-afraid-do-it-yourself-yourself-image-10.png"/&gt;&lt;/p&gt;
+&lt;h1 id="_2"&gt;五、满血复活&lt;a class="headerlink" href="#_2" title="Permanent link"&gt;¶&lt;/a&gt;&lt;/h1&gt;
+&lt;p&gt;1、插入R8000电源，可以看到Putty界面上会显示一堆初始化，开机信息，这个时候，点进Puttty窗口中，不断的按CTRL-C，终止初始化，进入CFE模式，此时会显示如下信息：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;Startup Canceled
+CFE&amp;gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;2、通过以下命令擦除现有固件&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;CFE&amp;gt; nvram erase
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;3、重启R8000&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;CFE&amp;gt; reboot
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;4、重复1中的动作，再次进入CFE模式。&lt;/p&gt;
+&lt;p&gt;5、进入TFTP模式，键入命令后，会出现如下界面。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;CFE&amp;gt; tftpd
+Start TFTP Server
+Reading : :
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;6、到此路由器设置，完毕，下面我们将网线插入R800的LAN口中，另一端与电脑相连，并在电脑上对以太网属性，进行如下设置。&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Overclocking-brick-do-not-be-afraid-do-it-yourself-yourself-image-11" src="http://7xixm3.com1.z0.glb.clouddn.com/images/2015/8/Overclocking-brick-do-not-be-afraid-do-it-yourself-yourself-image-11.png"/&gt;&lt;/p&gt;
+&lt;p&gt;7、以管理员打开命令提示符，并确认R8000进入TFTP模式（TTL = 100）。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;ping 192.168.1.1
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;8、使用CMD的CD命令定位刚刚下载的CHK文件的所在目录，并执行以下命令上传至R8000。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;tftp -i 192.168.1.1 PUT R8000-V1.0.2.44_1.0.96.chk
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;9、等待，大概需要3-5分钟，访问192.168.1.1会看到熟悉的界面。&lt;/p&gt;
+&lt;h1 id="_3"&gt;六、结束语&lt;a class="headerlink" href="#_3" title="Permanent link"&gt;¶&lt;/a&gt;&lt;/h1&gt;
+&lt;p&gt;因为误设置导致R8000变砖，但实际刷完DD-WRT，感觉性能还不如原版固件，不知道是不是因为我设置不对的问题，求大神讲解设置过程。&lt;/p&gt;</summary><category term="NETGEAR 8000"></category><category term="路由"></category><category term="超频"></category></entry><entry><title>吴军《浪潮之巅》书评</title><link href="http://dhlx.wang/Book_Review/On_Top_of_Tides.html" rel="alternate"></link><updated>2015-07-21T17:39:00+08:00</updated><author><name>郭世全</name></author><id>tag:dhlx.wang,2015-07-21:Book_Review/On_Top_of_Tides.html</id><summary type="html">
 &lt;p&gt;  这本书读完有一段时间了，一直不知道怎么把它推荐给大家，其中虽没有光怪陆离的世界，但有互联网过去几十年的发展历程，或许其中带有一些作者的主观色彩，但总体来说还是以局外人纪实写些发生的事情，初起的时候，我并不是很喜欢这本书，但读着读着，我也喜欢这本书的叙事风格，平实不乏有趣，又了解了IT行业的历史和更迭。&lt;/p&gt;
 &lt;h1 id="_1"&gt;一、您在哪里可以找到它&lt;a class="headerlink" href="#_1" title="Permanent link"&gt;¶&lt;/a&gt;&lt;/h1&gt;
 &lt;p&gt;  1、&lt;a href="http://googlechinablog.blogspot.com/search?q=%E6%B5%AA%E6%BD%AE%E4%B9%8B%E5%B7%85"&gt;google的黑板报&lt;/a&gt;&lt;/p&gt;
@@ -1536,7 +1596,7 @@ keil中设置好相应的头文件引用路径和源码文件的引用。&lt;/p&
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;h1 id="_6"&gt;七、结语&lt;a class="headerlink" href="#_6" title="Permanent link"&gt;¶&lt;/a&gt;&lt;/h1&gt;
-&lt;p&gt;本次移植过程也是个人摸索得出的，如果有不尽完善的地方，欢迎您提出，我进行验证更正。&lt;/p&gt;</summary><category term="FreeModbus"></category><category term="STM32F411VET6"></category><category term="STM32CubeF4"></category></entry><entry><title>移植AN4657到STM32F411VET6</title><link href="http://dhlx.wang/STM32F411VET6/Porting_AN4657_STM32Cube_IAP_using_UART_to_STM32F411VET6.html" rel="alternate"></link><updated>2015-07-21T17:12:00+08:00</updated><author><name>郭世全</name></author><id>tag:dhlx.wang,2015-07-03:STM32F411VET6/Porting_AN4657_STM32Cube_IAP_using_UART_to_STM32F411VET6.html</id><summary type="html">
+&lt;p&gt;本次移植过程也是个人摸索得出的，如果有不尽完善的地方，欢迎您提出，我进行验证更正。&lt;/p&gt;</summary><category term="FreeModbus"></category><category term="STM32F411VET6"></category><category term="STM32CubeF4"></category></entry><entry><title>移植AN4657到STM32F411VET6</title><link href="http://dhlx.wang/STM32F411VET6/Porting_AN4657_STM32Cube_IAP_using_UART_to_STM32F411VET6.html" rel="alternate"></link><updated>2015-07-24T12:12:00+08:00</updated><author><name>郭世全</name></author><id>tag:dhlx.wang,2015-07-03:STM32F411VET6/Porting_AN4657_STM32Cube_IAP_using_UART_to_STM32F411VET6.html</id><summary type="html">
 &lt;p&gt;首先，我需要声明一下，本文所移植的IAP程序仅能用作参考，虽然加入了ymodem的通讯协议，提高了程序文件下载过程中的稳定性，但是由于移植的代码，本身就是示例程序，所以个人不建议直接用在工程中，但是可以作为工程测试、调试和个人DIY所用。&lt;/p&gt;
 &lt;h1 id="_1"&gt;一、准备移植程序和工具&lt;a class="headerlink" href="#_1" title="Permanent link"&gt;¶&lt;/a&gt;&lt;/h1&gt;
 &lt;p&gt;我们在移植AN4657到STM32F411VET6的过程中主要用到以下程序和工具：&lt;/p&gt;
@@ -2392,17 +2452,13 @@ PB6、PB7，才可以正常使用，默认的TX引脚上接了一个uF级的电�
 &lt;p&gt;2、需要在User选项卡中增加自定义处理字符串，&lt;code&gt;C:\Program Files\Keil\ARM\ARMCC\bin\fromelf.exe --bin -o .\存放bin的路径\bin文件的名称.bin .\Keil编译后生成的axf的路径\axf文件的名称.axf&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Porting-AN4657-STM32Cube-IAP-using-UART-to-STM32F411VET6-image-1" src="http://7xixm3.com1.z0.glb.clouddn.com/images/2015/7/Porting-AN4657-STM32Cube-IAP-using-UART-to-STM32F411VET6-image-1.png"/&gt;&lt;/p&gt;
 &lt;h1 id="_4"&gt;五、设置中断向量表偏移&lt;a class="headerlink" href="#_4" title="Permanent link"&gt;¶&lt;/a&gt;&lt;/h1&gt;
-&lt;p&gt;修改&lt;code&gt;system_stm32f4xx.c&lt;/code&gt;文件中的&lt;code&gt;VECT_TAB_OFFSET&lt;/code&gt;设置。&lt;/p&gt;
-&lt;p&gt;system_stm32f4xx.c修改后的代码示意如下：&lt;/p&gt;
+&lt;p&gt;需要在&lt;code&gt;main.c&lt;/code&gt;文件中的&lt;code&gt;/* USER CODE BEGIN 1 */&lt;/code&gt;和&lt;code&gt;/* USER CODE END 1 */&lt;/code&gt;之间增加一条设置中断向量表的语句&lt;code&gt;SCB-&amp;gt;VTOR = FLASH_BASE | 0x4000;&lt;/code&gt;，如下所示。&lt;/p&gt;
+&lt;p&gt;main.c增加的代码示意如下：&lt;/p&gt;
 &lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1
 2
-3
-4
-5&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/*!&amp;lt; Uncomment the following line if you need to relocate your vector Table in Internal SRAM. */&lt;/span&gt;
-&lt;span class="cm"&gt;/* #define VECT_TAB_SRAM */&lt;/span&gt;
-&lt;span class="cm"&gt;/*数值修改为Bootloader程序所占用空间的大小，也就是示例中的0x4000*/&lt;/span&gt;
-&lt;span class="cp"&gt;#define VECT_TAB_OFFSET  0x4000 &lt;/span&gt;&lt;span class="cm"&gt;/*!&amp;lt; Vector Table base offset field. &lt;/span&gt;
-&lt;span class="cm"&gt;                            This value must be a multiple of 0x200. */&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
+3&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/* USER CODE BEGIN 1 */&lt;/span&gt;   
+&lt;span class="n"&gt;SCB&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;VTOR&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;FLASH_BASE&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mh"&gt;0x4000&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="cm"&gt;/* USER CODE END 1 */&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;h1 id="_5"&gt;六、结语&lt;a class="headerlink" href="#_5" title="Permanent link"&gt;¶&lt;/a&gt;&lt;/h1&gt;
@@ -3006,7 +3062,7 @@ void&lt;span class="w"&gt; &lt;/span&gt;IAP_Init&lt;span class="o"&gt;(&lt;/span
 &lt;/pre&gt;&lt;/div&gt;
 &lt;h1 id="_3"&gt;六、结语&lt;a class="headerlink" href="#_3" title="Permanent link"&gt;¶&lt;/a&gt;&lt;/h1&gt;
 &lt;p&gt;关于具体的下载流程及操作，我在这里就不多做叙述了，官方文档中说的已经非常清楚。本次移植过程也是个人摸索得出的，如果有不尽完善的地方，欢迎您提出，我进行验证更正。&lt;/p&gt;
-&lt;p&gt;后续，如果我在工作之余或者工作中有需要，我可能会将IAP的代码移植到HAL库上，如果您已经做了相关工作，希望您可以在不涉及保密条款和其他利益的情况下，抄送一份给我，用于后续研究与参考。谢谢！&lt;/p&gt;</summary><category term="IAP"></category><category term="STM32F411VET6"></category><category term="STSW-STM32067"></category></entry><entry><title>Windows 8.1 Update 系统迁移</title><link href="http://dhlx.wang/Windows/Win8-1-Update-System-Migration.html" rel="alternate"></link><updated>2015-05-15T13:19:00+08:00</updated><author><name>郭世全</name></author><id>tag:dhlx.wang,2015-05-11:Windows/Win8-1-Update-System-Migration.html</id><summary type="html">
+&lt;p&gt;后续，如果我在工作之余或者工作中有需要，我可能会将IAP的代码移植到HAL库上，如果您已经做了相关工作，希望您可以在不涉及保密条款和其他利益的情况下，抄送一份给我，用于后续研究与参考。谢谢！&lt;/p&gt;</summary><category term="IAP"></category><category term="STM32F411VET6"></category><category term="STSW-STM32067"></category></entry><entry><title>Windows 8.1 Update 系统迁移</title><link href="http://dhlx.wang/Windows/Win8-1-Update-System-Migration.html" rel="alternate"></link><updated>2015-08-09T17:18:00+08:00</updated><author><name>郭世全</name></author><id>tag:dhlx.wang,2015-05-11:Windows/Win8-1-Update-System-Migration.html</id><summary type="html">
 &lt;p&gt;上周的周末，新买的SSD硬盘到了，需要把旧系统盘的数据迁移至新的SSD上，最开始考虑了Winodws系统映像的方法进行迁移，但通过恢复U盘进入到恢复步骤时，总是提示我无法格式化硬盘，所以放弃了这个方案。&lt;/p&gt;
 &lt;p&gt;在查询无数资料后，考虑到Win 8.1 Update的组成，突然灵光一现，尝试用Win 8.1的系统盘格式化新的SSD，从而使新的磁盘系统分区和原来的保持一致，通过备份分区数据，还原分区数据的方式，完成系统迁移。&lt;/p&gt;
 &lt;p&gt;本文就是就是记录下这个操作流程，以备后人参考，如果您有更好的方法，请您不吝赐教，谢谢！&lt;/p&gt;
@@ -3022,7 +3078,7 @@ void&lt;span class="w"&gt; &lt;/span&gt;IAP_Init&lt;span class="o"&gt;(&lt;/span
 &lt;li&gt;16G U盘 可量产&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;如果遇到上述链接无法访问，请您自行想办法。&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;友情提示：中国拥有世界八大奇迹——长城。&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;友情提示：中国拥有世界上第八大奇迹——长城。&lt;/em&gt;&lt;/p&gt;
 &lt;h1 id="winodws-81-upadate-u"&gt;二、制作Winodws 8.1 Upadate U盘安装盘&lt;a class="headerlink" href="#winodws-81-upadate-u" title="Permanent link"&gt;¶&lt;/a&gt;&lt;/h1&gt;
 &lt;p&gt;这个大家应该已经很熟悉了吧！用我提供的Windows 8 USB Installer Maker工具，基本制作过程是傻瓜式安装。&lt;/p&gt;
 &lt;h1 id="winodws-81-upadate"&gt;三、安装Winodws 8.1 Upadate到新系统盘&lt;a class="headerlink" href="#winodws-81-upadate" title="Permanent link"&gt;¶&lt;/a&gt;&lt;/h1&gt;

@@ -18,7 +18,7 @@
 <meta property="og:site_name" content="帝鴻龍曦" />
 <meta property="og:article:author" content="郭世全" />
 <meta property="og:article:published_time" content="2015-07-03T16:00:00+08:00" />
-<meta property="" content="2015-07-21T17:12:00+08:00" />
+<meta property="" content="2015-07-24T12:12:00+08:00" />
 <meta name="twitter:title" content="移植AN4657到STM32F411VET6  - STM32Cube IAP using UART ">
 <meta name="twitter:description" content="记录移植AN4657工程到STM32F411VET6的过程">
 
@@ -976,17 +976,13 @@ PB6、PB7，才可以正常使用，默认的TX引脚上接了一个uF级的电�
 <p>2、需要在User选项卡中增加自定义处理字符串，<code>C:\Program Files\Keil\ARM\ARMCC\bin\fromelf.exe --bin -o .\存放bin的路径\bin文件的名称.bin .\Keil编译后生成的axf的路径\axf文件的名称.axf</code></p>
 <p><img alt="Porting-AN4657-STM32Cube-IAP-using-UART-to-STM32F411VET6-image-1" src="http://7xixm3.com1.z0.glb.clouddn.com/images/2015/7/Porting-AN4657-STM32Cube-IAP-using-UART-to-STM32F411VET6-image-1.png"/></p>
 <h1 id="_4">五、设置中断向量表偏移<a class="headerlink" href="#_4" title="Permanent link">¶</a></h1>
-<p>修改<code>system_stm32f4xx.c</code>文件中的<code>VECT_TAB_OFFSET</code>设置。</p>
-<p>system_stm32f4xx.c修改后的代码示意如下：</p>
+<p>需要在<code>main.c</code>文件中的<code>/* USER CODE BEGIN 1 */</code>和<code>/* USER CODE END 1 */</code>之间增加一条设置中断向量表的语句<code>SCB-&gt;VTOR = FLASH_BASE | 0x4000;</code>，如下所示。</p>
+<p>main.c增加的代码示意如下：</p>
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
-3
-4
-5</pre></div></td><td class="code"><div class="highlight"><pre><span class="cm">/*!&lt; Uncomment the following line if you need to relocate your vector Table in Internal SRAM. */</span>
-<span class="cm">/* #define VECT_TAB_SRAM */</span>
-<span class="cm">/*数值修改为Bootloader程序所占用空间的大小，也就是示例中的0x4000*/</span>
-<span class="cp">#define VECT_TAB_OFFSET  0x4000 </span><span class="cm">/*!&lt; Vector Table base offset field. </span>
-<span class="cm">                            This value must be a multiple of 0x200. */</span><span class="cp"></span>
+3</pre></div></td><td class="code"><div class="highlight"><pre><span class="cm">/* USER CODE BEGIN 1 */</span>   
+<span class="n">SCB</span><span class="o">-&gt;</span><span class="n">VTOR</span> <span class="o">=</span> <span class="n">FLASH_BASE</span> <span class="o">|</span> <span class="mh">0x4000</span><span class="p">;</span>
+<span class="cm">/* USER CODE END 1 */</span>
 </pre></div>
 </td></tr></table>
 <h1 id="_5">六、结语<a class="headerlink" href="#_5" title="Permanent link">¶</a></h1>
@@ -1044,7 +1040,7 @@ PB6、PB7，才可以正常使用，默认的TX引脚上接了一个uF级的电�
             <time pubdate="pubdate" datetime="2015-07-03T16:00:00+08:00">7月 3, 2015</time>
 
 <h4>Last Updated</h4>
-<time datetime="2015-07-21T17:12:00+08:00">7月 21, 2015</time>
+<time datetime="2015-07-24T12:12:00+08:00">7月 24, 2015</time>
 
             <h4>Category</h4>
             <a class="category-link" href="http://dhlx.wang/categories.html#stm32f411vet6-ref">STM32F411VET6</a>
