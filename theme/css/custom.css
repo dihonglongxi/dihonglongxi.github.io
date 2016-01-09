@@ -26,6 +26,8 @@ div.figure p.caption {
 .article-content img {
     border: 0px;
     padding: 0px;
+	display: block;
+    margin: auto;
 }
 object[type="image/svg+xml"] {
     max-width: 100%;
