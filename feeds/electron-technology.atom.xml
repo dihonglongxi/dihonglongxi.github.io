@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>帝鴻龍曦</title><link href="http://dhlx.wang/" rel="alternate"></link><link href="http://dhlx.wang/feeds/electron-technology.atom.xml" rel="self"></link><id>http://dhlx.wang/</id><updated>2016-04-17T16:50:00+08:00</updated><entry><title>BQ24610 详细调试过程和心得</title><link href="http://dhlx.wang/Electron_Technology%5CBQ24610_Debugging_Process.html" rel="alternate"></link><updated>2016-04-17T16:50:00+08:00</updated><author><name>郭世全</name></author><id>tag:dhlx.wang,2016-04-10:Electron_Technology\BQ24610_Debugging_Process.html</id><summary type="html">
+<feed xmlns="http://www.w3.org/2005/Atom"><title>帝鴻龍曦 - Electron Technology</title><link href="http://dhlx.wang/" rel="alternate"></link><link href="http://dhlx.wang/feeds/electron-technology.atom.xml" rel="self"></link><id>http://dhlx.wang/</id><updated>2016-04-17T16:50:00+08:00</updated><entry><title>BQ24610 详细调试过程和心得</title><link href="http://dhlx.wang/Electron_Technology%5CBQ24610_Debugging_Process.html" rel="alternate"></link><published>2016-04-10T16:50:00+08:00</published><updated>2016-04-17T16:50:00+08:00</updated><author><name>郭世全</name></author><id>tag:dhlx.wang,2016-04-10:/Electron_Technology\BQ24610_Debugging_Process.html</id><summary type="html">&lt;p&gt;记录BQ24610的详细调试过程和应用实例、获得的收获&lt;/p&gt;</summary><content type="html">
 &lt;p&gt;  年前接手了一项我从来没有搞过的项目——DCDC电源Demo板的制作，本文中将会详细记录从无到有的调试过程，以及一些心得。&lt;/p&gt;
 &lt;p&gt;  文中会有部分的材料来源于网络和各个公司的应用手册，我只挑了一些我用的到片段进行汇总，大部分会给出出处，少部分无法查证，可能就不给出来，如果侵犯了您的版权，请您发邮件和我说明。&lt;/p&gt;
 &lt;h1 id="_1"&gt;一、开关电源简述&lt;a class="headerlink" href="#_1" title="Permanent link"&gt;¶&lt;/a&gt;&lt;/h1&gt;
@@ -14,7 +14,7 @@
 &lt;p&gt;  三种基本拓扑形式，是电感的连接方式决定。若电感放置于输出端，则为Buck拓扑；电感放置于输入端，则是Boost拓扑。当电感连接到地时，就是Buck-Boost拓扑。&lt;/p&gt;
 &lt;h1 id="bq24610"&gt;二、BQ24610典型应用&lt;a class="headerlink" href="#bq24610" title="Permanent link"&gt;¶&lt;/a&gt;&lt;/h1&gt;
 &lt;p&gt;  BQ24610的典型应用如下图所示：&lt;/p&gt;
-&lt;p&gt;&lt;img alt="BQ24610典型应用" src="http://7xixm3.com1.z0.glb.clouddn.com/images/2016/4/BQ24610_Debugging_Process/0001.PNG"/&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="BQ24610典型应用" src="http://dhlx.wang/images/2016/4/BQ24610_Debugging_Process/0001.PNG"/&gt;&lt;/p&gt;
 &lt;p&gt;  一个典型Buck拓扑的同步开关电源，Q4和Q5分别构成高低边开关，电流和电压经过L1和C12、C13趋于平滑，给外部电池组充电。由于BQ24610带电源路径管理，所以它有两个检流电阻，一个是RAC，检查ADAPTER的输入电流；一个是RSR，检查BUCK拓扑给电池包的充电电流，当系统侧电流和电池包的充电电流达到ADAPTER的最大输入电流时，会优先供给系统，减少电池包的充电功率，以保证后续系统在充电时可以正常工作。其次比较重要的就是一些参数的设置，由于BQ24610是一个低成本的大功率充电的解决方案，所以参数设置采用模拟设置方式，也就是根据输入电压设置，所以这里的一些关键电阻需要采用高精度电阻（1%，0.5%），如R1、R2、R3、R4、R5、R6、R7、R8、R9、R10等，这里特别建议R1和R2采用0.5%的精度，这样可以保证电池不过充，同时电池电压刚刚好。其次就是RSR和RAC一定要选用大品牌大厂家（国巨，Vishay）的检流电阻，否则的话有可能会造成不必要的麻烦。其余部分电路应该很好理解了，D1，C5，C6利用电容两端电压不能突变，构成了一个小型电荷泵，用来驱动NMOS工作；D2，D3，D4用来指示芯片的工作状态；R20、C16构成一个简易的滤波器，滤除ADAPTER的交流分量，也减少充电系统对前级系统的影响；Q1和Q2构成了ADAPTER的控制开关，Q3是电池包供电的开关；C8，C9用来进行储能，减少后续系统对前级系统的干扰。特意说明下，有些电容也存在一定可能性会对系统产生不必要的干扰，建议选用大厂（三星）X7R的5%精度的电容，如CCTC的定时电容。&lt;/p&gt;
 &lt;h1 id="_2"&gt;三、调试过程中遇到的问题&lt;a class="headerlink" href="#_2" title="Permanent link"&gt;¶&lt;/a&gt;&lt;/h1&gt;
 &lt;p&gt;  由于在接手这个设计任务之前，对于开关电源的了解，仅限于会使用LM2576、LM2577、LM2596等常用电路，了解开关电源的常用的三种模型。所以可以说我是电源界的小白吧！经历了这个任务遇到了许多问题，伴随着问题不断的解决，我也逐渐的更加深入的了解了开关电源的特性。下面我就说说我碰到的问题：&lt;/p&gt;
@@ -100,7 +100,7 @@
 &lt;h1 id="bq24610-pcb-layout"&gt;五、BQ24610 PCB Layout的注意事项&lt;a class="headerlink" href="#bq24610-pcb-layout" title="Permanent link"&gt;¶&lt;/a&gt;&lt;/h1&gt;
 &lt;p&gt;  在这里我写的一些注意事项，可能都是电源新手Layout碰到的一些问题，如果有描述不正确，或者不明白的地方，应该是我才疏学浅，能力不到家所致，还请您不吝赐教。&lt;/p&gt;
 &lt;p&gt;BQ24610主要的等下电路如下图所示：&lt;/p&gt;
-&lt;p&gt;&lt;img alt="Buck原理示意图" src="http://7xixm3.com1.z0.glb.clouddn.com/images/2016/4/BQ24610_Debugging_Process/0002.PNG"/&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Buck原理示意图" src="http://dhlx.wang/images/2016/4/BQ24610_Debugging_Process/0002.PNG"/&gt;&lt;/p&gt;
 &lt;p&gt;  布板布局时应遵从高频回路最短的原则进行布局布线，使开关接点处的开启和关断时间降至最低，减少开关过程中的损耗，同时注意减少高频环路电流，基于这个基本原则，我给出以下的布局布线的意见：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -143,4 +143,4 @@
 &lt;li&gt;执着，顽强,自信&lt;/li&gt;
 &lt;li&gt;举一反三&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;  以上三点就是这回调试过程中，我总结出来最重要的东西。在开发过程中，做的比较深的时候，出现的问题已经太依赖你现在的环境，如果要找人来帮我，我还要花很长时间给他解释问题产生的原因，他也不会肯花大量时间从头跟进去。像这种问题在网上也找不到类似的答案。此时，虽然没人能帮我，但是我还是可以通过跟别人的讨论来得到一些有用的信息；虽然在网上找不到类似的答案，但我还是在网上一些类似应用的相关信息（比如找到了一个讲Boost的布线原则的，但还是可以应用Buck中的）；结合别人的指导，网络的信息，自己的分析，以前的经验，各种实验的排除，我这次才能完美的几角这个问题。&lt;/p&gt;</summary><category term="BQ24610"></category><category term="DCDC"></category><category term="PCB"></category></entry></feed>
+&lt;p&gt;  以上三点就是这回调试过程中，我总结出来最重要的东西。在开发过程中，做的比较深的时候，出现的问题已经太依赖你现在的环境，如果要找人来帮我，我还要花很长时间给他解释问题产生的原因，他也不会肯花大量时间从头跟进去。像这种问题在网上也找不到类似的答案。此时，虽然没人能帮我，但是我还是可以通过跟别人的讨论来得到一些有用的信息；虽然在网上找不到类似的答案，但我还是在网上一些类似应用的相关信息（比如找到了一个讲Boost的布线原则的，但还是可以应用Buck中的）；结合别人的指导，网络的信息，自己的分析，以前的经验，各种实验的排除，我这次才能完美的几角这个问题。&lt;/p&gt;</content><category term="BQ24610"></category><category term="DCDC"></category><category term="PCB"></category></entry></feed>

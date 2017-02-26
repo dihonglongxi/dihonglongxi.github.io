@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>帝鴻龍曦</title><link href="http://dhlx.wang/" rel="alternate"></link><link href="http://dhlx.wang/feeds/stm32f411vet6.atom.xml" rel="self"></link><id>http://dhlx.wang/</id><updated>2015-07-24T12:12:00+08:00</updated><entry><title>基于STM32CubeF4移植FreeModbus到STM32F411VET6</title><link href="http://dhlx.wang/STM32F411VET6/Porting_FreeModbus_to_STM32F411VET6_based_on_STM32CubeF4.html" rel="alternate"></link><updated>2015-07-06T17:35:00+08:00</updated><author><name>郭世全</name></author><id>tag:dhlx.wang,2015-07-06:STM32F411VET6/Porting_FreeModbus_to_STM32F411VET6_based_on_STM32CubeF4.html</id><summary type="html">
+<feed xmlns="http://www.w3.org/2005/Atom"><title>帝鴻龍曦 - STM32F411VET6</title><link href="http://dhlx.wang/" rel="alternate"></link><link href="http://dhlx.wang/feeds/stm32f411vet6.atom.xml" rel="self"></link><id>http://dhlx.wang/</id><updated>2015-07-24T12:12:00+08:00</updated><entry><title>基于STM32CubeF4移植FreeModbus到STM32F411VET6</title><link href="http://dhlx.wang/STM32F411VET6/Porting_FreeModbus_to_STM32F411VET6_based_on_STM32CubeF4.html" rel="alternate"></link><published>2015-07-06T12:15:00+08:00</published><updated>2015-07-06T17:35:00+08:00</updated><author><name>郭世全</name></author><id>tag:dhlx.wang,2015-07-06:/STM32F411VET6/Porting_FreeModbus_to_STM32F411VET6_based_on_STM32CubeF4.html</id><summary type="html">&lt;p&gt;记录基于STM32CubeF4移植FreeModbus v1.5 RTU到STM32F411VET6的过程&lt;/p&gt;</summary><content type="html">
 &lt;p&gt;首先，本人需要声明一下，本文所移植FreeModbus的过程仅能用作参考，虽然FreeModbus的库已经用在工程很多年，但是由于移植的代码，本人经验等问题，所以本人不建议您直接用在工程中，但是可以作为工程测试、调试和个人DIY所用。&lt;/p&gt;
 &lt;h1 id="_1"&gt;一、准备移植程序和工具&lt;a class="headerlink" href="#_1" title="Permanent link"&gt;¶&lt;/a&gt;&lt;/h1&gt;
 &lt;p&gt;我在此次移植过程中，主要用到以下几个程序与工具：&lt;/p&gt;
@@ -17,68 +17,68 @@
 &lt;p&gt;2、按照下列的文件列表拷贝相应的文件到对应的目录（没有路径，需要自己建），并在
 keil中设置好相应的头文件引用路径和源码文件的引用。&lt;/p&gt;
 &lt;p&gt;拷贝文件到工程文件夹示例：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nx"&gt;工程文件夹&lt;/span&gt;
-&lt;span class="err"&gt;│&lt;/span&gt;  &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;mxproject&lt;/span&gt;
-&lt;span class="err"&gt;│&lt;/span&gt;  &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;工程名&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;ioc&lt;/span&gt;
-&lt;span class="err"&gt;│&lt;/span&gt;  
-&lt;span class="err"&gt;├─&lt;/span&gt;&lt;span class="nx"&gt;Drivers&lt;/span&gt;                         &lt;span class="c1"&gt;//底层驱动文件夹&lt;/span&gt;
-&lt;span class="err"&gt;├─&lt;/span&gt;&lt;span class="nx"&gt;Inc&lt;/span&gt;                             &lt;span class="c1"&gt;//头文件存放位置&lt;/span&gt;
-&lt;span class="err"&gt;│&lt;/span&gt;  &lt;span class="err"&gt;│&lt;/span&gt;  &lt;span class="nx"&gt;gpio&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;h&lt;/span&gt;
-&lt;span class="err"&gt;│&lt;/span&gt;  &lt;span class="err"&gt;│&lt;/span&gt;  &lt;span class="nx"&gt;stm32f4xx_hal_conf&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;h&lt;/span&gt;
-&lt;span class="err"&gt;│&lt;/span&gt;  &lt;span class="err"&gt;│&lt;/span&gt;  &lt;span class="nx"&gt;stm32f4xx_it&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;h&lt;/span&gt;
-&lt;span class="err"&gt;│&lt;/span&gt;  &lt;span class="err"&gt;│&lt;/span&gt;  &lt;span class="nx"&gt;tim&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;h&lt;/span&gt;
-&lt;span class="err"&gt;│&lt;/span&gt;  &lt;span class="err"&gt;│&lt;/span&gt;  &lt;span class="nx"&gt;usart&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;h&lt;/span&gt;
-&lt;span class="err"&gt;│&lt;/span&gt;  &lt;span class="err"&gt;│&lt;/span&gt;      
-&lt;span class="err"&gt;│&lt;/span&gt;  &lt;span class="err"&gt;└─&lt;/span&gt;&lt;span class="nx"&gt;Modbus&lt;/span&gt;                      &lt;span class="c1"&gt;//Modbus需要用到的头文件&lt;/span&gt;
-&lt;span class="err"&gt;│&lt;/span&gt;      &lt;span class="err"&gt;├─&lt;/span&gt;&lt;span class="nx"&gt;modbus_driver&lt;/span&gt;           &lt;span class="c1"&gt;//Modbus函数等头文件&lt;/span&gt;
-&lt;span class="err"&gt;│&lt;/span&gt;      &lt;span class="err"&gt;│&lt;/span&gt;  &lt;span class="err"&gt;├─&lt;/span&gt;&lt;span class="nx"&gt;include&lt;/span&gt;              &lt;span class="c1"&gt;//Modbus通用函数头文件&lt;/span&gt;
-&lt;span class="err"&gt;│&lt;/span&gt;      &lt;span class="err"&gt;│&lt;/span&gt;  &lt;span class="err"&gt;│&lt;/span&gt;      &lt;span class="nx"&gt;mb&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;h&lt;/span&gt;            
-&lt;span class="err"&gt;│&lt;/span&gt;      &lt;span class="err"&gt;│&lt;/span&gt;  &lt;span class="err"&gt;│&lt;/span&gt;      &lt;span class="nx"&gt;mbconfig&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;h&lt;/span&gt;      
-&lt;span class="err"&gt;│&lt;/span&gt;      &lt;span class="err"&gt;│&lt;/span&gt;  &lt;span class="err"&gt;│&lt;/span&gt;      &lt;span class="nx"&gt;mbframe&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;h&lt;/span&gt;
-&lt;span class="err"&gt;│&lt;/span&gt;      &lt;span class="err"&gt;│&lt;/span&gt;  &lt;span class="err"&gt;│&lt;/span&gt;      &lt;span class="nx"&gt;mbfunc&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;h&lt;/span&gt;
-&lt;span class="err"&gt;│&lt;/span&gt;      &lt;span class="err"&gt;│&lt;/span&gt;  &lt;span class="err"&gt;│&lt;/span&gt;      &lt;span class="nx"&gt;mbport&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;h&lt;/span&gt;
-&lt;span class="err"&gt;│&lt;/span&gt;      &lt;span class="err"&gt;│&lt;/span&gt;  &lt;span class="err"&gt;│&lt;/span&gt;      &lt;span class="nx"&gt;mbproto&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;h&lt;/span&gt;
-&lt;span class="err"&gt;│&lt;/span&gt;      &lt;span class="err"&gt;│&lt;/span&gt;  &lt;span class="err"&gt;│&lt;/span&gt;      &lt;span class="nx"&gt;mbutils&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;h&lt;/span&gt;
-&lt;span class="err"&gt;│&lt;/span&gt;      &lt;span class="err"&gt;│&lt;/span&gt;  &lt;span class="err"&gt;│&lt;/span&gt;      
-&lt;span class="err"&gt;│&lt;/span&gt;      &lt;span class="err"&gt;│&lt;/span&gt;  &lt;span class="err"&gt;└─&lt;/span&gt;&lt;span class="nx"&gt;rtu&lt;/span&gt;                  &lt;span class="c1"&gt;//Modbus RTU函数头文件&lt;/span&gt;
-&lt;span class="err"&gt;│&lt;/span&gt;      &lt;span class="err"&gt;│&lt;/span&gt;          &lt;span class="nx"&gt;mbcrc&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;h&lt;/span&gt;
-&lt;span class="err"&gt;│&lt;/span&gt;      &lt;span class="err"&gt;│&lt;/span&gt;          &lt;span class="nx"&gt;mbrtu&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;h&lt;/span&gt;
-&lt;span class="err"&gt;│&lt;/span&gt;      &lt;span class="err"&gt;│&lt;/span&gt;          
-&lt;span class="err"&gt;│&lt;/span&gt;      &lt;span class="err"&gt;└─&lt;/span&gt;&lt;span class="nx"&gt;modbus_user&lt;/span&gt;             &lt;span class="c1"&gt;//Modbus用户配置头文件&lt;/span&gt;
-&lt;span class="err"&gt;│&lt;/span&gt;              &lt;span class="nx"&gt;port&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;h&lt;/span&gt;
-&lt;span class="err"&gt;│&lt;/span&gt;              
-&lt;span class="err"&gt;├─&lt;/span&gt;&lt;span class="nx"&gt;MDK&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;ARM&lt;/span&gt;
-&lt;span class="err"&gt;│&lt;/span&gt;      &lt;span class="nx"&gt;BPEER_USART_TEST&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;uvprojx&lt;/span&gt;
-&lt;span class="err"&gt;│&lt;/span&gt;      
-&lt;span class="err"&gt;└─&lt;/span&gt;&lt;span class="nx"&gt;Src&lt;/span&gt;
-    &lt;span class="err"&gt;│&lt;/span&gt;  &lt;span class="nx"&gt;gpio&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;c&lt;/span&gt;
-    &lt;span class="err"&gt;│&lt;/span&gt;  &lt;span class="nx"&gt;main&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;c&lt;/span&gt;
-    &lt;span class="err"&gt;│&lt;/span&gt;  &lt;span class="nx"&gt;stm32f4xx_hal_msp&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;c&lt;/span&gt;
-    &lt;span class="err"&gt;│&lt;/span&gt;  &lt;span class="nx"&gt;stm32f4xx_it&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;c&lt;/span&gt;
-    &lt;span class="err"&gt;│&lt;/span&gt;  &lt;span class="nx"&gt;tim&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;c&lt;/span&gt;
-    &lt;span class="err"&gt;│&lt;/span&gt;  &lt;span class="nx"&gt;usart&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;c&lt;/span&gt;
-    &lt;span class="err"&gt;│&lt;/span&gt;      
-    &lt;span class="err"&gt;└─&lt;/span&gt;&lt;span class="nx"&gt;Modbus&lt;/span&gt;                      &lt;span class="c1"&gt;//Modbus需要用到的源码文件&lt;/span&gt;
-        &lt;span class="err"&gt;├─&lt;/span&gt;&lt;span class="nx"&gt;modbus_driver&lt;/span&gt;
-        &lt;span class="err"&gt;│&lt;/span&gt;  &lt;span class="err"&gt;│&lt;/span&gt;  &lt;span class="nx"&gt;mb&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;c&lt;/span&gt;                &lt;span class="c1"&gt;//Modbus基本函数和设置源码文件&lt;/span&gt;
-        &lt;span class="err"&gt;│&lt;/span&gt;  &lt;span class="err"&gt;│&lt;/span&gt;  
-        &lt;span class="err"&gt;│&lt;/span&gt;  &lt;span class="err"&gt;├─&lt;/span&gt;&lt;span class="nx"&gt;functions&lt;/span&gt;            &lt;span class="c1"&gt;//Modbus通用函数源码文件&lt;/span&gt;
-        &lt;span class="err"&gt;│&lt;/span&gt;  &lt;span class="err"&gt;│&lt;/span&gt;      &lt;span class="nx"&gt;mbfunccoils&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;c&lt;/span&gt;
-        &lt;span class="err"&gt;│&lt;/span&gt;  &lt;span class="err"&gt;│&lt;/span&gt;      &lt;span class="nx"&gt;mbfuncdiag&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;c&lt;/span&gt;
-        &lt;span class="err"&gt;│&lt;/span&gt;  &lt;span class="err"&gt;│&lt;/span&gt;      &lt;span class="nx"&gt;mbfuncdisc&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;c&lt;/span&gt;
-        &lt;span class="err"&gt;│&lt;/span&gt;  &lt;span class="err"&gt;│&lt;/span&gt;      &lt;span class="nx"&gt;mbfuncholding&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;c&lt;/span&gt;
-        &lt;span class="err"&gt;│&lt;/span&gt;  &lt;span class="err"&gt;│&lt;/span&gt;      &lt;span class="nx"&gt;mbfuncinput&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;c&lt;/span&gt;
-        &lt;span class="err"&gt;│&lt;/span&gt;  &lt;span class="err"&gt;│&lt;/span&gt;      &lt;span class="nx"&gt;mbfuncother&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;c&lt;/span&gt;
-        &lt;span class="err"&gt;│&lt;/span&gt;  &lt;span class="err"&gt;│&lt;/span&gt;      &lt;span class="nx"&gt;mbutils&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;c&lt;/span&gt;
-        &lt;span class="err"&gt;│&lt;/span&gt;  &lt;span class="err"&gt;│&lt;/span&gt;      
-        &lt;span class="err"&gt;│&lt;/span&gt;  &lt;span class="err"&gt;└─&lt;/span&gt;&lt;span class="nx"&gt;rtu&lt;/span&gt;                  &lt;span class="c1"&gt;//Modbus RTU函数源码文件&lt;/span&gt;
-        &lt;span class="err"&gt;│&lt;/span&gt;          &lt;span class="nx"&gt;mbcrc&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;c&lt;/span&gt;
-        &lt;span class="err"&gt;│&lt;/span&gt;          &lt;span class="nx"&gt;mbrtu&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;c&lt;/span&gt;
-        &lt;span class="err"&gt;│&lt;/span&gt;          
-        &lt;span class="err"&gt;└─&lt;/span&gt;&lt;span class="nx"&gt;modbus_user&lt;/span&gt;             &lt;span class="c1"&gt;//Modbus用户配置源码文件&lt;/span&gt;
-                &lt;span class="nx"&gt;portevent&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;c&lt;/span&gt;
-                &lt;span class="nx"&gt;portserial&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;c&lt;/span&gt;
-                &lt;span class="nx"&gt;porttimer&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;c&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;工程文件夹
+│  .mxproject
+│  &amp;lt;工程名&amp;gt;.ioc
+│  
+├─Drivers                         //底层驱动文件夹
+├─Inc                             //头文件存放位置
+│  │  gpio.h
+│  │  stm32f4xx_hal_conf.h
+│  │  stm32f4xx_it.h
+│  │  tim.h
+│  │  usart.h
+│  │      
+│  └─Modbus                      //Modbus需要用到的头文件
+│      ├─modbus_driver           //Modbus函数等头文件
+│      │  ├─include              //Modbus通用函数头文件
+│      │  │      mb.h            
+│      │  │      mbconfig.h      
+│      │  │      mbframe.h
+│      │  │      mbfunc.h
+│      │  │      mbport.h
+│      │  │      mbproto.h
+│      │  │      mbutils.h
+│      │  │      
+│      │  └─rtu                  //Modbus RTU函数头文件
+│      │          mbcrc.h
+│      │          mbrtu.h
+│      │          
+│      └─modbus_user             //Modbus用户配置头文件
+│              port.h
+│              
+├─MDK-ARM
+│      BPEER_USART_TEST.uvprojx
+│      
+└─Src
+    │  gpio.c
+    │  main.c
+    │  stm32f4xx_hal_msp.c
+    │  stm32f4xx_it.c
+    │  tim.c
+    │  usart.c
+    │      
+    └─Modbus                      //Modbus需要用到的源码文件
+        ├─modbus_driver
+        │  │  mb.c                //Modbus基本函数和设置源码文件
+        │  │  
+        │  ├─functions            //Modbus通用函数源码文件
+        │  │      mbfunccoils.c
+        │  │      mbfuncdiag.c
+        │  │      mbfuncdisc.c
+        │  │      mbfuncholding.c
+        │  │      mbfuncinput.c
+        │  │      mbfuncother.c
+        │  │      mbutils.c
+        │  │      
+        │  └─rtu                  //Modbus RTU函数源码文件
+        │          mbcrc.c
+        │          mbrtu.c
+        │          
+        └─modbus_user             //Modbus用户配置源码文件
+                portevent.c
+                portserial.c
+                porttimer.c
 &lt;/pre&gt;&lt;/div&gt;
 &lt;h1 id="timer"&gt;三、搞定Timer&lt;a class="headerlink" href="#timer" title="Permanent link"&gt;¶&lt;/a&gt;&lt;/h1&gt;
 &lt;p&gt;Timer的移植过程中，应该算是比较简单的了，需要简单的设置一下初始化的返回值，完整写出开启Timer的函数，停止Timer的函数，并对Timer回掉函数进行设置下，就OK了。&lt;/p&gt;
@@ -131,13 +131,13 @@ keil中设置好相应的头文件引用路径和源码文件的引用。&lt;/p&
 46
 47
 48
-49&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/* ----------------------- Platform includes ----------------------------*/&lt;/span&gt;
-&lt;span class="cp"&gt;#include "port.h"&lt;/span&gt;
-&lt;span class="cp"&gt;#include "stm32f4xx_hal.h"&lt;/span&gt;
-&lt;span class="cp"&gt;#include "tim.h"&lt;/span&gt;
+49&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="cm"&gt;/* ----------------------- Platform includes ----------------------------*/&lt;/span&gt;
+&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;"port.h"&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;"stm32f4xx_hal.h"&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;"tim.h"&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
 &lt;span class="cm"&gt;/* ----------------------- Modbus includes ------------------------------*/&lt;/span&gt;
-&lt;span class="cp"&gt;#include "mb.h"&lt;/span&gt;
-&lt;span class="cp"&gt;#include "mbport.h"&lt;/span&gt;
+&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;"mb.h"&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;"mbport.h"&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
 
 &lt;span class="cm"&gt;/* ----------------------- static functions -----------------------------*/&lt;/span&gt;
 &lt;span class="cm"&gt;/* ----------------------- Private define -------------------------------*/&lt;/span&gt;
@@ -188,24 +188,24 @@ keil中设置好相应的头文件引用路径和源码文件的引用。&lt;/p&
     #include "stm32f4xx_hal.h"
     #include "stm32f4xx.h"
     #include "stm32f4xx_it.h"&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/* USER CODE BEGIN 0 */&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="cm"&gt;/* USER CODE BEGIN 0 */&lt;/span&gt;
 
-&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="nx"&gt;include&lt;/span&gt; &lt;span class="s2"&gt;"mb.h"&lt;/span&gt;
-&lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="nx"&gt;include&lt;/span&gt; &lt;span class="s2"&gt;"mbport.h"&lt;/span&gt;
+&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;"mb.h"&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;"mbport.h"&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
 
-&lt;span class="nx"&gt;extern&lt;/span&gt; &lt;span class="k"&gt;void&lt;/span&gt; &lt;span class="nx"&gt;prvvUARTTxReadyISR&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;void&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-&lt;span class="nx"&gt;extern&lt;/span&gt; &lt;span class="k"&gt;void&lt;/span&gt; &lt;span class="nx"&gt;prvvUARTRxISR&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;void&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="k"&gt;extern&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;prvvUARTTxReadyISR&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;void&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="k"&gt;extern&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;prvvUARTRxISR&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;void&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 
-&lt;span class="nx"&gt;extern&lt;/span&gt; &lt;span class="k"&gt;void&lt;/span&gt; &lt;span class="nx"&gt;prvvTIMERExpiredISR&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt; &lt;span class="k"&gt;void&lt;/span&gt; &lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="k"&gt;extern&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;prvvTIMERExpiredISR&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="p"&gt;);&lt;/span&gt;
 &lt;span class="cm"&gt;/* USER CODE END 0 */&lt;/span&gt;
 &lt;span class="err"&gt;……&lt;/span&gt; &lt;span class="err"&gt;……&lt;/span&gt; &lt;span class="err"&gt;……&lt;/span&gt;
 &lt;span class="cm"&gt;/* USER CODE BEGIN 1 */&lt;/span&gt;
-&lt;span class="k"&gt;void&lt;/span&gt; &lt;span class="nx"&gt;HAL_TIM_PeriodElapsedCallback&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;TIM_HandleTypeDef&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="nx"&gt;htim&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;HAL_TIM_PeriodElapsedCallback&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;TIM_HandleTypeDef&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;htim&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="cm"&gt;/* NOTE : This function Should not be modified, when the callback is needed,&lt;/span&gt;
 &lt;span class="cm"&gt;            the __HAL_TIM_PeriodElapsedCallback could be implemented in the user file&lt;/span&gt;
 &lt;span class="cm"&gt;    */&lt;/span&gt;
-    &lt;span class="nx"&gt;prvvTIMERExpiredISR&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt; &lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;prvvTIMERExpiredISR&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt; &lt;span class="p"&gt;);&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;span class="cm"&gt;/* USER CODE END 1 */&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
@@ -322,14 +322,14 @@ keil中设置好相应的头文件引用路径和源码文件的引用。&lt;/p&
 108
 109
 110
-111&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#include "port.h"&lt;/span&gt;
-&lt;span class="cp"&gt;#include "usart.h"&lt;/span&gt;
-&lt;span class="cp"&gt;#include "stm32f4xx_hal.h"&lt;/span&gt;
-&lt;span class="cp"&gt;#include "stm32f4xx_it.h"&lt;/span&gt;
+111&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;"port.h"&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;"usart.h"&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;"stm32f4xx_hal.h"&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;"stm32f4xx_it.h"&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
 
 &lt;span class="cm"&gt;/* ----------------------- Modbus includes ------------------------------*/&lt;/span&gt;
-&lt;span class="cp"&gt;#include "mb.h"&lt;/span&gt;
-&lt;span class="cp"&gt;#include "mbport.h"&lt;/span&gt;
+&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;"mb.h"&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;"mbport.h"&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
 
 &lt;span class="cm"&gt;/* ----------------------- static functions -----------------------------*/&lt;/span&gt;
 &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;prvvUARTTxReadyISR&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="p"&gt;);&lt;/span&gt;
@@ -458,7 +458,7 @@ keil中设置好相应的头文件引用路径和源码文件的引用。&lt;/p&
 20
 21
 22
-23&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/**&lt;/span&gt;
+23&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="cm"&gt;/**&lt;/span&gt;
 &lt;span class="cm"&gt;* @brief This function handles USART1 global interrupt.&lt;/span&gt;
 &lt;span class="cm"&gt;*/&lt;/span&gt;
 &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;USART1_IRQHandler&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;void&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
@@ -489,7 +489,7 @@ keil中设置好相应的头文件引用路径和源码文件的引用。&lt;/p&
 &lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1
 2
 3
-4&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/*禁用全部中断*/&lt;/span&gt;
+4&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="cm"&gt;/*禁用全部中断*/&lt;/span&gt;
 &lt;span class="cp"&gt;#define ENTER_CRITICAL_SECTION( )   __disable_irq()&lt;/span&gt;
 &lt;span class="cm"&gt;/*开启全部中断*/&lt;/span&gt;
 &lt;span class="cp"&gt;#define EXIT_CRITICAL_SECTION( )    __enable_irq()&lt;/span&gt;
@@ -512,21 +512,21 @@ keil中设置好相应的头文件引用路径和源码文件的引用。&lt;/p&
 13
 14
 15
-16&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/*设置启用Modbus RTU 模式，减少编译后的代码量*/&lt;/span&gt;
+16&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="cm"&gt;/*设置启用Modbus RTU 模式，减少编译后的代码量*/&lt;/span&gt;
 &lt;span class="cp"&gt;#if MB_RTU_ENABLED == 1&lt;/span&gt;
-    &lt;span class="cp"&gt;#include "mbrtu.h"&lt;/span&gt;
+    &lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;"mbrtu.h"&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
 &lt;span class="cp"&gt;#endif&lt;/span&gt;
 
 &lt;span class="cm"&gt;/*减少编译后代码错误以及修改，将判定值由1改为0，并修改MB_ASCII_ENABLED的定义为0，&lt;/span&gt;
 &lt;span class="cm"&gt;想要了解原因，请自行修改编译查看*/&lt;/span&gt;
 &lt;span class="cp"&gt;#if MB_ASCII_ENABLED == 1&lt;/span&gt;
-    &lt;span class="cp"&gt;#include "mbascii.h"&lt;/span&gt;
+    &lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;"mbascii.h"&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
 &lt;span class="cp"&gt;#endif&lt;/span&gt;
 
 &lt;span class="cm"&gt;/*减少编译后代码大小，将判定值由0改为1，并修改MB_TCP_ENABLED的定义为0，想要了解&lt;/span&gt;
 &lt;span class="cm"&gt;原因，请自行修改编译查看*/&lt;/span&gt;
 &lt;span class="cp"&gt;#if MB_TCP_ENABLED == 1&lt;/span&gt;
-    &lt;span class="cp"&gt;#include "mbtcp.h"&lt;/span&gt;
+    &lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;"mbtcp.h"&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
 &lt;span class="cp"&gt;#endif&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
@@ -539,7 +539,7 @@ keil中设置好相应的头文件引用路径和源码文件的引用。&lt;/p&
 3
 4
 5
-6&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;extern&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt;
+6&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;extern&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt;
 &lt;span class="nf"&gt;xMBUtilSetBits&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt; &lt;span class="n"&gt;UCHAR&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;ucByteBuf&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;USHORT&lt;/span&gt; &lt;span class="n"&gt;usBitOffset&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;UCHAR&lt;/span&gt; &lt;span class="n"&gt;ucNBits&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; \
                 &lt;span class="n"&gt;UCHAR&lt;/span&gt; &lt;span class="n"&gt;ucValue&lt;/span&gt; &lt;span class="p"&gt;);&lt;/span&gt;
 
@@ -583,7 +583,7 @@ keil中设置好相应的头文件引用路径和源码文件的引用。&lt;/p&
 33
 34
 35
-36&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;eMBErrorCode&lt;/span&gt;
+36&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;eMBErrorCode&lt;/span&gt;
 &lt;span class="nf"&gt;eMBRTUReceive&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt; &lt;span class="n"&gt;UCHAR&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;pucRcvAddress&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;UCHAR&lt;/span&gt; &lt;span class="o"&gt;**&lt;/span&gt; &lt;span class="n"&gt;pucFrame&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;USHORT&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;pusLength&lt;/span&gt; &lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="cm"&gt;/*处女座心理，必须要求无错误、无警告、可过PC-Lint，目前也没有发现这个定义的用处*/&lt;/span&gt;
@@ -667,7 +667,7 @@ keil中设置好相应的头文件引用路径和源码文件的引用。&lt;/p&
 41
 42
 43
-44&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;eMBErrorCode&lt;/span&gt;
+44&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;eMBErrorCode&lt;/span&gt;
 &lt;span class="nf"&gt;eMBRTUSend&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt; &lt;span class="n"&gt;UCHAR&lt;/span&gt; &lt;span class="n"&gt;ucSlaveAddress&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;const&lt;/span&gt; &lt;span class="n"&gt;UCHAR&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;pucFrame&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;USHORT&lt;/span&gt; &lt;span class="n"&gt;usLength&lt;/span&gt; &lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="n"&gt;eMBErrorCode&lt;/span&gt;    &lt;span class="n"&gt;eStatus&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;MB_ENOERR&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
@@ -1107,17 +1107,17 @@ keil中设置好相应的头文件引用路径和源码文件的引用。&lt;/p&
 389
 390
 391
-392&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/* Includes -------------------------------------------------------------*/&lt;/span&gt;
-&lt;span class="cp"&gt;#include "stm32f4xx_hal.h"&lt;/span&gt;
-&lt;span class="cp"&gt;#include "adc.h"&lt;/span&gt;
-&lt;span class="cp"&gt;#include "tim.h"&lt;/span&gt;
-&lt;span class="cp"&gt;#include "usart.h"&lt;/span&gt;
-&lt;span class="cp"&gt;#include "gpio.h"&lt;/span&gt;
+392&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="cm"&gt;/* Includes -------------------------------------------------------------*/&lt;/span&gt;
+&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;"stm32f4xx_hal.h"&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;"adc.h"&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;"tim.h"&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;"usart.h"&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;"gpio.h"&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
 
 &lt;span class="cm"&gt;/* USER CODE BEGIN Includes */&lt;/span&gt;
 
-&lt;span class="cp"&gt;#include "mb.h"&lt;/span&gt;
-&lt;span class="cp"&gt;#include "mbport.h"&lt;/span&gt;
+&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;"mb.h"&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;"mbport.h"&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
 
 &lt;span class="cm"&gt;/* USER CODE END Includes */&lt;/span&gt;
 
@@ -1502,7 +1502,7 @@ keil中设置好相应的头文件引用路径和源码文件的引用。&lt;/p&
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;h1 id="_6"&gt;七、结语&lt;a class="headerlink" href="#_6" title="Permanent link"&gt;¶&lt;/a&gt;&lt;/h1&gt;
-&lt;p&gt;本次移植过程也是个人摸索得出的，如果有不尽完善的地方，欢迎您提出，我进行验证更正。&lt;/p&gt;</summary><category term="FreeModbus"></category><category term="STM32F411VET6"></category><category term="STM32CubeF4"></category></entry><entry><title>移植AN4657到STM32F411VET6</title><link href="http://dhlx.wang/STM32F411VET6/Porting_AN4657_STM32Cube_IAP_using_UART_to_STM32F411VET6.html" rel="alternate"></link><updated>2015-07-24T12:12:00+08:00</updated><author><name>郭世全</name></author><id>tag:dhlx.wang,2015-07-03:STM32F411VET6/Porting_AN4657_STM32Cube_IAP_using_UART_to_STM32F411VET6.html</id><summary type="html">
+&lt;p&gt;本次移植过程也是个人摸索得出的，如果有不尽完善的地方，欢迎您提出，我进行验证更正。&lt;/p&gt;</content><category term="FreeModbus"></category><category term="STM32F411VET6"></category><category term="STM32CubeF4"></category></entry><entry><title>移植AN4657到STM32F411VET6</title><link href="http://dhlx.wang/STM32F411VET6/Porting_AN4657_STM32Cube_IAP_using_UART_to_STM32F411VET6.html" rel="alternate"></link><published>2015-07-03T16:00:00+08:00</published><updated>2015-07-24T12:12:00+08:00</updated><author><name>郭世全</name></author><id>tag:dhlx.wang,2015-07-03:/STM32F411VET6/Porting_AN4657_STM32Cube_IAP_using_UART_to_STM32F411VET6.html</id><summary type="html">&lt;p&gt;记录移植AN4657工程到STM32F411VET6的过程&lt;/p&gt;</summary><content type="html">
 &lt;p&gt;首先，我需要声明一下，本文所移植的IAP程序仅能用作参考，虽然加入了ymodem的通讯协议，提高了程序文件下载过程中的稳定性，但是由于移植的代码，本身就是示例程序，所以个人不建议直接用在工程中，但是可以作为工程测试、调试和个人DIY所用。&lt;/p&gt;
 &lt;h1 id="_1"&gt;一、准备移植程序和工具&lt;a class="headerlink" href="#_1" title="Permanent link"&gt;¶&lt;/a&gt;&lt;/h1&gt;
 &lt;p&gt;我们在移植AN4657到STM32F411VET6的过程中主要用到以下程序和工具：&lt;/p&gt;
@@ -1544,16 +1544,16 @@ AN4657-STM32Cube_IAP_using_UART\Projects\STM3210C_EVAL\IAP_Main\Src&lt;/p&gt;
 19
 20
 21
-22&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/** @addtogroup STM32F4xx_IAP_Main&lt;/span&gt;
+22&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="cm"&gt;/** @addtogroup STM32F4xx_IAP_Main&lt;/span&gt;
 &lt;span class="cm"&gt;* @{&lt;/span&gt;
 &lt;span class="cm"&gt;*/&lt;/span&gt;
 
 &lt;span class="cm"&gt;/* Includes -------------------------------------------------------------*/&lt;/span&gt;
 &lt;span class="c1"&gt;//根据实际情况修改引用的头文件，在原先程序中删除main.h的引用，加入stm32f4xx_hal.h和&lt;/span&gt;
 &lt;span class="c1"&gt;//usart.h的引用。&lt;/span&gt;
-&lt;span class="cp"&gt;#include "common.h"&lt;/span&gt;
-&lt;span class="cp"&gt;#include "stm32f4xx_hal.h"&lt;/span&gt;
-&lt;span class="cp"&gt;#include "usart.h"&lt;/span&gt;
+&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;"common.h"&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;"stm32f4xx_hal.h"&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;"usart.h"&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
 
 &lt;span class="cm"&gt;/* Private typedef ------------------------------------------------------*/&lt;/span&gt;
 &lt;span class="cm"&gt;/* Private define -------------------------------------------------------*/&lt;/span&gt;
@@ -1591,19 +1591,19 @@ AN4657-STM32Cube_IAP_using_UART\Projects\STM3210C_EVAL\IAP_Main\Src&lt;/p&gt;
 20
 21
 22
-23&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/** @addtogroup STM32F4xx_IAP&lt;/span&gt;
+23&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="cm"&gt;/** @addtogroup STM32F4xx_IAP&lt;/span&gt;
 &lt;span class="cm"&gt;* @{&lt;/span&gt;
 &lt;span class="cm"&gt;*/&lt;/span&gt;
 
 &lt;span class="cm"&gt;/* Includes -------------------------------------------------------------*/&lt;/span&gt;
 &lt;span class="c1"&gt;//根据实际情况修改引用的头文件，在原先程序中删除main.h的引用，加入stm32f4xx_hal.h和&lt;/span&gt;
 &lt;span class="c1"&gt;//usart.h的引用。&lt;/span&gt;
-&lt;span class="cp"&gt;#include "common.h"&lt;/span&gt;
-&lt;span class="cp"&gt;#include "flash_if.h"&lt;/span&gt;
-&lt;span class="cp"&gt;#include "menu.h"&lt;/span&gt;
-&lt;span class="cp"&gt;#include "ymodem.h"&lt;/span&gt;
-&lt;span class="cp"&gt;#include "stm32f4xx_hal.h"&lt;/span&gt;
-&lt;span class="cp"&gt;#include "usart.h"&lt;/span&gt;
+&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;"common.h"&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;"flash_if.h"&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;"menu.h"&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;"ymodem.h"&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;"stm32f4xx_hal.h"&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;"usart.h"&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
 
 &lt;span class="cm"&gt;/* Private typedef ------------------------------------------------------*/&lt;/span&gt;
 &lt;span class="cm"&gt;/* Private define -------------------------------------------------------*/&lt;/span&gt;
@@ -1642,20 +1642,20 @@ AN4657-STM32Cube_IAP_using_UART\Projects\STM3210C_EVAL\IAP_Main\Src&lt;/p&gt;
 23
 24
 25
-26&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/** @addtogroup STM32F4xx_IAP&lt;/span&gt;
+26&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="cm"&gt;/** @addtogroup STM32F4xx_IAP&lt;/span&gt;
 &lt;span class="cm"&gt;* @{&lt;/span&gt;
 &lt;span class="cm"&gt;*/&lt;/span&gt;
 
 &lt;span class="cm"&gt;/* Includes -------------------------------------------------------------*/&lt;/span&gt;
 &lt;span class="c1"&gt;//根据实际情况修改引用的头文件，在原先程序中删除main.h的引用，加入stm32f4xx_hal.h和&lt;/span&gt;
 &lt;span class="c1"&gt;//usart.h的引用。&lt;/span&gt;
-&lt;span class="cp"&gt;#include "flash_if.h"&lt;/span&gt;
-&lt;span class="cp"&gt;#include "common.h"&lt;/span&gt;
-&lt;span class="cp"&gt;#include "ymodem.h"&lt;/span&gt;
-&lt;span class="cp"&gt;#include "string.h"&lt;/span&gt;
-&lt;span class="cp"&gt;#include "menu.h"&lt;/span&gt;
-&lt;span class="cp"&gt;#include "stm32f4xx_hal.h"&lt;/span&gt;
-&lt;span class="cp"&gt;#include "usart.h"&lt;/span&gt;
+&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;"flash_if.h"&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;"common.h"&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;"ymodem.h"&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;"string.h"&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;"menu.h"&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;"stm32f4xx_hal.h"&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;"usart.h"&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
 
 &lt;span class="cm"&gt;/* Private typedef ------------------------------------------------------*/&lt;/span&gt;
 &lt;span class="cm"&gt;/* Private define -------------------------------------------------------*/&lt;/span&gt;
@@ -1755,13 +1755,13 @@ PB6、PB7，才可以正常使用，默认的TX引脚上接了一个uF级的电�
 74
 75
 76
-77&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/* Define to prevent recursive inclusion --------------------------------*/&lt;/span&gt;
+77&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="cm"&gt;/* Define to prevent recursive inclusion --------------------------------*/&lt;/span&gt;
 &lt;span class="cp"&gt;#ifndef __FLASH_IF_H&lt;/span&gt;
 &lt;span class="cp"&gt;#define __FLASH_IF_H&lt;/span&gt;
 
 &lt;span class="cm"&gt;/* Includes -------------------------------------------------------------*/&lt;/span&gt;
 &lt;span class="c1"&gt;//修改引用的头文件为F4的&lt;/span&gt;
-&lt;span class="cp"&gt;#include "stm32f4xx_hal.h"&lt;/span&gt;
+&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;"stm32f4xx_hal.h"&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
 
 &lt;span class="cm"&gt;/* Exported types -------------------------------------------------------*/&lt;/span&gt;
 &lt;span class="cm"&gt;/* Exported constants ---------------------------------------------------*/&lt;/span&gt;
@@ -2092,12 +2092,12 @@ PB6、PB7，才可以正常使用，默认的TX引脚上接了一个uF级的电�
 255
 256
 257
-258&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/** @addtogroup STM32F4xx_IAP&lt;/span&gt;
+258&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="cm"&gt;/** @addtogroup STM32F4xx_IAP&lt;/span&gt;
 &lt;span class="cm"&gt;  * @{&lt;/span&gt;
 &lt;span class="cm"&gt;  */&lt;/span&gt;
 
 &lt;span class="cm"&gt;/* Includes -------------------------------------------------------------*/&lt;/span&gt;
-&lt;span class="cp"&gt;#include "flash_if.h"&lt;/span&gt;
+&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;"flash_if.h"&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
 
 &lt;span class="cm"&gt;/* Private typedef ------------------------------------------------------*/&lt;/span&gt;
 &lt;span class="cm"&gt;/* Private define -------------------------------------------------------*/&lt;/span&gt;
@@ -2354,21 +2354,21 @@ PB6、PB7，才可以正常使用，默认的TX引脚上接了一个uF级的电�
 &lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;h1 id="keil"&gt;四、Keil需要修改的位置&lt;a class="headerlink" href="#keil" title="Permanent link"&gt;¶&lt;/a&gt;&lt;/h1&gt;
 &lt;p&gt;1、需要根据设置的APP程序起始的位置，设置KEIL中APP程序起始位置与程序空间大小&lt;/p&gt;
-&lt;p&gt;&lt;img alt="Porting-AN4657-STM32Cube-IAP-using-UART-to-STM32F411VET6-image-0" src="http://7xixm3.com1.z0.glb.clouddn.com/images/2015/7/Porting-AN4657-STM32Cube-IAP-using-UART-to-STM32F411VET6-image-0.png"/&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Porting-AN4657-STM32Cube-IAP-using-UART-to-STM32F411VET6-image-0" src="http://dhlx.wang/images/2015/7/Porting-AN4657-STM32Cube-IAP-using-UART-to-STM32F411VET6-image-0.png"/&gt;&lt;/p&gt;
 &lt;p&gt;2、需要在User选项卡中增加自定义处理字符串，&lt;code&gt;C:\Program Files\Keil\ARM\ARMCC\bin\fromelf.exe --bin -o .\存放bin的路径\bin文件的名称.bin .\Keil编译后生成的axf的路径\axf文件的名称.axf&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img alt="Porting-AN4657-STM32Cube-IAP-using-UART-to-STM32F411VET6-image-1" src="http://7xixm3.com1.z0.glb.clouddn.com/images/2015/7/Porting-AN4657-STM32Cube-IAP-using-UART-to-STM32F411VET6-image-1.png"/&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Porting-AN4657-STM32Cube-IAP-using-UART-to-STM32F411VET6-image-1" src="http://dhlx.wang/images/2015/7/Porting-AN4657-STM32Cube-IAP-using-UART-to-STM32F411VET6-image-1.png"/&gt;&lt;/p&gt;
 &lt;h1 id="_4"&gt;五、设置中断向量表偏移&lt;a class="headerlink" href="#_4" title="Permanent link"&gt;¶&lt;/a&gt;&lt;/h1&gt;
 &lt;p&gt;需要在&lt;code&gt;main.c&lt;/code&gt;文件中的&lt;code&gt;/* USER CODE BEGIN 1 */&lt;/code&gt;和&lt;code&gt;/* USER CODE END 1 */&lt;/code&gt;之间增加一条设置中断向量表的语句&lt;code&gt;SCB-&amp;gt;VTOR = FLASH_BASE | 0x4000;&lt;/code&gt;，如下所示。&lt;/p&gt;
 &lt;p&gt;main.c增加的代码示意如下：&lt;/p&gt;
 &lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1
 2
-3&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/* USER CODE BEGIN 1 */&lt;/span&gt;   
+3&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="cm"&gt;/* USER CODE BEGIN 1 */&lt;/span&gt;   
 &lt;span class="n"&gt;SCB&lt;/span&gt;&lt;span class="o"&gt;-&amp;gt;&lt;/span&gt;&lt;span class="n"&gt;VTOR&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;FLASH_BASE&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mh"&gt;0x4000&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="cm"&gt;/* USER CODE END 1 */&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;h1 id="_5"&gt;六、结语&lt;a class="headerlink" href="#_5" title="Permanent link"&gt;¶&lt;/a&gt;&lt;/h1&gt;
-&lt;p&gt;关于具体的下载流程及操作，我在这里就不多做叙述了，官方文档中说的已经非常清楚。本次移植过程也是个人摸索得出的，如果有不尽完善的地方，欢迎您提出，我进行验证更正。&lt;/p&gt;</summary><category term="IAP"></category><category term="STM32F411VET6"></category><category term="STM32CubeF4"></category></entry><entry><title>简单移植IAP（STSW-STM32067）到STM32F411VET6</title><link href="http://dhlx.wang/STM32F411VET6/Simple_transplant_IAP_STSW-STM32067_to_STM32F411VET6.html" rel="alternate"></link><updated>2015-06-12T12:15:00+08:00</updated><author><name>郭世全</name></author><id>tag:dhlx.wang,2015-06-12:STM32F411VET6/Simple_transplant_IAP_STSW-STM32067_to_STM32F411VET6.html</id><summary type="html">
+&lt;p&gt;关于具体的下载流程及操作，我在这里就不多做叙述了，官方文档中说的已经非常清楚。本次移植过程也是个人摸索得出的，如果有不尽完善的地方，欢迎您提出，我进行验证更正。&lt;/p&gt;</content><category term="IAP"></category><category term="STM32F411VET6"></category><category term="STM32CubeF4"></category></entry><entry><title>简单移植IAP（STSW-STM32067）到STM32F411VET6</title><link href="http://dhlx.wang/STM32F411VET6/Simple_transplant_IAP_STSW-STM32067_to_STM32F411VET6.html" rel="alternate"></link><published>2015-06-12T12:15:00+08:00</published><updated>2015-06-12T12:15:00+08:00</updated><author><name>郭世全</name></author><id>tag:dhlx.wang,2015-06-12:/STM32F411VET6/Simple_transplant_IAP_STSW-STM32067_to_STM32F411VET6.html</id><summary type="html">&lt;p&gt;记录将STM32官方的串口IAP程序（STM32F407）移植到STM32F411VET6过程&lt;/p&gt;</summary><content type="html">
 &lt;p&gt;首先，我需要声明一下，本文所移植的IAP程序仅能用作参考，虽然加入了ymodem的通讯协议，提高了程序文件下载过程中的稳定性，但是由于移植的代码，本身就是示例程序，所以个人不建议直接用在工程中，但是可以作为工程测试、调试和个人DIY所用。&lt;/p&gt;
 &lt;h1 id="_1"&gt;一、准备移植程序和工具&lt;a class="headerlink" href="#_1" title="Permanent link"&gt;¶&lt;/a&gt;&lt;/h1&gt;
 &lt;p&gt;我们在移植IAP的过程中主要用到以下三个东西，一个是STM32F411VET6的开发板，一个是待移植的官方的STM32F4-IAP-USART程序，最后一个就是上位机（支持ymodem），这里最好选用官方建议使用的超级终端（Hypertrm）进行测试。&lt;/p&gt;
@@ -2396,7 +2396,7 @@ PB6、PB7，才可以正常使用，默认的TX引脚上接了一个uF级的电�
 13
 14
 15
-16&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/**&lt;/span&gt;
+16&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="cm"&gt;/**&lt;/span&gt;
 &lt;span class="cm"&gt;* @brief Definition for COM port1, connected to USART3&lt;/span&gt;
 &lt;span class="cm"&gt;*/&lt;/span&gt; 
 &lt;span class="cp"&gt;#define EVAL_COM1                        USART3&lt;/span&gt;
@@ -2430,7 +2430,7 @@ PB6、PB7，才可以正常使用，默认的TX引脚上接了一个uF级的电�
 13
 14
 15
-16&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/**&lt;/span&gt;
+16&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="cm"&gt;/**&lt;/span&gt;
 &lt;span class="cm"&gt;* @brief Definition for COM port1, connected to USART2&lt;/span&gt;
 &lt;span class="cm"&gt;*/&lt;/span&gt; 
 &lt;span class="cp"&gt;#define EVAL_COM1                        USART2&lt;/span&gt;
@@ -2478,7 +2478,7 @@ PB6、PB7，才可以正常使用，默认的TX引脚上接了一个uF级的电�
 23
 24
 25
-26&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/**&lt;/span&gt;
+26&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="cm"&gt;/**&lt;/span&gt;
 &lt;span class="cm"&gt;* @brief  This function does an erase of all user flash area&lt;/span&gt;
 &lt;span class="cm"&gt;* @param  StartSector: start of user flash area&lt;/span&gt;
 &lt;span class="cm"&gt;* @retval 0: user flash area successfully erased&lt;/span&gt;
@@ -2532,7 +2532,7 @@ PB6、PB7，才可以正常使用，默认的TX引脚上接了一个uF级的电�
 23
 24
 25
-26&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/**&lt;/span&gt;
+26&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="cm"&gt;/**&lt;/span&gt;
 &lt;span class="cm"&gt;  * @brief  This function does an erase of all user flash area&lt;/span&gt;
 &lt;span class="cm"&gt;  * @param  StartSector: start of user flash area&lt;/span&gt;
 &lt;span class="cm"&gt;  * @retval 0: user flash area successfully erased&lt;/span&gt;
@@ -2620,7 +2620,7 @@ PB6、PB7，才可以正常使用，默认的TX引脚上接了一个uF级的电�
 56
 57
 58
-59&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/**&lt;/span&gt;
+59&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="cm"&gt;/**&lt;/span&gt;
 &lt;span class="cm"&gt;  * @brief  Gets the sector of a given address&lt;/span&gt;
 &lt;span class="cm"&gt;  * @param  Address: Flash address&lt;/span&gt;
 &lt;span class="cm"&gt;  * @retval The sector of a given address&lt;/span&gt;
@@ -2724,7 +2724,7 @@ PB6、PB7，才可以正常使用，默认的TX引脚上接了一个uF级的电�
 40
 41
 42
-43&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/**&lt;/span&gt;
+43&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="cm"&gt;/**&lt;/span&gt;
 &lt;span class="cm"&gt;  * @brief  Gets the sector of a given address&lt;/span&gt;
 &lt;span class="cm"&gt;  * @param  Address: Flash address&lt;/span&gt;
 &lt;span class="cm"&gt;  * @retval The sector of a given address&lt;/span&gt;
@@ -2810,7 +2810,7 @@ PB6、PB7，才可以正常使用，默认的TX引脚上接了一个uF级的电�
 36
 37
 38
-39&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/**&lt;/span&gt;
+39&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="cm"&gt;/**&lt;/span&gt;
 &lt;span class="cm"&gt;  * @brief  Main program.&lt;/span&gt;
 &lt;span class="cm"&gt;  * @param  None&lt;/span&gt;
 &lt;span class="cm"&gt;  * @retval None&lt;/span&gt;
@@ -2892,7 +2892,7 @@ PB6、PB7，才可以正常使用，默认的TX引脚上接了一个uF级的电�
 38
 39
 40
-41&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/**&lt;/span&gt;
+41&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="cm"&gt;/**&lt;/span&gt;
 &lt;span class="cm"&gt;  * @brief  Main program.&lt;/span&gt;
 &lt;span class="cm"&gt;  * @param  None&lt;/span&gt;
 &lt;span class="cm"&gt;  * @retval None&lt;/span&gt;
@@ -2938,7 +2938,7 @@ PB6、PB7，才可以正常使用，默认的TX引脚上接了一个uF级的电�
 &lt;h1 id="iap_init"&gt;五、修改IAP_Init函数&lt;a class="headerlink" href="#iap_init" title="Permanent link"&gt;¶&lt;/a&gt;&lt;/h1&gt;
 &lt;p&gt;根据您的实际情况修改&lt;code&gt;IAP_Init&lt;/code&gt;函数中的参数。&lt;/p&gt;
 &lt;p&gt;原函数代码如下：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cm"&gt;/**&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="cm"&gt;/**&lt;/span&gt;
 &lt;span class="cm"&gt;  * @brief  Initialize the IAP: Configure USART.&lt;/span&gt;
 &lt;span class="cm"&gt;  * @param  None&lt;/span&gt;
 &lt;span class="cm"&gt;  * @retval None&lt;/span&gt;
@@ -2968,4 +2968,4 @@ void&lt;span class="w"&gt; &lt;/span&gt;IAP_Init&lt;span class="o"&gt;(&lt;/span
 &lt;/pre&gt;&lt;/div&gt;
 &lt;h1 id="_3"&gt;六、结语&lt;a class="headerlink" href="#_3" title="Permanent link"&gt;¶&lt;/a&gt;&lt;/h1&gt;
 &lt;p&gt;关于具体的下载流程及操作，我在这里就不多做叙述了，官方文档中说的已经非常清楚。本次移植过程也是个人摸索得出的，如果有不尽完善的地方，欢迎您提出，我进行验证更正。&lt;/p&gt;
-&lt;p&gt;后续，如果我在工作之余或者工作中有需要，我可能会将IAP的代码移植到HAL库上，如果您已经做了相关工作，希望您可以在不涉及保密条款和其他利益的情况下，抄送一份给我，用于后续研究与参考。谢谢！&lt;/p&gt;</summary><category term="IAP"></category><category term="STM32F411VET6"></category><category term="STSW-STM32067"></category></entry></feed>
+&lt;p&gt;后续，如果我在工作之余或者工作中有需要，我可能会将IAP的代码移植到HAL库上，如果您已经做了相关工作，希望您可以在不涉及保密条款和其他利益的情况下，抄送一份给我，用于后续研究与参考。谢谢！&lt;/p&gt;</content><category term="IAP"></category><category term="STM32F411VET6"></category><category term="STSW-STM32067"></category></entry></feed>
