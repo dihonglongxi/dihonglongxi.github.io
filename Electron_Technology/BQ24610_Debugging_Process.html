@@ -13,7 +13,7 @@
 <meta name="keywords" content="BQ24610, DCDC, PCB, Electron Technology, BQ24610,Buck,DCDC" />
 
 <meta property="og:title" content="BQ24610 详细调试过程和心得  - 第一次电源电路设计与实践 "/>
-<meta property="og:url" content="http://dhlx.wang/Electron_Technology\BQ24610_Debugging_Process.html" />
+<meta property="og:url" content="https://www.dhlx.wang/Electron_Technology\BQ24610_Debugging_Process.html" />
 <meta property="og:description" content="记录BQ24610的详细调试过程和应用实例、获得的收获" />
 <meta property="og:site_name" content="帝鴻龍曦" />
 <meta property="og:article:author" content="郭世全" />
@@ -26,21 +26,21 @@
 </title>
         <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
         <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="http://dhlx.wang/theme/css/pygments.css" media="screen">
-        <link rel="stylesheet" type="text/css" href="http://dhlx.wang/theme/tipuesearch/tipuesearch.css" media="screen">
-        <link rel="stylesheet" type="text/css" href="http://dhlx.wang/theme/css/elegant.css" media="screen">
-        <link rel="stylesheet" type="text/css" href="http://dhlx.wang/theme/css/custom.css" media="screen">
-        <link rel="shortcut icon" href="http://dhlx.wang/theme/images/favicon.ico" type="image/x-icon" type="image/png" />
-        <link rel="icon" href="http://dhlx.wang/theme/images/apple-touch-icon-152x152.png" type="image/png" />
-        <link rel="apple-touch-icon" href="http://dhlx.wang/theme/images/apple-touch-icon.png"  type="image/png" />
-        <link rel="apple-touch-icon" sizes="57x57" href="http://dhlx.wang/theme/images/apple-touch-icon-57x57.png" type="image/png" />
-        <link rel="apple-touch-icon" sizes="72x72" href="http://dhlx.wang/theme/images/apple-touch-icon-72x72.png" type="image/png" />
-        <link rel="apple-touch-icon" sizes="76x76" href="http://dhlx.wang/theme/images/apple-touch-icon-76x76.png" type="image/png" />
-        <link rel="apple-touch-icon" sizes="114x114" href="http://dhlx.wang/theme/images/apple-touch-icon-114x114.png" type="image/png" />
-        <link rel="apple-touch-icon" sizes="120x120" href="http://dhlx.wang/theme/images/apple-touch-icon-120x120.png" type="image/png" />
-        <link rel="apple-touch-icon" sizes="144x144" href="http://dhlx.wang/theme/images/apple-touch-icon-144x144.png" type="image/png" />
-        <link rel="apple-touch-icon" sizes="152x152" href="http://dhlx.wang/theme/images/apple-touch-icon-152x152.png" type="image/png" />
-        <link href="http://dhlx.wang/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="帝鴻龍曦 - Full Atom Feed" />
+        <link rel="stylesheet" type="text/css" href="https://www.dhlx.wang/theme/css/pygments.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="https://www.dhlx.wang/theme/tipuesearch/tipuesearch.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="https://www.dhlx.wang/theme/css/elegant.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="https://www.dhlx.wang/theme/css/custom.css" media="screen">
+        <link rel="shortcut icon" href="https://www.dhlx.wang/theme/images/favicon.ico" type="image/x-icon" type="image/png" />
+        <link rel="icon" href="https://www.dhlx.wang/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://www.dhlx.wang/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="https://www.dhlx.wang/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="https://www.dhlx.wang/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="https://www.dhlx.wang/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="https://www.dhlx.wang/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="https://www.dhlx.wang/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="https://www.dhlx.wang/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://www.dhlx.wang/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link href="https://www.dhlx.wang/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="帝鴻龍曦 - Full Atom Feed" />
 <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -75,14 +75,14 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </a>
-                    <a style="font-size:24px;font-weight:bold;" class="brand" href="http://dhlx.wang/"><span class=site-name><span style="color:black;">帝鴻龍曦</span></span></a>
+                    <a style="font-size:24px;font-weight:bold;" class="brand" href="https://www.dhlx.wang/"><span class=site-name><span style="color:black;">帝鴻龍曦</span></span></a>
                     <div class="nav-collapse collapse">
                         <ul class="nav pull-right top-menu">
-                            <li ><a href="http://dhlx.wang/">Home</a></li>
-                            <li ><a href="http://dhlx.wang/categories.html">Categories</a></li>
-                            <li ><a href="http://dhlx.wang/tags.html">Tags</a></li>
-                            <li ><a href="http://dhlx.wang/archives.html">Archives</a></li>
-                            <li><form class="navbar-search" action="http://dhlx.wang/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                            <li ><a href="https://www.dhlx.wang/">Home</a></li>
+                            <li ><a href="https://www.dhlx.wang/categories.html">Categories</a></li>
+                            <li ><a href="https://www.dhlx.wang/tags.html">Tags</a></li>
+                            <li ><a href="https://www.dhlx.wang/archives.html">Archives</a></li>
+                            <li><form class="navbar-search" action="https://www.dhlx.wang/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                         </ul>
                     </div>
                 </div>
@@ -95,7 +95,7 @@
 <article>
 <div class="row-fluid">
     <header class="page-header span10 offset2">
-    <h1><a href="http://dhlx.wang/Electron_Technology\BQ24610_Debugging_Process.html"> BQ24610 详细调试过程和心得  <small> 第一次电源电路设计与实践 </small>  </a></h1>
+    <h1><a href="https://www.dhlx.wang/Electron_Technology\BQ24610_Debugging_Process.html"> BQ24610 详细调试过程和心得  <small> 第一次电源电路设计与实践 </small>  </a></h1>
     </header>
 </div>
 
@@ -116,7 +116,7 @@
         </nav>
     </div>
     <div class="span8 article-content">
-        <p style="color:red;">&gt;&gt;原创文章，欢迎转载。转载请注明：转载自<a href="http://www.xycoding.com/" target="_blank">帝鴻龍曦</a>，谢谢！</p>
+        <p style="color:red;">&gt;&gt;原创文章，欢迎转载。转载请注明：转载自<a href="http://www.dhlx.wang/" target="_blank">帝鴻龍曦</a>，谢谢！</p>
 
             
             
@@ -134,7 +134,7 @@
 <p>  三种基本拓扑形式，是电感的连接方式决定。若电感放置于输出端，则为Buck拓扑；电感放置于输入端，则是Boost拓扑。当电感连接到地时，就是Buck-Boost拓扑。</p>
 <h1 id="bq24610">二、BQ24610典型应用<a class="headerlink" href="#bq24610" title="Permanent link">¶</a></h1>
 <p>  BQ24610的典型应用如下图所示：</p>
-<p><img alt="BQ24610典型应用" src="http://7xixm3.com1.z0.glb.clouddn.com/images/2016/4/BQ24610_Debugging_Process/0001.PNG"/></p>
+<p><img alt="BQ24610典型应用" src="https://www.dhlx.wang/images/2016/4/BQ24610_Debugging_Process/0001.PNG"/></p>
 <p>  一个典型Buck拓扑的同步开关电源，Q4和Q5分别构成高低边开关，电流和电压经过L1和C12、C13趋于平滑，给外部电池组充电。由于BQ24610带电源路径管理，所以它有两个检流电阻，一个是RAC，检查ADAPTER的输入电流；一个是RSR，检查BUCK拓扑给电池包的充电电流，当系统侧电流和电池包的充电电流达到ADAPTER的最大输入电流时，会优先供给系统，减少电池包的充电功率，以保证后续系统在充电时可以正常工作。其次比较重要的就是一些参数的设置，由于BQ24610是一个低成本的大功率充电的解决方案，所以参数设置采用模拟设置方式，也就是根据输入电压设置，所以这里的一些关键电阻需要采用高精度电阻（1%，0.5%），如R1、R2、R3、R4、R5、R6、R7、R8、R9、R10等，这里特别建议R1和R2采用0.5%的精度，这样可以保证电池不过充，同时电池电压刚刚好。其次就是RSR和RAC一定要选用大品牌大厂家（国巨，Vishay）的检流电阻，否则的话有可能会造成不必要的麻烦。其余部分电路应该很好理解了，D1，C5，C6利用电容两端电压不能突变，构成了一个小型电荷泵，用来驱动NMOS工作；D2，D3，D4用来指示芯片的工作状态；R20、C16构成一个简易的滤波器，滤除ADAPTER的交流分量，也减少充电系统对前级系统的影响；Q1和Q2构成了ADAPTER的控制开关，Q3是电池包供电的开关；C8，C9用来进行储能，减少后续系统对前级系统的干扰。特意说明下，有些电容也存在一定可能性会对系统产生不必要的干扰，建议选用大厂（三星）X7R的5%精度的电容，如CCTC的定时电容。</p>
 <h1 id="_2">三、调试过程中遇到的问题<a class="headerlink" href="#_2" title="Permanent link">¶</a></h1>
 <p>  由于在接手这个设计任务之前，对于开关电源的了解，仅限于会使用LM2576、LM2577、LM2596等常用电路，了解开关电源的常用的三种模型。所以可以说我是电源界的小白吧！经历了这个任务遇到了许多问题，伴随着问题不断的解决，我也逐渐的更加深入的了解了开关电源的特性。下面我就说说我碰到的问题：</p>
@@ -220,7 +220,7 @@
 <h1 id="bq24610-pcb-layout">五、BQ24610 PCB Layout的注意事项<a class="headerlink" href="#bq24610-pcb-layout" title="Permanent link">¶</a></h1>
 <p>  在这里我写的一些注意事项，可能都是电源新手Layout碰到的一些问题，如果有描述不正确，或者不明白的地方，应该是我才疏学浅，能力不到家所致，还请您不吝赐教。</p>
 <p>BQ24610主要的等下电路如下图所示：</p>
-<p><img alt="Buck原理示意图" src="http://7xixm3.com1.z0.glb.clouddn.com/images/2016/4/BQ24610_Debugging_Process/0002.PNG"/></p>
+<p><img alt="Buck原理示意图" src="https://www.dhlx.wang/images/2016/4/BQ24610_Debugging_Process/0002.PNG"/></p>
 <p>  布板布局时应遵从高频回路最短的原则进行布局布线，使开关接点处的开启和关断时间降至最低，减少开关过程中的损耗，同时注意减少高频环路电流，基于这个基本原则，我给出以下的布局布线的意见：</p>
 <ul>
 <li>
@@ -266,13 +266,16 @@
 <p>  以上三点就是这回调试过程中，我总结出来最重要的东西。在开发过程中，做的比较深的时候，出现的问题已经太依赖你现在的环境，如果要找人来帮我，我还要花很长时间给他解释问题产生的原因，他也不会肯花大量时间从头跟进去。像这种问题在网上也找不到类似的答案。此时，虽然没人能帮我，但是我还是可以通过跟别人的讨论来得到一些有用的信息；虽然在网上找不到类似的答案，但我还是在网上一些类似应用的相关信息（比如找到了一个讲Boost的布线原则的，但还是可以应用Buck中的）；结合别人的指导，网络的信息，自己的分析，以前的经验，各种实验的排除，我这次才能完美的几角这个问题。</p>
             
             <section>
-<p id="comment-message">请问您是否有什么想法？或者您认为哪里有不对？有一些地方您没看明白？当然您可也以在下面留下您的见解。 </p>
+<p id="comment-message">請問您是否有什麽想法？或者您認為哪裏有不對？有一些地方您沒看明白？當然您可也以在下面留下您的見解。 </p>
 <div class="accordion" id="accordion2">
     <div class="accordion-group">
         <div class="accordion-heading">
-            <a class="accordion-toggle disqus-comment-count" data-toggle="collapse" data-parent="#accordion2"
-                    data-disqus-identifier="G00012-BQ24610-Debugging-Process"
-                href="http://dhlx.wang/Electron_Technology\BQ24610_Debugging_Process.html#disqus_thread">
+
+                <a class="cloud-tie-join-count" href="javascript:void(0);">
+                <span class="join-count" style="display: none;">0</span>
+            
+            <a id="comments" class="accordion-toggle disqus-comment-count" data-toggle="collapse" data-parent="#accordion2"
+                href="https://www.dhlx.wang/Electron_Technology\BQ24610_Debugging_Process.html#disqus_thread">
                 Comments
             </a>
         </div>
@@ -280,10 +283,11 @@
             <div class="accordion-inner">
                 <div class="comments">
                     <div id="disqus_thread"></div>
+<!--
 <script type="text/javascript">
-    var disqus_shortname = 'dihonglongxi';
-        var disqus_identifier = 'G00012-BQ24610-Debugging-Process';
-    var disqus_url = 'http://dhlx.wang/Electron_Technology\BQ24610_Debugging_Process.html';
+    var disqus_shortname = '';
+        var disqus_identifier = 'https://www.dhlx.wang/Electron_Technology\BQ24610_Debugging_Process.html';
+    var disqus_url = 'https://www.dhlx.wang/Electron_Technology\BQ24610_Debugging_Process.html';
 
     (function() {
          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
@@ -293,6 +297,18 @@
 </script>
 <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+-->
+
+<div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script>
+  var cloudTieConfig = {
+    url: "https://www.dhlx.wang/Electron_Technology\BQ24610_Debugging_Process.html", 
+    sourceId: "G00012-BQ24610-Debugging-Process",
+    productKey: "211637980ecf43d5b3c00eb146f9ba9e",
+    target: "cloud-tie-wrapper"
+  };
+</script>
+<script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
 
                 </div>
             </div>
@@ -305,8 +321,8 @@
             <aside>
             <nav>
             <ul class="articles-timeline">
-                <li class="previous-article">« <a href="http://dhlx.wang/Travels/2016_Start.html" title="Previous: 2016，启程 - 北京到西安跨年之旅">2016，启程 <small>北京到西安跨年之旅</small></a></li>
-                <li class="next-article"><a href="http://dhlx.wang/Travels/2016_QingDao.html" title="Next: 端午去青岛看海">端午去青岛看海</a> »</li>
+                <li class="previous-article">« <a href="https://www.dhlx.wang/Travels/2016_Start.html" title="Previous: 2016，启程 - 北京到西安跨年之旅">2016，启程 <small>北京到西安跨年之旅</small></a></li>
+                <li class="next-article"><a href="https://www.dhlx.wang/Travels/2016_QingDao.html" title="Next: 端午去青岛看海">端午去青岛看海</a> »</li>
             </ul>
             </nav>
             </aside>
@@ -320,16 +336,16 @@
 <time datetime="2016-04-17T16:50:00+08:00">4月 17, 2016</time>
 
             <h4>Category</h4>
-            <a class="category-link" href="http://dhlx.wang/categories.html#electron-technology-ref">Electron Technology</a>
+            <a class="category-link" href="https://www.dhlx.wang/categories.html#electron-technology-ref">Electron Technology</a>
             <h4>Tags</h4>
             <ul class="list-of-tags tags-in-article">
-                <li><a href="http://dhlx.wang/tags.html#bq24610-ref">BQ24610
+                <li><a href="https://www.dhlx.wang/tags.html#bq24610-ref">BQ24610
                     <span>1</span>
 </a></li>
-                <li><a href="http://dhlx.wang/tags.html#dcdc-ref">DCDC
+                <li><a href="https://www.dhlx.wang/tags.html#dcdc-ref">DCDC
                     <span>1</span>
 </a></li>
-                <li><a href="http://dhlx.wang/tags.html#pcb-ref">PCB
+                <li><a href="https://www.dhlx.wang/tags.html#pcb-ref">PCB
                     <span>1</span>
 </a></li>
             </ul>
@@ -356,7 +372,7 @@
         <li class="elegant-power">Powered by <a href="http://getpelican.com/" title="Pelican Home Page">Pelican</a>. Theme: <a href="http://oncrashreboot.com/pelican-elegant" title="Theme Elegant Home Page">Elegant</a> by <a href="http://oncrashreboot.com" title="Talha Mansoor Home Page">Talha Mansoor</a></li>
     </ul>
 </div>
-</footer>            <script src="http://code.jquery.com/jquery.min.js"></script>
+</footer>            <script src="https://code.jquery.com/jquery.min.js"></script>
         <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
         <script>
             function validateForm(query)
@@ -365,8 +381,9 @@
             }
         </script>
 
-            <script type="text/javascript">
-var disqus_shortname = 'dihonglongxi';
+            <!--
+<script type="text/javascript">
+var disqus_shortname = '';
 (function () {
     var s = document.createElement('script'); s.async = true;
     s.type = 'text/javascript';
@@ -374,6 +391,21 @@ var disqus_shortname = 'dihonglongxi';
     (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
 }());
 </script>
+-->
+
+    <script language="javascript" type="text/javascript">
+        function numofcomments() {
+            var num = document.getElementsByClassName('join-count');
+            document.getElementById('comments').innerHTML = num[0].innerHTML + " Comments";
+        }
+        /* 用js实现在加载完成一个页面后自动执行一个方法 */
+        /* 用window.onload调用numofcomments() */
+        window.onload = numofcomments;
+        /* 1S執行一次 */
+        var refreshnumofcommentstask = setInterval(numofcomments,1000);
+    </script>
+
+
 <script  language="javascript" type="text/javascript">
 function uncollapse() {
     if (window.location.hash.match(/^#comment-\d+$/)) {
@@ -390,6 +422,7 @@ window.onhashchange=function(){
 </script>
 <script>
 $('#disqus_thread').on('shown', function () {
+    window.clearInterval(refreshnumofcommentstask);
     var link = document.getElementsByClassName('accordion-toggle');
     var old_innerHTML = link[0].innerHTML;
     $(link[0]).fadeOut(500, function() {
@@ -399,7 +432,9 @@ $('#disqus_thread').on('shown', function () {
         $(link[0]).fadeOut(500, function() {
             $(this).text(old_innerHTML).fadeIn(500);
         });
+        refreshnumofcommentstask = setInterval(numofcomments,1000);
     })
+
 })
 </script>
 

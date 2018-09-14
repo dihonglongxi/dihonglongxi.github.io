@@ -4,105 +4,112 @@ xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitem
 xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
-<loc>http://dhlx.wang/</loc>
-<lastmod>2017-03-01T07:13:21-00:00</lastmod>
+<loc>https://www.dhlx.wang/</loc>
+<lastmod>2018-02-08T20:27:50-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://dhlx.wang/archives.html</loc>
-<lastmod>2017-03-01T07:13:21-00:00</lastmod>
+<loc>https://www.dhlx.wang/archives.html</loc>
+<lastmod>2018-02-08T20:27:50-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://dhlx.wang/tags.html</loc>
-<lastmod>2017-03-01T07:13:21-00:00</lastmod>
+<loc>https://www.dhlx.wang/tags.html</loc>
+<lastmod>2018-02-08T20:27:50-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://dhlx.wang/categories.html</loc>
-<lastmod>2017-03-01T07:13:21-00:00</lastmod>
+<loc>https://www.dhlx.wang/categories.html</loc>
+<lastmod>2018-02-08T20:27:50-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://dhlx.wang/Travels/2016_QingDao.html</loc>
+<loc>https://www.dhlx.wang/Travels/2017_HuiZhou.html</loc>
+<lastmod>2017-03-26T22:43:00+08:00</lastmod>
+<changefreq>monthly</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>https://www.dhlx.wang/Travels/2016_QingDao.html</loc>
 <lastmod>2016-07-10T12:21:00+08:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://dhlx.wang/Electron_Technology\BQ24610_Debugging_Process.html</loc>
+<loc>https://www.dhlx.wang/Electron_Technology\BQ24610_Debugging_Process.html</loc>
 <lastmod>2016-04-17T16:50:00+08:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://dhlx.wang/Travels/2016_Start.html</loc>
+<loc>https://www.dhlx.wang/Travels/2016_Start.html</loc>
 <lastmod>2016-01-02T10:16:00+08:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://dhlx.wang/Diary/The_end_of_2015_wrote_to_myself.html</loc>
+<loc>https://www.dhlx.wang/Diary/The_end_of_2015_wrote_to_myself.html</loc>
 <lastmod>2015-12-26T10:16:00+08:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://dhlx.wang/Computer-Hardware/Overclocking-brick-do-not-be-afraid-do-it-yourself-yourself.html</loc>
+<loc>https://www.dhlx.wang/Computer-Hardware/Overclocking-brick-do-not-be-afraid-do-it-yourself-yourself.html</loc>
 <lastmod>2015-08-08T18:57:00+08:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://dhlx.wang/Book_Review/On_Top_of_Tides.html</loc>
+<loc>https://www.dhlx.wang/Book_Review/On_Top_of_Tides.html</loc>
 <lastmod>2015-07-21T17:39:00+08:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://dhlx.wang/Book_Review/Psychological_Crime.html</loc>
+<loc>https://www.dhlx.wang/Book_Review/Psychological_Crime.html</loc>
 <lastmod>2015-07-18T17:39:00+08:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://dhlx.wang/STM32F411VET6/Porting_FreeModbus_to_STM32F411VET6_based_on_STM32CubeF4.html</loc>
+<loc>https://www.dhlx.wang/STM32F411VET6/Porting_FreeModbus_to_STM32F411VET6_based_on_STM32CubeF4.html</loc>
 <lastmod>2015-07-06T17:35:00+08:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://dhlx.wang/STM32F411VET6/Porting_AN4657_STM32Cube_IAP_using_UART_to_STM32F411VET6.html</loc>
+<loc>https://www.dhlx.wang/STM32F411VET6/Porting_AN4657_STM32Cube_IAP_using_UART_to_STM32F411VET6.html</loc>
 <lastmod>2015-07-24T12:12:00+08:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://dhlx.wang/STM32F411VET6/Simple_transplant_IAP_STSW-STM32067_to_STM32F411VET6.html</loc>
+<loc>https://www.dhlx.wang/STM32F411VET6/Simple_transplant_IAP_STSW-STM32067_to_STM32F411VET6.html</loc>
 <lastmod>2015-06-12T12:15:00+08:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://dhlx.wang/Windows/Win8-1-Update-System-Migration.html</loc>
+<loc>https://www.dhlx.wang/Windows/Win8-1-Update-System-Migration.html</loc>
 <lastmod>2015-08-09T17:18:00+08:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>

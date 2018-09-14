@@ -13,7 +13,7 @@
 <meta name="keywords" content="IAP, STM32F411VET6, STM32CubeF4, STM32F411VET6, IAP, STM32F411VET6, STM32CubeF4" />
 
 <meta property="og:title" content="移植AN4657到STM32F411VET6  - STM32Cube IAP using UART "/>
-<meta property="og:url" content="http://dhlx.wang/STM32F411VET6/Porting_AN4657_STM32Cube_IAP_using_UART_to_STM32F411VET6.html" />
+<meta property="og:url" content="https://www.dhlx.wang/STM32F411VET6/Porting_AN4657_STM32Cube_IAP_using_UART_to_STM32F411VET6.html" />
 <meta property="og:description" content="记录移植AN4657工程到STM32F411VET6的过程" />
 <meta property="og:site_name" content="帝鴻龍曦" />
 <meta property="og:article:author" content="郭世全" />
@@ -26,21 +26,21 @@
 </title>
         <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
         <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="http://dhlx.wang/theme/css/pygments.css" media="screen">
-        <link rel="stylesheet" type="text/css" href="http://dhlx.wang/theme/tipuesearch/tipuesearch.css" media="screen">
-        <link rel="stylesheet" type="text/css" href="http://dhlx.wang/theme/css/elegant.css" media="screen">
-        <link rel="stylesheet" type="text/css" href="http://dhlx.wang/theme/css/custom.css" media="screen">
-        <link rel="shortcut icon" href="http://dhlx.wang/theme/images/favicon.ico" type="image/x-icon" type="image/png" />
-        <link rel="icon" href="http://dhlx.wang/theme/images/apple-touch-icon-152x152.png" type="image/png" />
-        <link rel="apple-touch-icon" href="http://dhlx.wang/theme/images/apple-touch-icon.png"  type="image/png" />
-        <link rel="apple-touch-icon" sizes="57x57" href="http://dhlx.wang/theme/images/apple-touch-icon-57x57.png" type="image/png" />
-        <link rel="apple-touch-icon" sizes="72x72" href="http://dhlx.wang/theme/images/apple-touch-icon-72x72.png" type="image/png" />
-        <link rel="apple-touch-icon" sizes="76x76" href="http://dhlx.wang/theme/images/apple-touch-icon-76x76.png" type="image/png" />
-        <link rel="apple-touch-icon" sizes="114x114" href="http://dhlx.wang/theme/images/apple-touch-icon-114x114.png" type="image/png" />
-        <link rel="apple-touch-icon" sizes="120x120" href="http://dhlx.wang/theme/images/apple-touch-icon-120x120.png" type="image/png" />
-        <link rel="apple-touch-icon" sizes="144x144" href="http://dhlx.wang/theme/images/apple-touch-icon-144x144.png" type="image/png" />
-        <link rel="apple-touch-icon" sizes="152x152" href="http://dhlx.wang/theme/images/apple-touch-icon-152x152.png" type="image/png" />
-        <link href="http://dhlx.wang/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="帝鴻龍曦 - Full Atom Feed" />
+        <link rel="stylesheet" type="text/css" href="https://www.dhlx.wang/theme/css/pygments.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="https://www.dhlx.wang/theme/tipuesearch/tipuesearch.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="https://www.dhlx.wang/theme/css/elegant.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="https://www.dhlx.wang/theme/css/custom.css" media="screen">
+        <link rel="shortcut icon" href="https://www.dhlx.wang/theme/images/favicon.ico" type="image/x-icon" type="image/png" />
+        <link rel="icon" href="https://www.dhlx.wang/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://www.dhlx.wang/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="https://www.dhlx.wang/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="https://www.dhlx.wang/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="https://www.dhlx.wang/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="https://www.dhlx.wang/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="https://www.dhlx.wang/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="https://www.dhlx.wang/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://www.dhlx.wang/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link href="https://www.dhlx.wang/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="帝鴻龍曦 - Full Atom Feed" />
 <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -75,14 +75,14 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </a>
-                    <a style="font-size:24px;font-weight:bold;" class="brand" href="http://dhlx.wang/"><span class=site-name><span style="color:black;">帝鴻龍曦</span></span></a>
+                    <a style="font-size:24px;font-weight:bold;" class="brand" href="https://www.dhlx.wang/"><span class=site-name><span style="color:black;">帝鴻龍曦</span></span></a>
                     <div class="nav-collapse collapse">
                         <ul class="nav pull-right top-menu">
-                            <li ><a href="http://dhlx.wang/">Home</a></li>
-                            <li ><a href="http://dhlx.wang/categories.html">Categories</a></li>
-                            <li ><a href="http://dhlx.wang/tags.html">Tags</a></li>
-                            <li ><a href="http://dhlx.wang/archives.html">Archives</a></li>
-                            <li><form class="navbar-search" action="http://dhlx.wang/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                            <li ><a href="https://www.dhlx.wang/">Home</a></li>
+                            <li ><a href="https://www.dhlx.wang/categories.html">Categories</a></li>
+                            <li ><a href="https://www.dhlx.wang/tags.html">Tags</a></li>
+                            <li ><a href="https://www.dhlx.wang/archives.html">Archives</a></li>
+                            <li><form class="navbar-search" action="https://www.dhlx.wang/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                         </ul>
                     </div>
                 </div>
@@ -95,7 +95,7 @@
 <article>
 <div class="row-fluid">
     <header class="page-header span10 offset2">
-    <h1><a href="http://dhlx.wang/STM32F411VET6/Porting_AN4657_STM32Cube_IAP_using_UART_to_STM32F411VET6.html"> 移植AN4657到STM32F411VET6  <small> STM32Cube IAP using UART </small>  </a></h1>
+    <h1><a href="https://www.dhlx.wang/STM32F411VET6/Porting_AN4657_STM32Cube_IAP_using_UART_to_STM32F411VET6.html"> 移植AN4657到STM32F411VET6  <small> STM32Cube IAP using UART </small>  </a></h1>
     </header>
 </div>
 
@@ -117,7 +117,7 @@
         </nav>
     </div>
     <div class="span8 article-content">
-        <p style="color:red;">&gt;&gt;原创文章，欢迎转载。转载请注明：转载自<a href="http://www.xycoding.com/" target="_blank">帝鴻龍曦</a>，谢谢！</p>
+        <p style="color:red;">&gt;&gt;原创文章，欢迎转载。转载请注明：转载自<a href="http://www.dhlx.wang/" target="_blank">帝鴻龍曦</a>，谢谢！</p>
 
             
             
@@ -972,9 +972,9 @@ PB6、PB7，才可以正常使用，默认的TX引脚上接了一个uF级的电�
 </td></tr></table>
 <h1 id="keil">四、Keil需要修改的位置<a class="headerlink" href="#keil" title="Permanent link">¶</a></h1>
 <p>1、需要根据设置的APP程序起始的位置，设置KEIL中APP程序起始位置与程序空间大小</p>
-<p><img alt="Porting-AN4657-STM32Cube-IAP-using-UART-to-STM32F411VET6-image-0" src="http://7xixm3.com1.z0.glb.clouddn.com/images/2015/7/Porting-AN4657-STM32Cube-IAP-using-UART-to-STM32F411VET6-image-0.png"/></p>
+<p><img alt="Porting-AN4657-STM32Cube-IAP-using-UART-to-STM32F411VET6-image-0" src="https://www.dhlx.wang/images/2015/7/Porting-AN4657-STM32Cube-IAP-using-UART-to-STM32F411VET6-image-0.png"/></p>
 <p>2、需要在User选项卡中增加自定义处理字符串，<code>C:\Program Files\Keil\ARM\ARMCC\bin\fromelf.exe --bin -o .\存放bin的路径\bin文件的名称.bin .\Keil编译后生成的axf的路径\axf文件的名称.axf</code></p>
-<p><img alt="Porting-AN4657-STM32Cube-IAP-using-UART-to-STM32F411VET6-image-1" src="http://7xixm3.com1.z0.glb.clouddn.com/images/2015/7/Porting-AN4657-STM32Cube-IAP-using-UART-to-STM32F411VET6-image-1.png"/></p>
+<p><img alt="Porting-AN4657-STM32Cube-IAP-using-UART-to-STM32F411VET6-image-1" src="https://www.dhlx.wang/images/2015/7/Porting-AN4657-STM32Cube-IAP-using-UART-to-STM32F411VET6-image-1.png"/></p>
 <h1 id="_4">五、设置中断向量表偏移<a class="headerlink" href="#_4" title="Permanent link">¶</a></h1>
 <p>需要在<code>main.c</code>文件中的<code>/* USER CODE BEGIN 1 */</code>和<code>/* USER CODE END 1 */</code>之间增加一条设置中断向量表的语句<code>SCB-&gt;VTOR = FLASH_BASE | 0x4000;</code>，如下所示。</p>
 <p>main.c增加的代码示意如下：</p>
@@ -989,13 +989,16 @@ PB6、PB7，才可以正常使用，默认的TX引脚上接了一个uF级的电�
 <p>关于具体的下载流程及操作，我在这里就不多做叙述了，官方文档中说的已经非常清楚。本次移植过程也是个人摸索得出的，如果有不尽完善的地方，欢迎您提出，我进行验证更正。</p>
             
             <section>
-<p id="comment-message">请问您是否有什么想法？或者您认为哪里有不对？有一些地方您没看明白？当然您可也以在下面留下您的见解。 </p>
+<p id="comment-message">請問您是否有什麽想法？或者您認為哪裏有不對？有一些地方您沒看明白？當然您可也以在下面留下您的見解。 </p>
 <div class="accordion" id="accordion2">
     <div class="accordion-group">
         <div class="accordion-heading">
-            <a class="accordion-toggle disqus-comment-count" data-toggle="collapse" data-parent="#accordion2"
-                    data-disqus-identifier="G00006-Porting-AN4657-STM32Cube-IAP-using-UART-to-STM32F411VET6"
-                href="http://dhlx.wang/STM32F411VET6/Porting_AN4657_STM32Cube_IAP_using_UART_to_STM32F411VET6.html#disqus_thread">
+
+                <a class="cloud-tie-join-count" href="javascript:void(0);">
+                <span class="join-count" style="display: none;">0</span>
+            
+            <a id="comments" class="accordion-toggle disqus-comment-count" data-toggle="collapse" data-parent="#accordion2"
+                href="https://www.dhlx.wang/STM32F411VET6/Porting_AN4657_STM32Cube_IAP_using_UART_to_STM32F411VET6.html#disqus_thread">
                 Comments
             </a>
         </div>
@@ -1003,10 +1006,11 @@ PB6、PB7，才可以正常使用，默认的TX引脚上接了一个uF级的电�
             <div class="accordion-inner">
                 <div class="comments">
                     <div id="disqus_thread"></div>
+<!--
 <script type="text/javascript">
-    var disqus_shortname = 'dihonglongxi';
-        var disqus_identifier = 'G00006-Porting-AN4657-STM32Cube-IAP-using-UART-to-STM32F411VET6';
-    var disqus_url = 'http://dhlx.wang/STM32F411VET6/Porting_AN4657_STM32Cube_IAP_using_UART_to_STM32F411VET6.html';
+    var disqus_shortname = '';
+        var disqus_identifier = 'https://www.dhlx.wang/STM32F411VET6/Porting_AN4657_STM32Cube_IAP_using_UART_to_STM32F411VET6.html';
+    var disqus_url = 'https://www.dhlx.wang/STM32F411VET6/Porting_AN4657_STM32Cube_IAP_using_UART_to_STM32F411VET6.html';
 
     (function() {
          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
@@ -1016,6 +1020,18 @@ PB6、PB7，才可以正常使用，默认的TX引脚上接了一个uF级的电�
 </script>
 <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+-->
+
+<div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script>
+  var cloudTieConfig = {
+    url: "https://www.dhlx.wang/STM32F411VET6/Porting_AN4657_STM32Cube_IAP_using_UART_to_STM32F411VET6.html", 
+    sourceId: "G00006-Porting-AN4657-STM32Cube-IAP-using-UART-to-STM32F411VET6",
+    productKey: "211637980ecf43d5b3c00eb146f9ba9e",
+    target: "cloud-tie-wrapper"
+  };
+</script>
+<script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
 
                 </div>
             </div>
@@ -1028,8 +1044,8 @@ PB6、PB7，才可以正常使用，默认的TX引脚上接了一个uF级的电�
             <aside>
             <nav>
             <ul class="articles-timeline">
-                <li class="previous-article">« <a href="http://dhlx.wang/STM32F411VET6/Simple_transplant_IAP_STSW-STM32067_to_STM32F411VET6.html" title="Previous: 简单移植IAP（STSW-STM32067）到STM32F411VET6">简单移植IAP（STSW-STM32067）到STM32F411VET6</a></li>
-                <li class="next-article"><a href="http://dhlx.wang/STM32F411VET6/Porting_FreeModbus_to_STM32F411VET6_based_on_STM32CubeF4.html" title="Next: 基于STM32CubeF4移植FreeModbus到STM32F411VET6">基于STM32CubeF4移植FreeModbus到STM32F411VET6</a> »</li>
+                <li class="previous-article">« <a href="https://www.dhlx.wang/STM32F411VET6/Simple_transplant_IAP_STSW-STM32067_to_STM32F411VET6.html" title="Previous: 简单移植IAP（STSW-STM32067）到STM32F411VET6">简单移植IAP（STSW-STM32067）到STM32F411VET6</a></li>
+                <li class="next-article"><a href="https://www.dhlx.wang/STM32F411VET6/Porting_FreeModbus_to_STM32F411VET6_based_on_STM32CubeF4.html" title="Next: 基于STM32CubeF4移植FreeModbus到STM32F411VET6">基于STM32CubeF4移植FreeModbus到STM32F411VET6</a> »</li>
             </ul>
             </nav>
             </aside>
@@ -1043,16 +1059,16 @@ PB6、PB7，才可以正常使用，默认的TX引脚上接了一个uF级的电�
 <time datetime="2015-07-24T12:12:00+08:00">7月 24, 2015</time>
 
             <h4>Category</h4>
-            <a class="category-link" href="http://dhlx.wang/categories.html#stm32f411vet6-ref">STM32F411VET6</a>
+            <a class="category-link" href="https://www.dhlx.wang/categories.html#stm32f411vet6-ref">STM32F411VET6</a>
             <h4>Tags</h4>
             <ul class="list-of-tags tags-in-article">
-                <li><a href="http://dhlx.wang/tags.html#iap-ref">IAP
+                <li><a href="https://www.dhlx.wang/tags.html#iap-ref">IAP
                     <span>2</span>
 </a></li>
-                <li><a href="http://dhlx.wang/tags.html#stm32cubef4-ref">STM32CubeF4
+                <li><a href="https://www.dhlx.wang/tags.html#stm32cubef4-ref">STM32CubeF4
                     <span>2</span>
 </a></li>
-                <li><a href="http://dhlx.wang/tags.html#stm32f411vet6-ref">STM32F411VET6
+                <li><a href="https://www.dhlx.wang/tags.html#stm32f411vet6-ref">STM32F411VET6
                     <span>3</span>
 </a></li>
             </ul>
@@ -1079,7 +1095,7 @@ PB6、PB7，才可以正常使用，默认的TX引脚上接了一个uF级的电�
         <li class="elegant-power">Powered by <a href="http://getpelican.com/" title="Pelican Home Page">Pelican</a>. Theme: <a href="http://oncrashreboot.com/pelican-elegant" title="Theme Elegant Home Page">Elegant</a> by <a href="http://oncrashreboot.com" title="Talha Mansoor Home Page">Talha Mansoor</a></li>
     </ul>
 </div>
-</footer>            <script src="http://code.jquery.com/jquery.min.js"></script>
+</footer>            <script src="https://code.jquery.com/jquery.min.js"></script>
         <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
         <script>
             function validateForm(query)
@@ -1088,8 +1104,9 @@ PB6、PB7，才可以正常使用，默认的TX引脚上接了一个uF级的电�
             }
         </script>
 
-            <script type="text/javascript">
-var disqus_shortname = 'dihonglongxi';
+            <!--
+<script type="text/javascript">
+var disqus_shortname = '';
 (function () {
     var s = document.createElement('script'); s.async = true;
     s.type = 'text/javascript';
@@ -1097,6 +1114,21 @@ var disqus_shortname = 'dihonglongxi';
     (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
 }());
 </script>
+-->
+
+    <script language="javascript" type="text/javascript">
+        function numofcomments() {
+            var num = document.getElementsByClassName('join-count');
+            document.getElementById('comments').innerHTML = num[0].innerHTML + " Comments";
+        }
+        /* 用js实现在加载完成一个页面后自动执行一个方法 */
+        /* 用window.onload调用numofcomments() */
+        window.onload = numofcomments;
+        /* 1S執行一次 */
+        var refreshnumofcommentstask = setInterval(numofcomments,1000);
+    </script>
+
+
 <script  language="javascript" type="text/javascript">
 function uncollapse() {
     if (window.location.hash.match(/^#comment-\d+$/)) {
@@ -1113,6 +1145,7 @@ window.onhashchange=function(){
 </script>
 <script>
 $('#disqus_thread').on('shown', function () {
+    window.clearInterval(refreshnumofcommentstask);
     var link = document.getElementsByClassName('accordion-toggle');
     var old_innerHTML = link[0].innerHTML;
     $(link[0]).fadeOut(500, function() {
@@ -1122,7 +1155,9 @@ $('#disqus_thread').on('shown', function () {
         $(link[0]).fadeOut(500, function() {
             $(this).text(old_innerHTML).fadeIn(500);
         });
+        refreshnumofcommentstask = setInterval(numofcomments,1000);
     })
+
 })
 </script>
 
