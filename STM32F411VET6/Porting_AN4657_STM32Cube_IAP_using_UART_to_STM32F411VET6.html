@@ -1,12 +1,19 @@
 <!DOCTYPE html>
-<html lang="en-US">
+<html lang="zh_cn">
     <head>
-        <meta charset="utf-8"> 
+        <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="author" content="郭世全" />
-        <meta name="copyright" content="郭世全" />
+        <link rel="stylesheet" type="text/css" href="../theme/css/elegant.prod.9e9d5ce754.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="../theme/css/custom.css" media="screen">
 
+        <link rel="dns-prefetch" href="//fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+
+        <meta name="author" content="郭世全" />
+
+        <meta name="description" content="记录移植AN4657工程到STM32F411VET6的过程
+" />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
@@ -18,19 +25,13 @@
 <meta property="og:site_name" content="帝鴻龍曦" />
 <meta property="og:article:author" content="郭世全" />
 <meta property="og:article:published_time" content="2015-07-03T16:00:00+08:00" />
-<meta property="" content="2015-07-24T12:12:00+08:00" />
+<meta property="og:article:modified_time" content="2015-07-24T12:12:00+08:00" />
 <meta name="twitter:title" content="移植AN4657到STM32F411VET6  - STM32Cube IAP using UART ">
 <meta name="twitter:description" content="记录移植AN4657工程到STM32F411VET6的过程">
 
         <title>移植AN4657到STM32F411VET6  - STM32Cube IAP using UART  · 帝鴻龍曦
 </title>
-        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
-        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="../theme/css/pygments.css" media="screen">
-        <link rel="stylesheet" type="text/css" href="../theme/tipuesearch/tipuesearch.css" media="screen">
-        <link rel="stylesheet" type="text/css" href="../theme/css/elegant.css" media="screen">
-        <link rel="stylesheet" type="text/css" href="../theme/css/custom.css" media="screen">
-        <link rel="shortcut icon" href="../theme/images/favicon.ico" type="image/x-icon" type="image/png" />
+        <link rel="shortcut icon" href="../theme/images/favicon.ico" type="image/x-icon" />
         <link rel="icon" href="../theme/images/apple-touch-icon-152x152.png" type="image/png" />
         <link rel="apple-touch-icon" href="../theme/images/apple-touch-icon.png"  type="image/png" />
         <link rel="apple-touch-icon" sizes="57x57" href="../theme/images/apple-touch-icon-57x57.png" type="image/png" />
@@ -40,53 +41,53 @@
         <link rel="apple-touch-icon" sizes="120x120" href="../theme/images/apple-touch-icon-120x120.png" type="image/png" />
         <link rel="apple-touch-icon" sizes="144x144" href="../theme/images/apple-touch-icon-144x144.png" type="image/png" />
         <link rel="apple-touch-icon" sizes="152x152" href="../theme/images/apple-touch-icon-152x152.png" type="image/png" />
-        <script src="https://code.jquery.com/jquery.min.js"></script>
-        <script language="JavaScript" src="/theme/DetectMobileBrowser/DetectBrowser.js"></script>
-        <script language="javascript">
-        <!-- 
-            var str = navigator.userAgent;
-            if (str.indexOf("ndroid") > 0 || str.indexOf("iPhone") > 0|| str.indexOf("iPad") > 0||str.indexOf("iPod")>0) 
-            {
-                document.write("<script language='JavaScript' src='/theme/layer/mobile/layer.m.js'></script>"); 
-            } 
-            else 
-            {
-                document.write("<script language='JavaScript' src='/theme/layer/layer.js'></script>"); 
-            }
-        -->
-        </script>
+        <link rel="apple-touch-icon" sizes="152x152" href="../theme/images/apple-touch-icon-180x180.png" type="image/png" />
+
+
+
     </head>
     <body>
-        <div id="content-sans-footer">
-        <div class="navbar navbar-static-top">
-            <div class="navbar-inner">
-                <div class="container">
-                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </a>
-                    <a style="font-size:24px;font-weight:bold;" class="brand" href="../"><span class=site-name><span style="color:black;">帝鴻龍曦</span></span></a>
-                    <div class="nav-collapse collapse">
-                        <ul class="nav pull-right top-menu">
-                            <li ><a href="../">Home</a></li>
-                            <li ><a href="../categories.html">Categories</a></li>
-                            <li ><a href="../tags.html">Tags</a></li>
-                            <li ><a href="../archives.html">Archives</a></li>
-                            <li><form class="navbar-search" action="../search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
-                        </ul>
+        <div id="content">
+            <div class="navbar navbar-static-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="../"><span class=site-name><span style="color:black;">帝鴻龍曦</span></span></a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav pull-right top-menu">
+                                <li >
+                                    <a href=
+                                       ..
+                                    >Home</a>
+                                </li>
+                                <li ><a href="../categories.html">Categories</a></li>
+                                <li ><a href="../tags.html">Tags</a></li>
+                                <li ><a href="../archives.html">Archives</a></li>
+                                <li><form class="navbar-search" action="../search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="container-fluid">
-            <div class="row-fluid">
-                <div class="span1"></div>
-                <div class="span10">
-<article>
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span1"></div>
+                    <div class="span10">
+<article itemscope>
 <div class="row-fluid">
     <header class="page-header span10 offset2">
-    <h1><a href="../STM32F411VET6/Porting_AN4657_STM32Cube_IAP_using_UART_to_STM32F411VET6.html"> 移植AN4657到STM32F411VET6  <small> STM32Cube IAP using UART </small>  </a></h1>
+        <h1>
+            <a href="../STM32F411VET6/Porting_AN4657_STM32Cube_IAP_using_UART_to_STM32F411VET6.html">
+                移植AN4657到STM32F411VET6
+                <small class="subtitle">
+                    STM32Cube IAP using UART
+                </small>
+            </a>
+        </h1>
     </header>
 </div>
 
@@ -108,317 +109,311 @@
         </nav>
     </div>
     <div class="span8 article-content">
-        <p style="color:red;">&gt;&gt;原创文章，欢迎转载。转载请注明：转载自<a href="http://www.dhlx.wang/" target="_blank">帝鴻龍曦</a>，谢谢！</p>
-
             
             
 <p>首先，我需要声明一下，本文所移植的IAP程序仅能用作参考，虽然加入了ymodem的通讯协议，提高了程序文件下载过程中的稳定性，但是由于移植的代码，本身就是示例程序，所以个人不建议直接用在工程中，但是可以作为工程测试、调试和个人DIY所用。</p>
 <h1 id="_1">一、准备移植程序和工具<a class="headerlink" href="#_1" title="Permanent link">¶</a></h1>
 <p>我们在移植AN4657到STM32F411VET6的过程中主要用到以下程序和工具：</p>
 <ul>
-<li><a href="http://www.st.com/web/catalog/tools/FM116/SC959/SS1532/LN1848/PF260946?s_searchtype=partnumber">32F411EDISCOVERY</a></li>
-<li><a href="http://www.st.com/web/en/catalog/tools/FM147/CL1794/SC961/SS1743/LN1920/PF262163?s_searchtype=keyword">X-CUBE-IAP-USART(AN4657)</a></li>
+<li><a href="http://www.st.com/web/catalog/tools/FM116/SC959/SS1532/LN1848/PF260946?s_searchtype=partnumber"><span class="caps">32F411EDISCOVERY</span></a></li>
+<li><a href="http://www.st.com/web/en/catalog/tools/FM147/CL1794/SC961/SS1743/LN1920/PF262163?s_searchtype=keyword">X-<span class="caps">CUBE</span>-<span class="caps">IAP</span>-<span class="caps">USART</span>(<span class="caps">AN4657</span>)</a></li>
 <li><a href="https://www.hilgraeve.com/hyperterminal/">Hypertrm</a></li>
 <li><a href="http://www.st.com/web/catalog/tools/FM147/CL1794/SC961/SS1533/PF259242?sc=stm32cube">STM32CubeMX_V4.8.0</a></li>
 <li><a href="http://www.st.com/web/en/catalog/tools/PF259243">STM32Cube_FW_F4_V1.6.0</a></li>
 <li><a href="https://www.keil.com/download/product/">Keil_MDK_ARM_V5.15.0</a></li>
 </ul>
-<p>AN4657-STM32Cube_IAP_using_UART\Projects\STM3210C_EVAL\IAP_Main\Inc
-AN4657-STM32Cube_IAP_using_UART\Projects\STM3210C_EVAL\IAP_Main\Src</p>
+<p><span class="caps">AN4657</span>-STM32Cube_IAP_using_UART\Projects\STM3210C_EVAL\IAP_Main\Inc
+<span class="caps">AN4657</span>-STM32Cube_IAP_using_UART\Projects\STM3210C_EVAL\IAP_Main\Src</p>
 <h1 id="_2">二、拷贝需要的文件到工程目录下<a class="headerlink" href="#_2" title="Permanent link">¶</a></h1>
 <p>1、解压缩通过下载得到的AN4657压缩包。</p>
-<p>2、拷贝路径（AN4657-STM32Cube_IAP_using_UART\Projects\STM3210C_EVAL\IAP_Main\Inc）中的<code>common.h</code>、<code>flash_if.h</code>、<code>menu.h</code>、<code>ymodem.h</code>到我们自己的工程路径下的Inc文件夹中。</p>
-<p>3、拷贝路径（AN4657-STM32Cube_IAP_using_UART\Projects\STM3210C_EVAL\IAP_Main\Src）中的<code>common.c</code>、<code>flash_if.c</code>、<code>menu.c</code>、<code>ymodem.c</code>到我们自己的工程路径下的Src文件夹中，并在keil中添加相应的文件。</p>
+<p>2、拷贝路径（<span class="caps">AN4657</span>-STM32Cube_IAP_using_UART\Projects\STM3210C_EVAL\IAP_Main\Inc）中的<code>common.h</code>、<code>flash_if.h</code>、<code>menu.h</code>、<code>ymodem.h</code>到我们自己的工程路径下的Inc文件夹中。</p>
+<p>3、拷贝路径（<span class="caps">AN4657</span>-STM32Cube_IAP_using_UART\Projects\STM3210C_EVAL\IAP_Main\Src）中的<code>common.c</code>、<code>flash_if.c</code>、<code>menu.c</code>、<code>ymodem.c</code>到我们自己的工程路径下的Src文件夹中，并在keil中添加相应的文件。</p>
 <h1 id="_3">三、修改串口的基本设置<a class="headerlink" href="#_3" title="Permanent link">¶</a></h1>
 <p>串口的基本设置在STM32Cube可以进行设置，并生成相应的设置代码，但在我们的移植文件中需要用到串口设置，故我们需要在<code>common.c</code>、<code>menu.c</code>、<code>ymodem.c</code>三个文件中进行修改，我的示例代码是用USART1作为演示。</p>
 <p><code>common.c</code>修改部分如下所示：</p>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/** @addtogroup STM32F4xx_IAP_Main</span>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="cm">/** @addtogroup STM32F4xx_IAP_Main</span>
 <span class="cm">* @{</span>
 <span class="cm">*/</span>
 
 <span class="cm">/* Includes -------------------------------------------------------------*/</span>
 <span class="c1">//根据实际情况修改引用的头文件，在原先程序中删除main.h的引用，加入stm32f4xx_hal.h和</span>
 <span class="c1">//usart.h的引用。</span>
-<span class="cp">#include</span> <span class="cpf">"common.h"</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">"stm32f4xx_hal.h"</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">"usart.h"</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"common.h"</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"stm32f4xx_hal.h"</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"usart.h"</span>
 
 <span class="cm">/* Private typedef ------------------------------------------------------*/</span>
 <span class="cm">/* Private define -------------------------------------------------------*/</span>
 <span class="c1">//为了修改方便，直接对UartHandle进行#define操作，镜像到实际使用的串口配置</span>
 <span class="c1">//文件</span>
 <span class="cp">#ifndef UartHandle</span>
-    <span class="cp">#define UartHandle huart1</span>
+<span class="w">    </span><span class="cp">#define UartHandle huart1</span>
 <span class="cp">#endif</span>
 <span class="cm">/* Private macro --------------------------------------------------------*/</span>
 <span class="cm">/* Private variables ----------------------------------------------------*/</span>
 <span class="cm">/* Private function prototypes ------------------------------------------*/</span>
 <span class="cm">/* Private functions ----------------------------------------------------*/</span>
-</pre></div>
-</td></tr></table>
+</code></pre></div></td></tr></table></div>
 <p><code>menu.c</code>修改部分如下所示：</p>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/** @addtogroup STM32F4xx_IAP</span>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="cm">/** @addtogroup STM32F4xx_IAP</span>
 <span class="cm">* @{</span>
 <span class="cm">*/</span>
 
 <span class="cm">/* Includes -------------------------------------------------------------*/</span>
 <span class="c1">//根据实际情况修改引用的头文件，在原先程序中删除main.h的引用，加入stm32f4xx_hal.h和</span>
 <span class="c1">//usart.h的引用。</span>
-<span class="cp">#include</span> <span class="cpf">"common.h"</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">"flash_if.h"</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">"menu.h"</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">"ymodem.h"</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">"stm32f4xx_hal.h"</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">"usart.h"</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"common.h"</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"flash_if.h"</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"menu.h"</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"ymodem.h"</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"stm32f4xx_hal.h"</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"usart.h"</span>
 
 <span class="cm">/* Private typedef ------------------------------------------------------*/</span>
 <span class="cm">/* Private define -------------------------------------------------------*/</span>
 <span class="c1">//为了修改方便，直接对UartHandle进行#define操作，镜像到实际使用的串口配置</span>
 <span class="c1">//文件</span>
 <span class="cp">#ifndef UartHandle</span>
-  <span class="cp">#define UartHandle huart1</span>
+<span class="w">  </span><span class="cp">#define UartHandle huart1</span>
 <span class="cp">#endif</span>
 <span class="cm">/* Private macro --------------------------------------------------------*/</span>
 <span class="cm">/* Private variables ----------------------------------------------------*/</span>
-</pre></div>
-</td></tr></table>
+</code></pre></div></td></tr></table></div>
 <p><code>ymodem.c</code>修改部分如下所示：</p>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/** @addtogroup STM32F4xx_IAP</span>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="cm">/** @addtogroup STM32F4xx_IAP</span>
 <span class="cm">* @{</span>
 <span class="cm">*/</span>
 
 <span class="cm">/* Includes -------------------------------------------------------------*/</span>
 <span class="c1">//根据实际情况修改引用的头文件，在原先程序中删除main.h的引用，加入stm32f4xx_hal.h和</span>
 <span class="c1">//usart.h的引用。</span>
-<span class="cp">#include</span> <span class="cpf">"flash_if.h"</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">"common.h"</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">"ymodem.h"</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">"string.h"</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">"menu.h"</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">"stm32f4xx_hal.h"</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">"usart.h"</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"flash_if.h"</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"common.h"</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"ymodem.h"</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"string.h"</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"menu.h"</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"stm32f4xx_hal.h"</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"usart.h"</span>
 
 <span class="cm">/* Private typedef ------------------------------------------------------*/</span>
 <span class="cm">/* Private define -------------------------------------------------------*/</span>
 <span class="c1">//为了修改方便，直接对UartHandle进行#define操作，镜像到实际使用的串口配置</span>
 <span class="c1">//文件</span>
 <span class="cp">#ifndef UartHandle</span>
-  <span class="cp">#define UartHandle huart1</span>
+<span class="w">  </span><span class="cp">#define UartHandle huart1</span>
 <span class="cp">#endif</span>
 
-<span class="cp">#define CRC16_F       </span><span class="cm">/* activate the CRC16 integrity */</span><span class="cp"></span>
+<span class="cp">#define CRC16_F       </span><span class="cm">/* activate the CRC16 integrity */</span>
 <span class="cm">/* Private macro --------------------------------------------------------*/</span>
 <span class="cm">/* Private variables ----------------------------------------------------*/</span>
-</pre></div>
-</td></tr></table>
-<p>P.S. </p>
+</code></pre></div></td></tr></table></div>
+<p><span class="caps">P.S.</span> </p>
 <p>1、<code>common.h</code>、<code>menu.h</code>、<code>ymodem.h</code>基本不需要任何修改，直接就可以用。</p>
 <p>2、如果使用<code>32F411EDISCOVERY</code>，请您注意不要使用默认的USART1的IO设置，需要更改为
-PB6、PB7，才可以正常使用，默认的TX引脚上接了一个uF级的电容，我因为这个事情调试了很长时间。</p>
+<span class="caps">PB6</span>、<span class="caps">PB7</span>，才可以正常使用，默认的TX引脚上接了一个uF级的电容，我因为这个事情调试了很长时间。</p>
 <h1 id="flash">三、修改FLASH操作函数及其定义<a class="headerlink" href="#flash" title="Permanent link">¶</a></h1>
-<p>在整个移植过程中，重头戏就是对<code>flash_if.h</code>和<code>flash_if.c</code>的移植，里面涉及到很多
-处修改，大部分修改是因为M4系列的MCU对FLASH的操作，没有页（Page）的概念，只有扇区（Sector）的操作函数造成的。</p>
-<p>所以，综上所述需要先将各种Page（PAGE、page）换成Sector，这样基本上可以解决掉一批错误。</p>
+<p>在整个移植过程中，重头戏就是对<code>flash_if.h</code>和<code>flash_if.c</code>的移植，里面涉及到很多 处修改，大部分修改是因为M4系列的MCU对FLASH的操作，没有页（Page）的概念，只有扇区（Sector）的操作函数造成的。</p>
+<p>所以，综上所述需要先将各种Page（<span class="caps">PAGE</span>、page）换成Sector，这样基本上可以解决掉一批错误。</p>
 <p><code>flash_if.h</code>修改后如下所示：</p>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36
-37
-38
-39
-40
-41
-42
-43
-44
-45
-46
-47
-48
-49
-50
-51
-52
-53
-54
-55
-56
-57
-58
-59
-60
-61
-62
-63
-64
-65
-66
-67
-68
-69
-70
-71
-72
-73
-74
-75
-76
-77</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/* Define to prevent recursive inclusion --------------------------------*/</span>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="cm">/* Define to prevent recursive inclusion --------------------------------*/</span>
 <span class="cp">#ifndef __FLASH_IF_H</span>
 <span class="cp">#define __FLASH_IF_H</span>
 
 <span class="cm">/* Includes -------------------------------------------------------------*/</span>
 <span class="c1">//修改引用的头文件为F4的</span>
-<span class="cp">#include</span> <span class="cpf">"stm32f4xx_hal.h"</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"stm32f4xx_hal.h"</span>
 
 <span class="cm">/* Exported types -------------------------------------------------------*/</span>
 <span class="cm">/* Exported constants ---------------------------------------------------*/</span>
 
 <span class="cm">/* Base address of the Flash sectors */</span>
 <span class="c1">//定义扇区名和地址之间的关系，方便根据地址获取扇区的编号</span>
-<span class="cp">#define ADDR_FLASH_SECTOR_0     ((uint32_t)0x08000000) </span><span class="cm">/* Base @ of Sector 0, 16 Kbyte */</span><span class="cp"></span>
-<span class="cp">#define ADDR_FLASH_SECTOR_1     ((uint32_t)0x08004000) </span><span class="cm">/* Base @ of Sector 1, 16 Kbyte */</span><span class="cp"></span>
-<span class="cp">#define ADDR_FLASH_SECTOR_2     ((uint32_t)0x08008000) </span><span class="cm">/* Base @ of Sector 2, 16 Kbyte */</span><span class="cp"></span>
-<span class="cp">#define ADDR_FLASH_SECTOR_3     ((uint32_t)0x0800C000) </span><span class="cm">/* Base @ of Sector 3, 16 Kbyte */</span><span class="cp"></span>
-<span class="cp">#define ADDR_FLASH_SECTOR_4     ((uint32_t)0x08010000) </span><span class="cm">/* Base @ of Sector 4, 64 Kbyte */</span><span class="cp"></span>
-<span class="cp">#define ADDR_FLASH_SECTOR_5     ((uint32_t)0x08020000) </span><span class="cm">/* Base @ of Sector 5, 128 Kbyte */</span><span class="cp"></span>
-<span class="cp">#define ADDR_FLASH_SECTOR_6     ((uint32_t)0x08040000) </span><span class="cm">/* Base @ of Sector 6, 128 Kbyte */</span><span class="cp"></span>
-<span class="cp">#define ADDR_FLASH_SECTOR_7     ((uint32_t)0x08060000) </span><span class="cm">/* Base @ of Sector 7, 128 Kbyte */</span><span class="cp"></span>
+<span class="cp">#define ADDR_FLASH_SECTOR_0     ((uint32_t)0x08000000) </span><span class="cm">/* Base @ of Sector 0, 16 Kbyte */</span>
+<span class="cp">#define ADDR_FLASH_SECTOR_1     ((uint32_t)0x08004000) </span><span class="cm">/* Base @ of Sector 1, 16 Kbyte */</span>
+<span class="cp">#define ADDR_FLASH_SECTOR_2     ((uint32_t)0x08008000) </span><span class="cm">/* Base @ of Sector 2, 16 Kbyte */</span>
+<span class="cp">#define ADDR_FLASH_SECTOR_3     ((uint32_t)0x0800C000) </span><span class="cm">/* Base @ of Sector 3, 16 Kbyte */</span>
+<span class="cp">#define ADDR_FLASH_SECTOR_4     ((uint32_t)0x08010000) </span><span class="cm">/* Base @ of Sector 4, 64 Kbyte */</span>
+<span class="cp">#define ADDR_FLASH_SECTOR_5     ((uint32_t)0x08020000) </span><span class="cm">/* Base @ of Sector 5, 128 Kbyte */</span>
+<span class="cp">#define ADDR_FLASH_SECTOR_6     ((uint32_t)0x08040000) </span><span class="cm">/* Base @ of Sector 6, 128 Kbyte */</span>
+<span class="cp">#define ADDR_FLASH_SECTOR_7     ((uint32_t)0x08060000) </span><span class="cm">/* Base @ of Sector 7, 128 Kbyte */</span>
 <span class="cm">/* Error code */</span>
-<span class="k">enum</span> 
+<span class="k">enum</span><span class="w"> </span>
 <span class="p">{</span>
-  <span class="n">FLASHIF_OK</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-  <span class="n">FLASHIF_ERASEKO</span><span class="p">,</span>
-  <span class="n">FLASHIF_WRITINGCTRL_ERROR</span><span class="p">,</span>
-  <span class="n">FLASHIF_WRITING_ERROR</span><span class="p">,</span>
-  <span class="n">FLASHIF_PROTECTION_ERRROR</span>
+<span class="w">  </span><span class="n">FLASHIF_OK</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">  </span><span class="n">FLASHIF_ERASEKO</span><span class="p">,</span>
+<span class="w">  </span><span class="n">FLASHIF_WRITINGCTRL_ERROR</span><span class="p">,</span>
+<span class="w">  </span><span class="n">FLASHIF_WRITING_ERROR</span><span class="p">,</span>
+<span class="w">  </span><span class="n">FLASHIF_PROTECTION_ERRROR</span>
 <span class="p">};</span>
 
-<span class="cm">/* protection type */</span>  
+<span class="cm">/* protection type */</span><span class="w">  </span>
 <span class="k">enum</span><span class="p">{</span>
-  <span class="n">FLASHIF_PROTECTION_NONE</span>         <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-  <span class="n">FLASHIF_PROTECTION_PCROPENABLED</span> <span class="o">=</span> <span class="mh">0x1</span><span class="p">,</span>
-  <span class="n">FLASHIF_PROTECTION_WRPENABLED</span>   <span class="o">=</span> <span class="mh">0x2</span><span class="p">,</span>
-  <span class="n">FLASHIF_PROTECTION_RDPENABLED</span>   <span class="o">=</span> <span class="mh">0x4</span><span class="p">,</span>
+<span class="w">  </span><span class="n">FLASHIF_PROTECTION_NONE</span><span class="w">         </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">  </span><span class="n">FLASHIF_PROTECTION_PCROPENABLED</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x1</span><span class="p">,</span>
+<span class="w">  </span><span class="n">FLASHIF_PROTECTION_WRPENABLED</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="mh">0x2</span><span class="p">,</span>
+<span class="w">  </span><span class="n">FLASHIF_PROTECTION_RDPENABLED</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="mh">0x4</span><span class="p">,</span>
 <span class="p">};</span>
 
 <span class="cm">/* protection update */</span>
-<span class="k">enum</span> <span class="p">{</span>
-    <span class="n">FLASHIF_WRP_ENABLE</span><span class="p">,</span>
-    <span class="n">FLASHIF_WRP_DISABLE</span>
+<span class="k">enum</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">FLASHIF_WRP_ENABLE</span><span class="p">,</span>
+<span class="w">    </span><span class="n">FLASHIF_WRP_DISABLE</span>
 <span class="p">};</span>
 
 <span class="cm">/* Define the address from where user application will be loaded.</span>
-<span class="cm">   Note: the 1st sector 0x08000000-0x08003FFF is reserved for the IAP code */</span>         
+<span class="cm">   Note: the 1st sector 0x08000000-0x08003FFF is reserved for the IAP code */</span><span class="w">         </span>
 <span class="c1">//根据实际的片内Flash大小修改结束地址，并删除不用的宏定义</span>
-<span class="cp">#define APPLICATION_ADDRESS           (uint32_t)0x08004000      </span><span class="cm">/* Start user code address */</span><span class="cp"></span>
+<span class="cp">#define APPLICATION_ADDRESS           (uint32_t)0x08004000      </span><span class="cm">/* Start user code address */</span>
 
 <span class="cm">/* Notable Flash addresses */</span>
 <span class="cp">#define USER_FLASH_END_ADDRESS        (uint32_t)0x0807FFFF</span>
 
 <span class="cm">/* Define the user application size */</span>
-<span class="cp">#define USER_FLASH_SIZE               (USER_FLASH_END_ADDRESS - APPLICATION_ADDRESS + 1) </span><span class="cm">/* Small default template application */</span><span class="cp"></span>
+<span class="cp">#define USER_FLASH_SIZE               (USER_FLASH_END_ADDRESS - APPLICATION_ADDRESS + 1) </span><span class="cm">/* Small default template application */</span>
 
 
 <span class="cm">/* Exported macro -------------------------------------------------------*/</span>
@@ -432,281 +427,280 @@ PB6、PB7，才可以正常使用，默认的TX引脚上接了一个uF级的电�
 <span class="cm">  loaded, is write protected */</span>
 <span class="cp">#define FLASH_PROTECTED_SECTORS       (~(uint32_t)((1 &lt;&lt; FLASH_SECTOR_NUMBER) - 1))</span>
 <span class="cm">/* Exported functions --------------------------------------------------*/</span>
-<span class="kt">void</span> <span class="nf">FLASH_If_Init</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
-<span class="kt">uint32_t</span> <span class="nf">FLASH_If_Erase</span><span class="p">(</span><span class="kt">uint32_t</span> <span class="n">StartSector</span><span class="p">);</span>
-<span class="kt">uint32_t</span> <span class="nf">FLASH_If_GetWriteProtectionStatus</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
-<span class="kt">uint32_t</span> <span class="nf">FLASH_If_Write</span><span class="p">(</span><span class="kt">uint32_t</span> <span class="n">destination</span><span class="p">,</span> <span class="kt">uint32_t</span> <span class="o">*</span><span class="n">p_source</span><span class="p">,</span> <span class="kt">uint32_t</span> <span class="n">length</span><span class="p">);</span>
-<span class="kt">uint32_t</span> <span class="nf">FLASH_If_WriteProtectionConfig</span><span class="p">(</span><span class="kt">uint32_t</span> <span class="n">modifier</span><span class="p">);</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">FLASH_If_Init</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+<span class="kt">uint32_t</span><span class="w"> </span><span class="nf">FLASH_If_Erase</span><span class="p">(</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">StartSector</span><span class="p">);</span>
+<span class="kt">uint32_t</span><span class="w"> </span><span class="nf">FLASH_If_GetWriteProtectionStatus</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+<span class="kt">uint32_t</span><span class="w"> </span><span class="nf">FLASH_If_Write</span><span class="p">(</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">destination</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="o">*</span><span class="n">p_source</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">length</span><span class="p">);</span>
+<span class="kt">uint32_t</span><span class="w"> </span><span class="nf">FLASH_If_WriteProtectionConfig</span><span class="p">(</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">modifier</span><span class="p">);</span>
 
-<span class="cp">#endif  </span><span class="cm">/* __FLASH_IF_H */</span><span class="cp"></span>
+<span class="cp">#endif  </span><span class="cm">/* __FLASH_IF_H */</span>
 
 <span class="cm">/******************* (C) COPYRIGHT STMicroelectronics *****END OF FILE****/</span>
-</pre></div>
-</td></tr></table>
+</code></pre></div></td></tr></table></div>
 <p><code>flash_if.c</code>修改后如下所示：</p>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>  1
-  2
-  3
-  4
-  5
-  6
-  7
-  8
-  9
- 10
- 11
- 12
- 13
- 14
- 15
- 16
- 17
- 18
- 19
- 20
- 21
- 22
- 23
- 24
- 25
- 26
- 27
- 28
- 29
- 30
- 31
- 32
- 33
- 34
- 35
- 36
- 37
- 38
- 39
- 40
- 41
- 42
- 43
- 44
- 45
- 46
- 47
- 48
- 49
- 50
- 51
- 52
- 53
- 54
- 55
- 56
- 57
- 58
- 59
- 60
- 61
- 62
- 63
- 64
- 65
- 66
- 67
- 68
- 69
- 70
- 71
- 72
- 73
- 74
- 75
- 76
- 77
- 78
- 79
- 80
- 81
- 82
- 83
- 84
- 85
- 86
- 87
- 88
- 89
- 90
- 91
- 92
- 93
- 94
- 95
- 96
- 97
- 98
- 99
-100
-101
-102
-103
-104
-105
-106
-107
-108
-109
-110
-111
-112
-113
-114
-115
-116
-117
-118
-119
-120
-121
-122
-123
-124
-125
-126
-127
-128
-129
-130
-131
-132
-133
-134
-135
-136
-137
-138
-139
-140
-141
-142
-143
-144
-145
-146
-147
-148
-149
-150
-151
-152
-153
-154
-155
-156
-157
-158
-159
-160
-161
-162
-163
-164
-165
-166
-167
-168
-169
-170
-171
-172
-173
-174
-175
-176
-177
-178
-179
-180
-181
-182
-183
-184
-185
-186
-187
-188
-189
-190
-191
-192
-193
-194
-195
-196
-197
-198
-199
-200
-201
-202
-203
-204
-205
-206
-207
-208
-209
-210
-211
-212
-213
-214
-215
-216
-217
-218
-219
-220
-221
-222
-223
-224
-225
-226
-227
-228
-229
-230
-231
-232
-233
-234
-235
-236
-237
-238
-239
-240
-241
-242
-243
-244
-245
-246
-247
-248
-249
-250
-251
-252
-253
-254
-255
-256
-257
-258</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/** @addtogroup STM32F4xx_IAP</span>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">  1</span>
+<span class="normal">  2</span>
+<span class="normal">  3</span>
+<span class="normal">  4</span>
+<span class="normal">  5</span>
+<span class="normal">  6</span>
+<span class="normal">  7</span>
+<span class="normal">  8</span>
+<span class="normal">  9</span>
+<span class="normal"> 10</span>
+<span class="normal"> 11</span>
+<span class="normal"> 12</span>
+<span class="normal"> 13</span>
+<span class="normal"> 14</span>
+<span class="normal"> 15</span>
+<span class="normal"> 16</span>
+<span class="normal"> 17</span>
+<span class="normal"> 18</span>
+<span class="normal"> 19</span>
+<span class="normal"> 20</span>
+<span class="normal"> 21</span>
+<span class="normal"> 22</span>
+<span class="normal"> 23</span>
+<span class="normal"> 24</span>
+<span class="normal"> 25</span>
+<span class="normal"> 26</span>
+<span class="normal"> 27</span>
+<span class="normal"> 28</span>
+<span class="normal"> 29</span>
+<span class="normal"> 30</span>
+<span class="normal"> 31</span>
+<span class="normal"> 32</span>
+<span class="normal"> 33</span>
+<span class="normal"> 34</span>
+<span class="normal"> 35</span>
+<span class="normal"> 36</span>
+<span class="normal"> 37</span>
+<span class="normal"> 38</span>
+<span class="normal"> 39</span>
+<span class="normal"> 40</span>
+<span class="normal"> 41</span>
+<span class="normal"> 42</span>
+<span class="normal"> 43</span>
+<span class="normal"> 44</span>
+<span class="normal"> 45</span>
+<span class="normal"> 46</span>
+<span class="normal"> 47</span>
+<span class="normal"> 48</span>
+<span class="normal"> 49</span>
+<span class="normal"> 50</span>
+<span class="normal"> 51</span>
+<span class="normal"> 52</span>
+<span class="normal"> 53</span>
+<span class="normal"> 54</span>
+<span class="normal"> 55</span>
+<span class="normal"> 56</span>
+<span class="normal"> 57</span>
+<span class="normal"> 58</span>
+<span class="normal"> 59</span>
+<span class="normal"> 60</span>
+<span class="normal"> 61</span>
+<span class="normal"> 62</span>
+<span class="normal"> 63</span>
+<span class="normal"> 64</span>
+<span class="normal"> 65</span>
+<span class="normal"> 66</span>
+<span class="normal"> 67</span>
+<span class="normal"> 68</span>
+<span class="normal"> 69</span>
+<span class="normal"> 70</span>
+<span class="normal"> 71</span>
+<span class="normal"> 72</span>
+<span class="normal"> 73</span>
+<span class="normal"> 74</span>
+<span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span>
+<span class="normal">174</span>
+<span class="normal">175</span>
+<span class="normal">176</span>
+<span class="normal">177</span>
+<span class="normal">178</span>
+<span class="normal">179</span>
+<span class="normal">180</span>
+<span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span>
+<span class="normal">184</span>
+<span class="normal">185</span>
+<span class="normal">186</span>
+<span class="normal">187</span>
+<span class="normal">188</span>
+<span class="normal">189</span>
+<span class="normal">190</span>
+<span class="normal">191</span>
+<span class="normal">192</span>
+<span class="normal">193</span>
+<span class="normal">194</span>
+<span class="normal">195</span>
+<span class="normal">196</span>
+<span class="normal">197</span>
+<span class="normal">198</span>
+<span class="normal">199</span>
+<span class="normal">200</span>
+<span class="normal">201</span>
+<span class="normal">202</span>
+<span class="normal">203</span>
+<span class="normal">204</span>
+<span class="normal">205</span>
+<span class="normal">206</span>
+<span class="normal">207</span>
+<span class="normal">208</span>
+<span class="normal">209</span>
+<span class="normal">210</span>
+<span class="normal">211</span>
+<span class="normal">212</span>
+<span class="normal">213</span>
+<span class="normal">214</span>
+<span class="normal">215</span>
+<span class="normal">216</span>
+<span class="normal">217</span>
+<span class="normal">218</span>
+<span class="normal">219</span>
+<span class="normal">220</span>
+<span class="normal">221</span>
+<span class="normal">222</span>
+<span class="normal">223</span>
+<span class="normal">224</span>
+<span class="normal">225</span>
+<span class="normal">226</span>
+<span class="normal">227</span>
+<span class="normal">228</span>
+<span class="normal">229</span>
+<span class="normal">230</span>
+<span class="normal">231</span>
+<span class="normal">232</span>
+<span class="normal">233</span>
+<span class="normal">234</span>
+<span class="normal">235</span>
+<span class="normal">236</span>
+<span class="normal">237</span>
+<span class="normal">238</span>
+<span class="normal">239</span>
+<span class="normal">240</span>
+<span class="normal">241</span>
+<span class="normal">242</span>
+<span class="normal">243</span>
+<span class="normal">244</span>
+<span class="normal">245</span>
+<span class="normal">246</span>
+<span class="normal">247</span>
+<span class="normal">248</span>
+<span class="normal">249</span>
+<span class="normal">250</span>
+<span class="normal">251</span>
+<span class="normal">252</span>
+<span class="normal">253</span>
+<span class="normal">254</span>
+<span class="normal">255</span>
+<span class="normal">256</span>
+<span class="normal">257</span>
+<span class="normal">258</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="cm">/** @addtogroup STM32F4xx_IAP</span>
 <span class="cm">  * @{</span>
 <span class="cm">  */</span>
 
 <span class="cm">/* Includes -------------------------------------------------------------*/</span>
-<span class="cp">#include</span> <span class="cpf">"flash_if.h"</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">"flash_if.h"</span>
 
 <span class="cm">/* Private typedef ------------------------------------------------------*/</span>
 <span class="cm">/* Private define -------------------------------------------------------*/</span>
@@ -714,7 +708,7 @@ PB6、PB7，才可以正常使用，默认的TX引脚上接了一个uF级的电�
 <span class="cm">/* Private variables ----------------------------------------------------*/</span>
 <span class="cm">/* Private function prototypes ------------------------------------------*/</span>
 <span class="c1">//增加获取扇区的函数，方便获取扇区编号</span>
-<span class="k">static</span> <span class="kt">uint32_t</span> <span class="nf">GetSector</span><span class="p">(</span><span class="kt">uint32_t</span> <span class="n">Address</span><span class="p">);</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="nf">GetSector</span><span class="p">(</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">Address</span><span class="p">);</span>
 
 <span class="cm">/* Private functions ----------------------------------------------------*/</span>
 
@@ -723,17 +717,17 @@ PB6、PB7，才可以正常使用，默认的TX引脚上接了一个uF级的电�
 <span class="cm">  * @param  None</span>
 <span class="cm">  * @retval None</span>
 <span class="cm">  */</span>
-<span class="kt">void</span> <span class="nf">FLASH_If_Init</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">FLASH_If_Init</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
 <span class="p">{</span>
-  <span class="cm">/* Unlock the Program memory */</span>
-  <span class="n">HAL_FLASH_Unlock</span><span class="p">();</span>
+<span class="w">  </span><span class="cm">/* Unlock the Program memory */</span>
+<span class="w">  </span><span class="n">HAL_FLASH_Unlock</span><span class="p">();</span>
 
-  <span class="cm">/* Clear all FLASH flags */</span>
-  <span class="c1">//根据实际的MCU清除FLASH标志位</span>
-  <span class="n">__HAL_FLASH_CLEAR_FLAG</span><span class="p">(</span><span class="n">FLASH_FLAG_EOP</span> <span class="o">|</span> <span class="n">FLASH_FLAG_OPERR</span> <span class="o">|</span> <span class="n">FLASH_FLAG_WRPERR</span> <span class="o">|</span> 
-                  <span class="n">FLASH_FLAG_PGAERR</span> <span class="o">|</span> <span class="n">FLASH_FLAG_PGPERR</span><span class="o">|</span><span class="n">FLASH_FLAG_PGSERR</span><span class="p">);</span>
-  <span class="cm">/* Unlock the Program memory */</span>
-  <span class="n">HAL_FLASH_Lock</span><span class="p">();</span>
+<span class="w">  </span><span class="cm">/* Clear all FLASH flags */</span>
+<span class="w">  </span><span class="c1">//根据实际的MCU清除FLASH标志位</span>
+<span class="w">  </span><span class="n">__HAL_FLASH_CLEAR_FLAG</span><span class="p">(</span><span class="n">FLASH_FLAG_EOP</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">FLASH_FLAG_OPERR</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">FLASH_FLAG_WRPERR</span><span class="w"> </span><span class="o">|</span><span class="w"> </span>
+<span class="w">                  </span><span class="n">FLASH_FLAG_PGAERR</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">FLASH_FLAG_PGPERR</span><span class="o">|</span><span class="n">FLASH_FLAG_PGSERR</span><span class="p">);</span>
+<span class="w">  </span><span class="cm">/* Unlock the Program memory */</span>
+<span class="w">  </span><span class="n">HAL_FLASH_Lock</span><span class="p">();</span>
 <span class="p">}</span>
 
 <span class="cm">/**</span>
@@ -742,39 +736,39 @@ PB6、PB7，才可以正常使用，默认的TX引脚上接了一个uF级的电�
 <span class="cm">  * @retval FLASHIF_OK : user flash area successfully erased</span>
 <span class="cm">  *         FLASHIF_ERASEKO : error occurred</span>
 <span class="cm">  */</span>
-<span class="kt">uint32_t</span> <span class="nf">FLASH_If_Erase</span><span class="p">(</span><span class="kt">uint32_t</span> <span class="n">start</span><span class="p">)</span>
+<span class="kt">uint32_t</span><span class="w"> </span><span class="nf">FLASH_If_Erase</span><span class="p">(</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">start</span><span class="p">)</span>
 <span class="p">{</span>
-    <span class="c1">//将相关的Page参数均修改为M4的Sector 参数</span>
-    <span class="kt">uint32_t</span> <span class="n">UserStartSector</span> <span class="o">=</span> <span class="n">FLASH_SECTOR_1</span><span class="p">;</span>
-    <span class="kt">uint32_t</span> <span class="n">NbrOfSector</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="kt">uint32_t</span> <span class="n">SectorError</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="n">FLASH_EraseInitTypeDef</span> <span class="n">pEraseInit</span><span class="p">;</span>
-    <span class="n">HAL_StatusTypeDef</span> <span class="n">status</span> <span class="o">=</span> <span class="n">HAL_OK</span><span class="p">;</span>
+<span class="w">    </span><span class="c1">//将相关的Page参数均修改为M4的Sector 参数</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">UserStartSector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FLASH_SECTOR_1</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">NbrOfSector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">SectorError</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">FLASH_EraseInitTypeDef</span><span class="w"> </span><span class="n">pEraseInit</span><span class="p">;</span>
+<span class="w">    </span><span class="n">HAL_StatusTypeDef</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">HAL_OK</span><span class="p">;</span>
 
-    <span class="cm">/* Unlock the Flash to enable the flash control register access *************/</span> 
-    <span class="n">HAL_FLASH_Unlock</span><span class="p">();</span>
+<span class="w">    </span><span class="cm">/* Unlock the Flash to enable the flash control register access *************/</span><span class="w"> </span>
+<span class="w">    </span><span class="n">HAL_FLASH_Unlock</span><span class="p">();</span>
 
-    <span class="cm">/* Get the sector where start the user flash area */</span>
-    <span class="n">UserStartSector</span> <span class="o">=</span> <span class="n">GetSector</span><span class="p">(</span><span class="n">APPLICATION_ADDRESS</span><span class="p">);</span>
-    <span class="n">NbrOfSector</span> <span class="o">=</span> <span class="n">FLASH_SECTOR_7</span> <span class="o">-</span> <span class="n">UserStartSector</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="cm">/* Get the sector where start the user flash area */</span>
+<span class="w">    </span><span class="n">UserStartSector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GetSector</span><span class="p">(</span><span class="n">APPLICATION_ADDRESS</span><span class="p">);</span>
+<span class="w">    </span><span class="n">NbrOfSector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FLASH_SECTOR_7</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">UserStartSector</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
 
-    <span class="n">pEraseInit</span><span class="p">.</span><span class="n">TypeErase</span> <span class="o">=</span> <span class="n">FLASH_TYPEERASE_SECTORS</span><span class="p">;</span>
-    <span class="n">pEraseInit</span><span class="p">.</span><span class="n">Sector</span> <span class="o">=</span> <span class="n">UserStartSector</span><span class="p">;</span>
-    <span class="n">pEraseInit</span><span class="p">.</span><span class="n">Banks</span> <span class="o">=</span> <span class="n">FLASH_BANK_1</span><span class="p">;</span>
-    <span class="n">pEraseInit</span><span class="p">.</span><span class="n">NbSectors</span> <span class="o">=</span> <span class="n">NbrOfSector</span><span class="p">;</span>
-    <span class="n">pEraseInit</span><span class="p">.</span><span class="n">VoltageRange</span> <span class="o">=</span> <span class="n">FLASH_VOLTAGE_RANGE_3</span><span class="p">;</span>
-    <span class="n">status</span> <span class="o">=</span> <span class="n">HAL_FLASHEx_Erase</span><span class="p">(</span><span class="o">&amp;</span><span class="n">pEraseInit</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">SectorError</span><span class="p">);</span>
-    <span class="cm">/* Lock the Flash to disable the flash control register access (recommended</span>
+<span class="w">    </span><span class="n">pEraseInit</span><span class="p">.</span><span class="n">TypeErase</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FLASH_TYPEERASE_SECTORS</span><span class="p">;</span>
+<span class="w">    </span><span class="n">pEraseInit</span><span class="p">.</span><span class="n">Sector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">UserStartSector</span><span class="p">;</span>
+<span class="w">    </span><span class="n">pEraseInit</span><span class="p">.</span><span class="n">Banks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FLASH_BANK_1</span><span class="p">;</span>
+<span class="w">    </span><span class="n">pEraseInit</span><span class="p">.</span><span class="n">NbSectors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">NbrOfSector</span><span class="p">;</span>
+<span class="w">    </span><span class="n">pEraseInit</span><span class="p">.</span><span class="n">VoltageRange</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FLASH_VOLTAGE_RANGE_3</span><span class="p">;</span>
+<span class="w">    </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">HAL_FLASHEx_Erase</span><span class="p">(</span><span class="o">&amp;</span><span class="n">pEraseInit</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">SectorError</span><span class="p">);</span>
+<span class="w">    </span><span class="cm">/* Lock the Flash to disable the flash control register access (recommended</span>
 <span class="cm">     to protect the FLASH memory against possible unwanted operation) *********/</span>
-    <span class="n">HAL_FLASH_Lock</span><span class="p">();</span>
+<span class="w">    </span><span class="n">HAL_FLASH_Lock</span><span class="p">();</span>
 
-    <span class="k">if</span> <span class="p">(</span><span class="n">status</span> <span class="o">!=</span> <span class="n">HAL_OK</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="cm">/* Error occurred while Sector erase */</span>
-        <span class="k">return</span> <span class="n">FLASHIF_ERASEKO</span><span class="p">;</span>
-    <span class="p">}</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">status</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">HAL_OK</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="cm">/* Error occurred while Sector erase */</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">FLASHIF_ERASEKO</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
 
-    <span class="k">return</span> <span class="n">FLASHIF_OK</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">FLASHIF_OK</span><span class="p">;</span>
 <span class="p">}</span>
 
 <span class="cm">/* Public functions -----------------------------------------------------*/</span>
@@ -788,40 +782,40 @@ PB6、PB7，才可以正常使用，默认的TX引脚上接了一个uF级的电�
 <span class="cm">  *         1: Error occurred while writing data in Flash memory</span>
 <span class="cm">  *         2: Written Data in flash memory is different from expected one</span>
 <span class="cm">  */</span>
-<span class="kt">uint32_t</span> <span class="nf">FLASH_If_Write</span><span class="p">(</span><span class="kt">uint32_t</span> <span class="n">destination</span><span class="p">,</span> <span class="kt">uint32_t</span> <span class="o">*</span><span class="n">p_source</span><span class="p">,</span> <span class="kt">uint32_t</span> <span class="n">length</span><span class="p">)</span>
+<span class="kt">uint32_t</span><span class="w"> </span><span class="nf">FLASH_If_Write</span><span class="p">(</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">destination</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="o">*</span><span class="n">p_source</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">length</span><span class="p">)</span>
 <span class="p">{</span>
-  <span class="kt">uint32_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 
-  <span class="cm">/* Unlock the Flash to enable the flash control register access *************/</span>
-  <span class="n">HAL_FLASH_Unlock</span><span class="p">();</span>
+<span class="w">  </span><span class="cm">/* Unlock the Flash to enable the flash control register access *************/</span>
+<span class="w">  </span><span class="n">HAL_FLASH_Unlock</span><span class="p">();</span>
 
-  <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">length</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">destination</span> <span class="o">&lt;=</span> <span class="p">(</span><span class="n">USER_FLASH_END_ADDRESS</span><span class="o">-</span><span class="mi">4</span><span class="p">));</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-  <span class="p">{</span>
-    <span class="cm">/* Device voltage range supposed to be [2.7V to 3.6V], the operation will</span>
-<span class="cm">       be done by word */</span> 
-    <span class="k">if</span> <span class="p">(</span><span class="n">HAL_FLASH_Program</span><span class="p">(</span><span class="n">FLASH_TYPEPROGRAM_WORD</span><span class="p">,</span> <span class="n">destination</span><span class="p">,</span> <span class="o">*</span><span class="p">(</span><span class="kt">uint32_t</span><span class="o">*</span><span class="p">)(</span><span class="n">p_source</span><span class="o">+</span><span class="n">i</span><span class="p">))</span> <span class="o">==</span> <span class="n">HAL_OK</span><span class="p">)</span>      
-    <span class="p">{</span>
-     <span class="cm">/* Check the written value */</span>
-      <span class="k">if</span> <span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="kt">uint32_t</span><span class="o">*</span><span class="p">)</span><span class="n">destination</span> <span class="o">!=</span> <span class="o">*</span><span class="p">(</span><span class="kt">uint32_t</span><span class="o">*</span><span class="p">)(</span><span class="n">p_source</span><span class="o">+</span><span class="n">i</span><span class="p">))</span>
-      <span class="p">{</span>
-        <span class="cm">/* Flash content doesn't match SRAM content */</span>
-        <span class="k">return</span><span class="p">(</span><span class="n">FLASHIF_WRITINGCTRL_ERROR</span><span class="p">);</span>
-      <span class="p">}</span>
-      <span class="cm">/* Increment FLASH destination address */</span>
-      <span class="n">destination</span> <span class="o">+=</span> <span class="mi">4</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="k">else</span>
-    <span class="p">{</span>
-      <span class="cm">/* Error occurred while writing data in Flash memory */</span>
-      <span class="k">return</span> <span class="p">(</span><span class="n">FLASHIF_WRITING_ERROR</span><span class="p">);</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">length</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="p">(</span><span class="n">destination</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="p">(</span><span class="n">USER_FLASH_END_ADDRESS</span><span class="mi">-4</span><span class="p">));</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="cm">/* Device voltage range supposed to be [2.7V to 3.6V], the operation will</span>
+<span class="cm">       be done by word */</span><span class="w"> </span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">HAL_FLASH_Program</span><span class="p">(</span><span class="n">FLASH_TYPEPROGRAM_WORD</span><span class="p">,</span><span class="w"> </span><span class="n">destination</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="p">(</span><span class="kt">uint32_t</span><span class="o">*</span><span class="p">)(</span><span class="n">p_source</span><span class="o">+</span><span class="n">i</span><span class="p">))</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">HAL_OK</span><span class="p">)</span><span class="w">      </span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">     </span><span class="cm">/* Check the written value */</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="kt">uint32_t</span><span class="o">*</span><span class="p">)</span><span class="n">destination</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="o">*</span><span class="p">(</span><span class="kt">uint32_t</span><span class="o">*</span><span class="p">)(</span><span class="n">p_source</span><span class="o">+</span><span class="n">i</span><span class="p">))</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="cm">/* Flash content doesn't match SRAM content */</span>
+<span class="w">        </span><span class="k">return</span><span class="p">(</span><span class="n">FLASHIF_WRITINGCTRL_ERROR</span><span class="p">);</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">      </span><span class="cm">/* Increment FLASH destination address */</span>
+<span class="w">      </span><span class="n">destination</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">else</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="cm">/* Error occurred while writing data in Flash memory */</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="n">FLASHIF_WRITING_ERROR</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
 
-  <span class="cm">/* Lock the Flash to disable the flash control register access (recommended</span>
+<span class="w">  </span><span class="cm">/* Lock the Flash to disable the flash control register access (recommended</span>
 <span class="cm">     to protect the FLASH memory against possible unwanted operation) *********/</span>
-  <span class="n">HAL_FLASH_Lock</span><span class="p">();</span>
+<span class="w">  </span><span class="n">HAL_FLASH_Lock</span><span class="p">();</span>
 
-  <span class="k">return</span> <span class="p">(</span><span class="n">FLASHIF_OK</span><span class="p">);</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="n">FLASHIF_OK</span><span class="p">);</span>
 <span class="p">}</span>
 
 <span class="cm">/**</span>
@@ -831,36 +825,36 @@ PB6、PB7，才可以正常使用，默认的TX引脚上接了一个uF级的电�
 <span class="cm">            of the possible values : FLASHIF_PROTECTION_WRPENABLED, FLASHIF_PROTECTION_PCROPENABLED, ...</span>
 <span class="cm">  *         If no sector is write-protected FLASHIF_PROTECTION_NONE is returned.</span>
 <span class="cm">  */</span>
-<span class="kt">uint32_t</span> <span class="nf">FLASH_If_GetWriteProtectionStatus</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="kt">uint32_t</span><span class="w"> </span><span class="nf">FLASH_If_GetWriteProtectionStatus</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
 <span class="p">{</span>
-  <span class="kt">uint32_t</span> <span class="n">ProtectedSector</span> <span class="o">=</span> <span class="n">FLASHIF_PROTECTION_NONE</span><span class="p">;</span>
-  <span class="n">FLASH_OBProgramInitTypeDef</span> <span class="n">OptionsBytesStruct</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">ProtectedSector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FLASHIF_PROTECTION_NONE</span><span class="p">;</span>
+<span class="w">  </span><span class="n">FLASH_OBProgramInitTypeDef</span><span class="w"> </span><span class="n">OptionsBytesStruct</span><span class="p">;</span>
 
-  <span class="cm">/* Unlock the Flash to enable the flash control register access ********/</span>
-  <span class="n">HAL_FLASH_Unlock</span><span class="p">();</span>
+<span class="w">  </span><span class="cm">/* Unlock the Flash to enable the flash control register access ********/</span>
+<span class="w">  </span><span class="n">HAL_FLASH_Unlock</span><span class="p">();</span>
 
-  <span class="cm">/*Check if there are write protected sectors inside the user flash area*/</span>
-  <span class="n">HAL_FLASHEx_OBGetConfig</span><span class="p">(</span><span class="o">&amp;</span><span class="n">OptionsBytesStruct</span><span class="p">);</span>
+<span class="w">  </span><span class="cm">/*Check if there are write protected sectors inside the user flash area*/</span>
+<span class="w">  </span><span class="n">HAL_FLASHEx_OBGetConfig</span><span class="p">(</span><span class="o">&amp;</span><span class="n">OptionsBytesStruct</span><span class="p">);</span>
 
-  <span class="cm">/* Lock the Flash to disable the flash control register access (recommended</span>
+<span class="w">  </span><span class="cm">/* Lock the Flash to disable the flash control register access (recommended</span>
 <span class="cm">     to protect the FLASH memory against possible unwanted operation) *********/</span>
-  <span class="n">HAL_FLASH_Lock</span><span class="p">();</span>
+<span class="w">  </span><span class="n">HAL_FLASH_Lock</span><span class="p">();</span>
 
-  <span class="cm">/* Get Sectors already write protected *********************************/</span>
-  <span class="c1">//后面的保护区域，没有看懂，所以直接屏蔽掉了</span>
-  <span class="n">ProtectedSector</span> <span class="o">=</span> <span class="o">~</span><span class="n">OptionsBytesStruct</span><span class="p">.</span><span class="n">WRPSector</span><span class="p">;</span>
+<span class="w">  </span><span class="cm">/* Get Sectors already write protected *********************************/</span>
+<span class="w">  </span><span class="c1">//后面的保护区域，没有看懂，所以直接屏蔽掉了</span>
+<span class="w">  </span><span class="n">ProtectedSector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">~</span><span class="n">OptionsBytesStruct</span><span class="p">.</span><span class="n">WRPSector</span><span class="p">;</span>
 
-  <span class="cm">/* Check if desired Sectors are already write protected ****************/</span>
-  <span class="k">if</span><span class="p">(</span><span class="n">ProtectedSector</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
-  <span class="p">{</span>
-    <span class="cm">/* Some sectors inside the user flash area are write protected */</span>
-    <span class="k">return</span> <span class="n">FLASHIF_PROTECTION_WRPENABLED</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="k">else</span>
-  <span class="p">{</span> 
-    <span class="cm">/* No write protected sectors inside the user flash area */</span>
-    <span class="k">return</span> <span class="n">FLASHIF_PROTECTION_NONE</span><span class="p">;</span>
-  <span class="p">}</span>
+<span class="w">  </span><span class="cm">/* Check if desired Sectors are already write protected ****************/</span>
+<span class="w">  </span><span class="k">if</span><span class="p">(</span><span class="n">ProtectedSector</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="cm">/* Some sectors inside the user flash area are write protected */</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">FLASHIF_PROTECTION_WRPENABLED</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">else</span>
+<span class="w">  </span><span class="p">{</span><span class="w"> </span>
+<span class="w">    </span><span class="cm">/* No write protected sectors inside the user flash area */</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">FLASHIF_PROTECTION_NONE</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 
 <span class="cm">/**</span>
@@ -868,46 +862,46 @@ PB6、PB7，才可以正常使用，默认的TX引脚上接了一个uF级的电�
 <span class="cm">  * @param  protectionstate : FLASHIF_WRP_DISABLE or FLASHIF_WRP_ENABLE the protection</span>
 <span class="cm">  * @retval uint32_t FLASHIF_OK if change is applied.</span>
 <span class="cm">  */</span>
-<span class="kt">uint32_t</span> <span class="nf">FLASH_If_WriteProtectionConfig</span><span class="p">(</span><span class="kt">uint32_t</span> <span class="n">protectionstate</span><span class="p">)</span>
+<span class="kt">uint32_t</span><span class="w"> </span><span class="nf">FLASH_If_WriteProtectionConfig</span><span class="p">(</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">protectionstate</span><span class="p">)</span>
 <span class="p">{</span>
-  <span class="kt">uint32_t</span> <span class="n">ProtectedSector</span> <span class="o">=</span> <span class="mh">0x0</span><span class="p">;</span>
-  <span class="n">FLASH_OBProgramInitTypeDef</span> <span class="n">config_new</span><span class="p">,</span> <span class="n">config_old</span><span class="p">;</span>
-  <span class="n">HAL_StatusTypeDef</span> <span class="n">result</span> <span class="o">=</span> <span class="n">HAL_OK</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">ProtectedSector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x0</span><span class="p">;</span>
+<span class="w">  </span><span class="n">FLASH_OBProgramInitTypeDef</span><span class="w"> </span><span class="n">config_new</span><span class="p">,</span><span class="w"> </span><span class="n">config_old</span><span class="p">;</span>
+<span class="w">  </span><span class="n">HAL_StatusTypeDef</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">HAL_OK</span><span class="p">;</span>
 
 
-  <span class="cm">/* Get Sectors write protection status *********************************/</span>
-  <span class="n">HAL_FLASHEx_OBGetConfig</span><span class="p">(</span><span class="o">&amp;</span><span class="n">config_old</span><span class="p">);</span>
+<span class="w">  </span><span class="cm">/* Get Sectors write protection status *********************************/</span>
+<span class="w">  </span><span class="n">HAL_FLASHEx_OBGetConfig</span><span class="p">(</span><span class="o">&amp;</span><span class="n">config_old</span><span class="p">);</span>
 
-  <span class="cm">/* The parameter says whether we turn the protection on or off */</span>
-  <span class="n">config_new</span><span class="p">.</span><span class="n">WRPState</span> <span class="o">=</span> <span class="p">(</span><span class="n">protectionstate</span> <span class="o">==</span> <span class="n">FLASHIF_WRP_ENABLE</span> <span class="o">?</span> <span class="nl">OB_WRPSTATE_ENABLE</span> <span class="p">:</span> <span class="n">OB_WRPSTATE_DISABLE</span><span class="p">);</span>
+<span class="w">  </span><span class="cm">/* The parameter says whether we turn the protection on or off */</span>
+<span class="w">  </span><span class="n">config_new</span><span class="p">.</span><span class="n">WRPState</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">protectionstate</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">FLASHIF_WRP_ENABLE</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">OB_WRPSTATE_ENABLE</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">OB_WRPSTATE_DISABLE</span><span class="p">);</span>
 
-  <span class="cm">/* We want to modify only the Write protection */</span>
-  <span class="n">config_new</span><span class="p">.</span><span class="n">OptionType</span> <span class="o">=</span> <span class="n">OPTIONBYTE_WRP</span><span class="p">;</span>
+<span class="w">  </span><span class="cm">/* We want to modify only the Write protection */</span>
+<span class="w">  </span><span class="n">config_new</span><span class="p">.</span><span class="n">OptionType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OPTIONBYTE_WRP</span><span class="p">;</span>
 
-  <span class="cm">/* No read protection, keep BOR and reset settings */</span>
-  <span class="n">config_new</span><span class="p">.</span><span class="n">RDPLevel</span> <span class="o">=</span> <span class="n">OB_RDP_LEVEL_0</span><span class="p">;</span>
-  <span class="n">config_new</span><span class="p">.</span><span class="n">USERConfig</span> <span class="o">=</span> <span class="n">config_old</span><span class="p">.</span><span class="n">USERConfig</span><span class="p">;</span>  
-  <span class="cm">/* Get Sectors already write protected *********************************/</span>
-  <span class="c1">//后面的保护区域，没有看懂，所以直接屏蔽掉了</span>
-  <span class="n">ProtectedSector</span> <span class="o">=</span> <span class="n">config_old</span><span class="p">.</span><span class="n">WRPSector</span><span class="p">;</span>
+<span class="w">  </span><span class="cm">/* No read protection, keep BOR and reset settings */</span>
+<span class="w">  </span><span class="n">config_new</span><span class="p">.</span><span class="n">RDPLevel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OB_RDP_LEVEL_0</span><span class="p">;</span>
+<span class="w">  </span><span class="n">config_new</span><span class="p">.</span><span class="n">USERConfig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">config_old</span><span class="p">.</span><span class="n">USERConfig</span><span class="p">;</span><span class="w">  </span>
+<span class="w">  </span><span class="cm">/* Get Sectors already write protected *********************************/</span>
+<span class="w">  </span><span class="c1">//后面的保护区域，没有看懂，所以直接屏蔽掉了</span>
+<span class="w">  </span><span class="n">ProtectedSector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">config_old</span><span class="p">.</span><span class="n">WRPSector</span><span class="p">;</span>
 
-  <span class="cm">/* Unlock the Flash to enable the flash control register access *******/</span> 
-  <span class="n">HAL_FLASH_Unlock</span><span class="p">();</span>
+<span class="w">  </span><span class="cm">/* Unlock the Flash to enable the flash control register access *******/</span><span class="w"> </span>
+<span class="w">  </span><span class="n">HAL_FLASH_Unlock</span><span class="p">();</span>
 
-  <span class="cm">/* Unlock the Options Bytes ********************************************/</span>
-  <span class="n">HAL_FLASH_OB_Unlock</span><span class="p">();</span>
+<span class="w">  </span><span class="cm">/* Unlock the Options Bytes ********************************************/</span>
+<span class="w">  </span><span class="n">HAL_FLASH_OB_Unlock</span><span class="p">();</span>
 
-  <span class="cm">/* Erase all the option Bytes ******************************************/</span>
-  <span class="c1">//在HAL_F4的库中没有找到擦除命令位的函数，故在此注释掉</span>
-  <span class="c1">//result = HAL_FLASHEx_OBErase();</span>
+<span class="w">  </span><span class="cm">/* Erase all the option Bytes ******************************************/</span>
+<span class="w">  </span><span class="c1">//在HAL_F4的库中没有找到擦除命令位的函数，故在此注释掉</span>
+<span class="w">  </span><span class="c1">//result = HAL_FLASHEx_OBErase();</span>
 
-  <span class="c1">//if (result == HAL_OK)</span>
-  <span class="c1">//{</span>
-  <span class="n">config_new</span><span class="p">.</span><span class="n">WRPSector</span>    <span class="o">=</span> <span class="n">ProtectedSector</span><span class="p">;</span>
-  <span class="n">result</span> <span class="o">=</span> <span class="n">HAL_FLASHEx_OBProgram</span><span class="p">(</span><span class="o">&amp;</span><span class="n">config_new</span><span class="p">);</span>
-  <span class="c1">//}</span>
+<span class="w">  </span><span class="c1">//if (result == HAL_OK)</span>
+<span class="w">  </span><span class="c1">//{</span>
+<span class="w">  </span><span class="n">config_new</span><span class="p">.</span><span class="n">WRPSector</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="n">ProtectedSector</span><span class="p">;</span>
+<span class="w">  </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">HAL_FLASHEx_OBProgram</span><span class="p">(</span><span class="o">&amp;</span><span class="n">config_new</span><span class="p">);</span>
+<span class="w">  </span><span class="c1">//}</span>
 
-  <span class="k">return</span> <span class="p">(</span><span class="n">result</span> <span class="o">==</span> <span class="n">HAL_OK</span> <span class="o">?</span> <span class="nl">FLASHIF_OK</span><span class="p">:</span> <span class="n">FLASHIF_PROTECTION_ERRROR</span><span class="p">);</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="n">result</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">HAL_OK</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">FLASHIF_OK</span><span class="o">:</span><span class="w"> </span><span class="n">FLASHIF_PROTECTION_ERRROR</span><span class="p">);</span>
 <span class="p">}</span>
 
 <span class="cm">/**</span>
@@ -916,71 +910,100 @@ PB6、PB7，才可以正常使用，默认的TX引脚上接了一个uF级的电�
 <span class="cm">  * @retval 扇区位置（FLASH_SECTOR_0——FLASH_SECTOR_7）</span>
 <span class="cm">  */</span>
 <span class="c1">//增加扇区编号的获取函数</span>
-<span class="k">static</span> <span class="kt">uint32_t</span> <span class="nf">GetSector</span><span class="p">(</span><span class="kt">uint32_t</span> <span class="n">Address</span><span class="p">)</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="nf">GetSector</span><span class="p">(</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">Address</span><span class="p">)</span>
 <span class="p">{</span>
-    <span class="kt">uint32_t</span> <span class="n">sector</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">sector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 
-    <span class="k">if</span><span class="p">((</span><span class="n">Address</span> <span class="o">&lt;</span> <span class="n">ADDR_FLASH_SECTOR_1</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">Address</span> <span class="o">&gt;=</span> <span class="n">ADDR_FLASH_SECTOR_0</span><span class="p">))</span>
-    <span class="p">{</span>
-        <span class="n">sector</span> <span class="o">=</span> <span class="n">FLASH_SECTOR_0</span><span class="p">;</span>  
-    <span class="p">}</span>
-    <span class="k">else</span> <span class="k">if</span><span class="p">((</span><span class="n">Address</span> <span class="o">&lt;</span> <span class="n">ADDR_FLASH_SECTOR_2</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">Address</span> <span class="o">&gt;=</span> <span class="n">ADDR_FLASH_SECTOR_1</span><span class="p">))</span>
-    <span class="p">{</span>
-        <span class="n">sector</span> <span class="o">=</span> <span class="n">FLASH_SECTOR_1</span><span class="p">;</span>  
-    <span class="p">}</span>
-    <span class="k">else</span> <span class="k">if</span><span class="p">((</span><span class="n">Address</span> <span class="o">&lt;</span> <span class="n">ADDR_FLASH_SECTOR_3</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">Address</span> <span class="o">&gt;=</span> <span class="n">ADDR_FLASH_SECTOR_2</span><span class="p">))</span>
-    <span class="p">{</span>
-        <span class="n">sector</span> <span class="o">=</span> <span class="n">FLASH_SECTOR_2</span><span class="p">;</span>  
-    <span class="p">}</span>
-    <span class="k">else</span> <span class="k">if</span><span class="p">((</span><span class="n">Address</span> <span class="o">&lt;</span> <span class="n">ADDR_FLASH_SECTOR_4</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">Address</span> <span class="o">&gt;=</span> <span class="n">ADDR_FLASH_SECTOR_3</span><span class="p">))</span>
-    <span class="p">{</span>
-        <span class="n">sector</span> <span class="o">=</span> <span class="n">FLASH_SECTOR_3</span><span class="p">;</span>  
-    <span class="p">}</span>
-    <span class="k">else</span> <span class="k">if</span><span class="p">((</span><span class="n">Address</span> <span class="o">&lt;</span> <span class="n">ADDR_FLASH_SECTOR_5</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">Address</span> <span class="o">&gt;=</span> <span class="n">ADDR_FLASH_SECTOR_4</span><span class="p">))</span>
-    <span class="p">{</span>
-        <span class="n">sector</span> <span class="o">=</span> <span class="n">FLASH_SECTOR_4</span><span class="p">;</span>  
-    <span class="p">}</span>
-    <span class="k">else</span> <span class="k">if</span><span class="p">((</span><span class="n">Address</span> <span class="o">&lt;</span> <span class="n">ADDR_FLASH_SECTOR_6</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">Address</span> <span class="o">&gt;=</span> <span class="n">ADDR_FLASH_SECTOR_5</span><span class="p">))</span>
-    <span class="p">{</span>
-        <span class="n">sector</span> <span class="o">=</span> <span class="n">FLASH_SECTOR_5</span><span class="p">;</span>  
-    <span class="p">}</span>
-    <span class="k">else</span> <span class="k">if</span><span class="p">((</span><span class="n">Address</span> <span class="o">&lt;</span> <span class="n">ADDR_FLASH_SECTOR_7</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">Address</span> <span class="o">&gt;=</span> <span class="n">ADDR_FLASH_SECTOR_6</span><span class="p">))</span>
-    <span class="p">{</span>
-        <span class="n">sector</span> <span class="o">=</span> <span class="n">FLASH_SECTOR_6</span><span class="p">;</span>  
-    <span class="p">}</span>
-    <span class="k">else</span> 
-    <span class="p">{</span>
-        <span class="n">sector</span> <span class="o">=</span> <span class="n">FLASH_SECTOR_7</span><span class="p">;</span>  
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="n">sector</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="p">((</span><span class="n">Address</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">ADDR_FLASH_SECTOR_1</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="p">(</span><span class="n">Address</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">ADDR_FLASH_SECTOR_0</span><span class="p">))</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">sector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FLASH_SECTOR_0</span><span class="p">;</span><span class="w">  </span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="p">((</span><span class="n">Address</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">ADDR_FLASH_SECTOR_2</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="p">(</span><span class="n">Address</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">ADDR_FLASH_SECTOR_1</span><span class="p">))</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">sector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FLASH_SECTOR_1</span><span class="p">;</span><span class="w">  </span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="p">((</span><span class="n">Address</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">ADDR_FLASH_SECTOR_3</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="p">(</span><span class="n">Address</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">ADDR_FLASH_SECTOR_2</span><span class="p">))</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">sector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FLASH_SECTOR_2</span><span class="p">;</span><span class="w">  </span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="p">((</span><span class="n">Address</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">ADDR_FLASH_SECTOR_4</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="p">(</span><span class="n">Address</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">ADDR_FLASH_SECTOR_3</span><span class="p">))</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">sector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FLASH_SECTOR_3</span><span class="p">;</span><span class="w">  </span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="p">((</span><span class="n">Address</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">ADDR_FLASH_SECTOR_5</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="p">(</span><span class="n">Address</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">ADDR_FLASH_SECTOR_4</span><span class="p">))</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">sector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FLASH_SECTOR_4</span><span class="p">;</span><span class="w">  </span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="p">((</span><span class="n">Address</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">ADDR_FLASH_SECTOR_6</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="p">(</span><span class="n">Address</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">ADDR_FLASH_SECTOR_5</span><span class="p">))</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">sector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FLASH_SECTOR_5</span><span class="p">;</span><span class="w">  </span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="p">((</span><span class="n">Address</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">ADDR_FLASH_SECTOR_7</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="p">(</span><span class="n">Address</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">ADDR_FLASH_SECTOR_6</span><span class="p">))</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">sector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FLASH_SECTOR_6</span><span class="p">;</span><span class="w">  </span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">else</span><span class="w"> </span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">sector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FLASH_SECTOR_7</span><span class="p">;</span><span class="w">  </span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">sector</span><span class="p">;</span>
 <span class="p">}</span>
 <span class="cm">/**</span>
 <span class="cm">  * @}</span>
 <span class="cm">  */</span>
 
 <span class="cm">/******************* (C) COPYRIGHT STMicroelectronics *****END OF FILE****/</span>
-</pre></div>
-</td></tr></table>
+</code></pre></div></td></tr></table></div>
 <h1 id="keil">四、Keil需要修改的位置<a class="headerlink" href="#keil" title="Permanent link">¶</a></h1>
 <p>1、需要根据设置的APP程序起始的位置，设置KEIL中APP程序起始位置与程序空间大小</p>
-<p><img alt="Porting-AN4657-STM32Cube-IAP-using-UART-to-STM32F411VET6-image-0" src="https://www.dhlx.wang/images/2015/7/Porting-AN4657-STM32Cube-IAP-using-UART-to-STM32F411VET6-image-0.png"/></p>
+<p><img alt="Porting-AN4657-STM32Cube-IAP-using-UART-to-STM32F411VET6-image-0" src="../images/2015/7/Porting-AN4657-STM32Cube-IAP-using-UART-to-STM32F411VET6-image-0.png"/></p>
 <p>2、需要在User选项卡中增加自定义处理字符串，<code>C:\Program Files\Keil\ARM\ARMCC\bin\fromelf.exe --bin -o .\存放bin的路径\bin文件的名称.bin .\Keil编译后生成的axf的路径\axf文件的名称.axf</code></p>
-<p><img alt="Porting-AN4657-STM32Cube-IAP-using-UART-to-STM32F411VET6-image-1" src="https://www.dhlx.wang/images/2015/7/Porting-AN4657-STM32Cube-IAP-using-UART-to-STM32F411VET6-image-1.png"/></p>
+<p><img alt="Porting-AN4657-STM32Cube-IAP-using-UART-to-STM32F411VET6-image-1" src="../images/2015/7/Porting-AN4657-STM32Cube-IAP-using-UART-to-STM32F411VET6-image-1.png"/></p>
 <h1 id="_4">五、设置中断向量表偏移<a class="headerlink" href="#_4" title="Permanent link">¶</a></h1>
 <p>需要在<code>main.c</code>文件中的<code>/* USER CODE BEGIN 1 */</code>和<code>/* USER CODE END 1 */</code>之间增加一条设置中断向量表的语句<code>SCB-&gt;VTOR = FLASH_BASE | 0x4000;</code>，如下所示。</p>
 <p>main.c增加的代码示意如下：</p>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2
-3</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="cm">/* USER CODE BEGIN 1 */</span>   
-<span class="n">SCB</span><span class="o">-&gt;</span><span class="n">VTOR</span> <span class="o">=</span> <span class="n">FLASH_BASE</span> <span class="o">|</span> <span class="mh">0x4000</span><span class="p">;</span>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="cm">/* USER CODE BEGIN 1 */</span><span class="w">   </span>
+<span class="n">SCB</span><span class="o">-&gt;</span><span class="n">VTOR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FLASH_BASE</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mh">0x4000</span><span class="p">;</span>
 <span class="cm">/* USER CODE END 1 */</span>
-</pre></div>
-</td></tr></table>
+</code></pre></div></td></tr></table></div>
 <h1 id="_5">六、结语<a class="headerlink" href="#_5" title="Permanent link">¶</a></h1>
 <p>关于具体的下载流程及操作，我在这里就不多做叙述了，官方文档中说的已经非常清楚。本次移植过程也是个人摸索得出的，如果有不尽完善的地方，欢迎您提出，我进行验证更正。</p>
+
+
+             
+ 
+                <p id="post-share-links">
+    Like this post? Share on:
+      <a href="mailto:?subject=%E7%A7%BB%E6%A4%8DAN4657%E5%88%B0STM32F411VET6%20STM32Cube%20IAP%20using%20UART&amp;body=/STM32F411VET6/Porting_AN4657_STM32Cube_IAP_using_UART_to_STM32F411VET6.html" target="_blank" rel="nofollow noopener noreferrer" title="Share via Email">Email</a>
+
+                <hr />
+    <div class="author-blurb">
+        <a href="https://www.dhlx.wang/" target="_blank" rel="nofollow noopener noreferrer">
+            <img src=/images/avatars/profile_photo.jpg alt="郭世全 Avatar" title="郭世全">
+            <span class="author-name">郭世全</span>
+        </a>
+        不斷學習，不斷超越
+    </div>
+
             
-            
+
+
+
+
+
+
+
             <hr/>
+<section>
+    <h2>Keep Reading</h2>
+<ul class="related-posts-list">
+<li><a href="../STM32F411VET6/Simple_transplant_IAP_STSW-STM32067_to_STM32F411VET6.html" title="简单移植IAP（STSW-STM32067）到STM32F411VET6">简单移植IAP（STSW-STM32067）到STM32F411VET6</a></li>
+<li><a href="../STM32F411VET6/Porting_FreeModbus_to_STM32F411VET6_based_on_STM32CubeF4.html" title="基于STM32CubeF4移植FreeModbus到STM32F411VET6">基于STM32CubeF4移植FreeModbus到STM32F411VET6</a></li>
+</ul>
+<hr />
+</section>
             <aside>
             <nav>
             <ul class="articles-timeline">
@@ -990,53 +1013,144 @@ PB6、PB7，才可以正常使用，默认的TX引脚上接了一个uF级的电�
             </nav>
             </aside>
         </div>
-        <section>
-        <div class="span2" style="float:right;font-size:0.9em;">
+        <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time pubdate="pubdate" datetime="2015-07-03T16:00:00+08:00">7月 3, 2015</time>
-
+            <time itemprop="dateCreated" datetime="2015-07-03T16:00:00+08:00">周五 03 七月 2015</time>
 <h4>Last Updated</h4>
-<time datetime="2015-07-24T12:12:00+08:00">7月 24, 2015</time>
+<time datetime="2015-07-24T12:12:00+08:00">周五 24 七月 2015</time>
 
             <h4>Category</h4>
             <a class="category-link" href="../categories.html#stm32f411vet6-ref">STM32F411VET6</a>
             <h4>Tags</h4>
             <ul class="list-of-tags tags-in-article">
                 <li><a href="../tags.html#iap-ref">IAP
-                    <span>2</span>
+                    <span class="superscript">2</span>
 </a></li>
                 <li><a href="../tags.html#stm32cubef4-ref">STM32CubeF4
-                    <span>2</span>
+                    <span class="superscript">2</span>
 </a></li>
                 <li><a href="../tags.html#stm32f411vet6-ref">STM32F411VET6
-                    <span>3</span>
+                    <span class="superscript">3</span>
 </a></li>
             </ul>
 <h4>Stay in Touch</h4>
-    <a href="https://github.com/dihonglongxi" title="My Github Profile" class="sidebar-social-links" target="_blank">
-    <i class="fa fa-github sidebar-social-links"></i></a>
-    <a href="https://weibo.com/510838401" title="My Weibo Profile" class="sidebar-social-links" target="_blank">
-    <i class="fa fa-weibo sidebar-social-links"></i></a>
-    <a href="mailto:gsq510838401@gmail.com" title="My Email Address" class="sidebar-social-links" target="_blank">
-    <i class="fa fa-envelope sidebar-social-links"></i></a>
-        </div>
+<div id="sidebar-social-link">
+    <a href="https://github.com/dihonglongxi" title="" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="GitHub" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1B1817"/><path fill="#fff" d="M335 499c14 0 12 17 12 17H165s-2-17 12-17c13 0 16-6 16-12l-1-50c-71 16-86-28-86-28-12-30-28-37-28-37-24-16 1-16 1-16 26 2 40 26 40 26 22 39 59 28 74 22 2-17 9-28 16-35-57-6-116-28-116-126 0-28 10-51 26-69-3-6-11-32 3-67 0 0 21-7 70 26 42-12 86-12 128 0 49-33 70-26 70-26 14 35 6 61 3 67 16 18 26 41 26 69 0 98-60 120-117 126 10 8 18 24 18 48l-1 70c0 6 3 12 16 12z"/></svg>
+    </a>
+    <a href="mailto:mailto:gsq510838401@gmail.com" title="" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="Mail" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#328cff"/><path d="m250 186c-46 0-69 35-69 74 0 44 29 72 68 72 43 0 73-32 73-75 0-44-34-71-72-71zm-1-37c30 0 57 13 77 33 0-22 35-22 35 1v150c-1 10 10 16 16 9 25-25 54-128-14-187-64-56-149-47-195-15-48 33-79 107-49 175 33 76 126 99 182 76 28-12 41 26 12 39-45 19-168 17-225-82-38-68-36-185 67-248 78-46 182-33 244 32 66 69 62 197-2 246-28 23-71 1-71-32v-11c-20 20-47 32-77 32-57 0-108-51-108-108 0-58 51-110 108-110" fill="#fff"/></svg>
+    </a>
+</div>
+            
+
+
+
+
+
+            
+
+
+
+
+
         </section>
 </div>
 </article>
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe.
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides.
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
                 </div>
-                <div class="span1"></div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>                    </div>
+                    <div class="span1"></div>
+                </div>
             </div>
         </div>
-        <div id="push"></div>
-    </div>
 <footer>
-<div id="footer">
-    <ul class="footer-content">
-        <li class="elegant-power">Powered by <a href="http://getpelican.com/" title="Pelican Home Page">Pelican</a>. Theme: <a href="http://oncrashreboot.com/pelican-elegant" title="Theme Elegant Home Page">Elegant</a> by <a href="http://oncrashreboot.com" title="Talha Mansoor Home Page">Talha Mansoor</a></li>
-    </ul>
-</div>
-</footer>            <script src="https://code.jquery.com/jquery.min.js"></script>
+    <div>
+        Content licensed under <a rel="license nofollow noopener noreferrer"
+    href="http://creativecommons.org/licenses/by/4.0/" target="_blank">
+    Creative Commons Attribution 4.0 International License</a>.
+    </div>
+
+    <div>
+        <span class="site-name"><span style="color:black;">帝鴻龍曦</span></span> - 記錄生活和工作的點滴
+    </div>
+
+
+
+    <div id="fpowered">
+        Powered by: <a href="http://getpelican.com/" title="Pelican Home Page" target="_blank" rel="nofollow noopener noreferrer">Pelican</a>
+        Theme: <a href="https://elegant.oncrashreboot.com/" title="Theme Elegant Home Page" target="_blank" rel="nofollow noopener noreferrer">Elegant</a>
+        Hosted on:
+        <a href=https://www.netlify.com/ target="_blank" rel="nofollow noopener noreferrer">
+            Netlify
+        </a>
+    </div>
+</footer>            <script src="//code.jquery.com/jquery.min.js"></script>
         <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script src="../theme/js/elegant.prod.9e9d5ce754.js"></script>
         <script>
             function validateForm(query)
             {
@@ -1044,8 +1158,31 @@ PB6、PB7，才可以正常使用，默认的TX引脚上接了一个uF级的电�
             }
         </script>
 
-    
+    <script>
+    (function () {
+        if (window.location.hash.match(/^#comment-\d+$/)) {
+            $('#comment_thread').collapse('show');
+        }
+    })();
+    window.onhashchange=function(){
+        if (window.location.hash.match(/^#comment-\d+$/))
+            window.location.reload(true);
+    }
+    $('#comment_thread').on('shown', function () {
+        var link = document.getElementById('comment-accordion-toggle');
+        var old_innerHTML = link.innerHTML;
+        $(link).fadeOut(200, function() {
+            $(this).text('Click here to hide comments').fadeIn(200);
+        });
+        $('#comment_thread').on('hidden', function () {
+            $(link).fadeOut(200, function() {
+                $(this).text(old_innerHTML).fadeIn(200);
+            });
+        })
+    })
+</script>
+
     </body>
     <!-- Theme: Elegant built for Pelican
-    License : http://oncrashreboot.com/pelican-elegant -->
+        License : MIT -->
 </html>

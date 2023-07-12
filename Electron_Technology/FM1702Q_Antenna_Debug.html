@@ -1,12 +1,19 @@
 <!DOCTYPE html>
-<html lang="en-US">
+<html lang="zh_cn">
     <head>
-        <meta charset="utf-8"> 
+        <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="author" content="郭世全" />
-        <meta name="copyright" content="郭世全" />
+        <link rel="stylesheet" type="text/css" href="../theme/css/elegant.prod.9e9d5ce754.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="../theme/css/custom.css" media="screen">
 
+        <link rel="dns-prefetch" href="//fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+
+        <meta name="author" content="郭世全" />
+
+        <meta name="description" content="記錄FM1702Q的天綫調試過程
+" />
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
@@ -18,19 +25,13 @@
 <meta property="og:site_name" content="帝鴻龍曦" />
 <meta property="og:article:author" content="郭世全" />
 <meta property="og:article:published_time" content="2019-01-21T21:00:00+08:00" />
-<meta property="" content="2019-02-07T21:00:00+08:00" />
+<meta property="og:article:modified_time" content="2019-02-07T21:00:00+08:00" />
 <meta name="twitter:title" content="FM1702Q（MFRC500）天綫調試 ">
 <meta name="twitter:description" content="記錄FM1702Q的天綫調試過程">
 
         <title>FM1702Q（MFRC500）天綫調試  · 帝鴻龍曦
 </title>
-        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
-        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="../theme/css/pygments.css" media="screen">
-        <link rel="stylesheet" type="text/css" href="../theme/tipuesearch/tipuesearch.css" media="screen">
-        <link rel="stylesheet" type="text/css" href="../theme/css/elegant.css" media="screen">
-        <link rel="stylesheet" type="text/css" href="../theme/css/custom.css" media="screen">
-        <link rel="shortcut icon" href="../theme/images/favicon.ico" type="image/x-icon" type="image/png" />
+        <link rel="shortcut icon" href="../theme/images/favicon.ico" type="image/x-icon" />
         <link rel="icon" href="../theme/images/apple-touch-icon-152x152.png" type="image/png" />
         <link rel="apple-touch-icon" href="../theme/images/apple-touch-icon.png"  type="image/png" />
         <link rel="apple-touch-icon" sizes="57x57" href="../theme/images/apple-touch-icon-57x57.png" type="image/png" />
@@ -40,53 +41,50 @@
         <link rel="apple-touch-icon" sizes="120x120" href="../theme/images/apple-touch-icon-120x120.png" type="image/png" />
         <link rel="apple-touch-icon" sizes="144x144" href="../theme/images/apple-touch-icon-144x144.png" type="image/png" />
         <link rel="apple-touch-icon" sizes="152x152" href="../theme/images/apple-touch-icon-152x152.png" type="image/png" />
-        <script src="https://code.jquery.com/jquery.min.js"></script>
-        <script language="JavaScript" src="/theme/DetectMobileBrowser/DetectBrowser.js"></script>
-        <script language="javascript">
-        <!-- 
-            var str = navigator.userAgent;
-            if (str.indexOf("ndroid") > 0 || str.indexOf("iPhone") > 0|| str.indexOf("iPad") > 0||str.indexOf("iPod")>0) 
-            {
-                document.write("<script language='JavaScript' src='/theme/layer/mobile/layer.m.js'></script>"); 
-            } 
-            else 
-            {
-                document.write("<script language='JavaScript' src='/theme/layer/layer.js'></script>"); 
-            }
-        -->
-        </script>
+        <link rel="apple-touch-icon" sizes="152x152" href="../theme/images/apple-touch-icon-180x180.png" type="image/png" />
+
+
+
     </head>
     <body>
-        <div id="content-sans-footer">
-        <div class="navbar navbar-static-top">
-            <div class="navbar-inner">
-                <div class="container">
-                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </a>
-                    <a style="font-size:24px;font-weight:bold;" class="brand" href="../"><span class=site-name><span style="color:black;">帝鴻龍曦</span></span></a>
-                    <div class="nav-collapse collapse">
-                        <ul class="nav pull-right top-menu">
-                            <li ><a href="../">Home</a></li>
-                            <li ><a href="../categories.html">Categories</a></li>
-                            <li ><a href="../tags.html">Tags</a></li>
-                            <li ><a href="../archives.html">Archives</a></li>
-                            <li><form class="navbar-search" action="../search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
-                        </ul>
+        <div id="content">
+            <div class="navbar navbar-static-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="../"><span class=site-name><span style="color:black;">帝鴻龍曦</span></span></a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav pull-right top-menu">
+                                <li >
+                                    <a href=
+                                       ..
+                                    >Home</a>
+                                </li>
+                                <li ><a href="../categories.html">Categories</a></li>
+                                <li ><a href="../tags.html">Tags</a></li>
+                                <li ><a href="../archives.html">Archives</a></li>
+                                <li><form class="navbar-search" action="../search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="container-fluid">
-            <div class="row-fluid">
-                <div class="span1"></div>
-                <div class="span10">
-<article>
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span1"></div>
+                    <div class="span10">
+<article itemscope>
 <div class="row-fluid">
     <header class="page-header span10 offset2">
-    <h1><a href="../Electron_Technology/FM1702Q_Antenna_Debug.html"> FM1702Q（MFRC500）天綫調試  </a></h1>
+        <h1>
+            <a href="../Electron_Technology/FM1702Q_Antenna_Debug.html">
+                <span class="caps">FM1702Q</span>（<span class="caps">MFRC500</span>）天綫調試
+            </a>
+        </h1>
     </header>
 </div>
 
@@ -104,32 +102,30 @@
         </nav>
     </div>
     <div class="span8 article-content">
-        <p style="color:red;">&gt;&gt;原创文章，欢迎转载。转载请注明：转载自<a href="http://www.dhlx.wang/" target="_blank">帝鴻龍曦</a>，谢谢！</p>
-
             
             
 <h1 id="_1">一、參考文檔<a class="headerlink" href="#_1" title="Permanent link">¶</a></h1>
 <ul>
-<li><a href="">FM1702Q 通用讀卡機芯片產品說明書</a></li>
-<li><a href="">設計 MFRC500 的匹配電路和天線的應用指南</a></li>
-<li><a href="http://www.wanfangdata.com.cn/details/detail.do?_type=perio&amp;id=wxdgc201301014">13.56 MHz RFID讀寫器天線的設計與仿真</a></li>
+<li><a href=""><span class="caps">FM1702Q</span> 通用讀卡機芯片產品說明書</a></li>
+<li><a href="">設計 <span class="caps">MFRC500</span> 的匹配電路和天線的應用指南</a></li>
+<li><a href="http://www.wanfangdata.com.cn/details/detail.do?_type=perio&amp;id=wxdgc201301014">13.56 MHz RFID讀寫器天線的設計與仿真</a></li>
 </ul>
 <h1 id="_2">二、硬件設計<a class="headerlink" href="#_2" title="Permanent link">¶</a></h1>
 <p>因為FM1702Q的硬件設計不太複雜，所以我這主要以文字進行描述。</p>
 <ul>
-<li>TVDD、RVDD採用5V 2596電源，近芯片端均加入0.1uF的濾波電容，並在5V的輸入口放置10uF 6.3V的大電容，以提供低紋波的直流電源。</li>
-<li>DVDD採用3V3 LDO供電，用於節省和STM32F1系列片子配合的74邏輯電平轉換電路。</li>
+<li><span class="caps">TVDD</span>、RVDD採用5V 2596電源，近芯片端均加入0.1uF的濾波電容，並在5V的輸入口放置10uF 6.3V的大電容，以提供低紋波的直流電源。</li>
+<li>DVDD採用3V3 LDO供電，用於節省和STM32F1系列片子配合的74邏輯電平轉換電路。</li>
 <li>SPI均採用外置強上拉。</li>
 <li>天線設計時，參考MFRC500的應用指南，有天線線圈、屏蔽、內外補償、固定去調（鐵氧體）四個部分組成。</li>
 <li>發送和接收、匹配的設計如下圖所示：</li>
 </ul>
-<p>天綫設計中，根據《设计MF RC500 的匹配电路和天线的应用指南》中的第五章介紹和《13.56 MHz RFID讀寫器天線的設計與仿真》論文，雙層板也應在天綫背面增加覆銅（模擬鉄屏蔽），給天綫固定一個去調。在天綫正面應根據設計，適當增加内外補償綫圈。</p>
-<p><img alt="單天線應用原理圖" src="https://www.dhlx.wang/images/2019/01/FM1702Q/01.PNG"/></p>
+<p>天綫設計中，根據《设计MF <span class="caps">RC500</span> 的匹配电路和天线的应用指南》中的第五章介紹和《13.56 MHz RFID讀寫器天線的設計與仿真》論文，雙層板也應在天綫背面增加覆銅（模擬鉄屏蔽），給天綫固定一個去調。在天綫正面應根據設計，適當增加内外補償綫圈。</p>
+<p><img alt="單天線應用原理圖" src="../images/2019/01/FM1702Q/01.png"/></p>
 <p>天線部分電路設計應該遵循以下原則：</p>
 <ul>
-<li>Cs 、Cp都分成2只並聯的電容，便於將來調整參數。</li>
-<li>C1、Cs 、Cp要選用精度為±2％或者更高等級，COG材質（溫度係數小）的電容。這樣才能保證批量生產時產品的性能一致性。</li>
-<li>電感應該用0805以上的封裝，且電感額定電流要在150毫安以上。在無極其成本敏感地方，應盡量采用TDK的鐵氧體屏蔽電感（1uH 400mA）。</li>
+<li>Cs 、Cp都分成2只並聯的電容，便於將來調整參數。</li>
+<li>C1、Cs 、Cp要選用精度為±2％或者更高等級，COG材質（溫度係數小）的電容。這樣才能保證批量生產時產品的性能一致性。</li>
+<li>電感應該用0805以上的封裝，且電感額定電流要在150毫安以上。在無極其成本敏感地方，應盡量采用TDK的鐵氧體屏蔽電感（1uH 400mA）。</li>
 <li>PCB線圈的設計的一般原則是設計為與所讀的卡片大小一致最好。</li>
 <li>PCB線圈的圈數問題，長寬在3x3cm以上4圈即可，如果是在3x3cm以下將圈數增加至6圈或者更多。</li>
 <li>PCB線圈的綫寬建議選用20mil-40mil之間，綫與綫之間的間距等於綫寬，線圈拐角以圓弧過渡最好。</li>
@@ -142,15 +138,14 @@
 <li>调试EMC电路</li>
 <li>调试天线谐振点（如果能調）</li>
 <li>调试Match电路</li>
-<li>调试接收电路，保证RX端的Vpp在0.5RVDD ~ RVDD之间</li>
+<li>调试接收电路，保证RX端的Vpp在0.<span class="caps">5RVDD</span> ~ RVDD之间</li>
 </ul>
 <p>上訴示意圖中天綫的各個器件的作用説明：</p>
 <p>Cp的作用是改變天線的諧振頻率，更改這個值會改變天線的出口電壓和空中感應電壓（可用示波器組環狀探頭測試），此值可以通過理論計算得到初值，然後上下調整容值，看下變化趨勢，將天綫的出口電壓調到最大即可。</p>
-<p>Cs的作用是做天線阻抗匹配，理論經驗值為10pF - 30pF，調節此處容值，主要表現在發送調制信號時，過冲和振鈴的大小，按照ISO14443A中的規定，過冲應控制在天綫的幅度的90%-110%，振鈴幅度應小於天綫的幅度的5%。</p>
+<p>Cs的作用是做天線阻抗匹配，理論經驗值為10pF - 30pF，調節此處容值，主要表現在發送調制信號時，過冲和振鈴的大小，按照ISO14443A中的規定，過冲應控制在天綫的幅度的90%-110%，振鈴幅度應小於天綫的幅度的5%。</p>
 <p>C1、C3、C4和L1基本上按照芯片手冊推薦選值即可。</p>
-<p>調整RX電路的接收賦值時，應當根據DVDD的供電電壓進行選擇，如果DVDD為3V，空載下，RX的值應在1.5Vpp到3Vpp之間，幅值越大越好；DVDD為5V，空在下，RX的值應在2.5Vpp到5Vpp之間，幅值越大越好。
-R2/R1的值越大，RX的接收電壓也越大，黨RX值不在推薦值，應當適當調整。</p>
-<p>EMC C1 x L1的截止頻率應在13.56mHz，故在L1為1uH的情況下，C1的選值應爲136pF（68pF x 2），但爲了簡化設計，可考慮單電容120pF，大概截止頻率在14.5mHz。</p>
+<p>調整RX電路的接收賦值時，應當根據DVDD的供電電壓進行選擇，如果DVDD為3V，空載下，RX的值應在1.5Vpp到3Vpp之間，幅值越大越好；DVDD為5V，空在下，RX的值應在2.5Vpp到5Vpp之間，幅值越大越好。 R2/R1的值越大，RX的接收電壓也越大，黨RX值不在推薦值，應當適當調整。</p>
+<p><span class="caps">EMC</span> C1 x L1的截止頻率應在13.56mHz，故在L1為1uH的情況下，C1的選值應爲136pF（68pF x 2），但爲了簡化設計，可考慮單電容120pF，大概截止頻率在14.5mHz。</p>
 <p>以下的調試過程中保證天綫背面無鉄平面：</p>
 <p>由於我個人的調試設備過於簡單，只有示波器可用（阻抗為1M），所以我簡單對我的調試過程做下記錄：</p>
 <ul>
@@ -161,79 +156,193 @@ R2/R1的值越大，RX的接收電壓也越大，黨RX值不在推薦值，應�
 <li>看下過冲和振鈴，如果有問題，改變Cs的值重新調整，調Cp時也會改變，但此處一般不用調。</li>
 </ul>
 <p>正常的波形如下所示（電感前端、天綫兩端、RX管脚）：</p>
-<p><img alt="TX正常波形" src="https://www.dhlx.wang/images/2019/01/FM1702Q/02.JPG"/></p>
-<p><img alt="天線出口兩端波形" src="https://www.dhlx.wang/images/2019/01/FM1702Q/03.JPG"/></p>
-<p><img alt="RX正常波形" src="https://www.dhlx.wang/images/2019/01/FM1702Q/04.JPG"/></p>
-<p><img alt="RX最大幅度" src="https://www.dhlx.wang/images/2019/01/FM1702Q/09.JPG"/></p>
+<p><img alt="TX正常波形" src="../images/2019/01/FM1702Q/02.JPG"/></p>
+<p><img alt="天線出口兩端波形" src="../images/2019/01/FM1702Q/03.JPG"/></p>
+<p><img alt="RX正常波形" src="../images/2019/01/FM1702Q/04.JPG"/></p>
+<p><img alt="RX最大幅度" src="../images/2019/01/FM1702Q/09.JPG"/></p>
 <p>確認讀卡器是否可以正常工作，就是看下對應的調製波形，是否發出命令，卡片有返回，下圖為尋卡指令的示意圖：</p>
-<p><img alt="天線存在載波與接收" src="https://www.dhlx.wang/images/2019/01/FM1702Q/05.JPG"/></p>
-<p>以下為調試過程中走過的彎路，電源供電不足時，電感前後端的波形和RX上的波形：
-<img alt="電感前端異常波形" src="https://www.dhlx.wang/images/2019/01/FM1702Q/06.JPG"/>
-<img alt="電感後端異常波形" src="https://www.dhlx.wang/images/2019/01/FM1702Q/07.JPG"/>
-<img alt="RX異常波形" src="https://www.dhlx.wang/images/2019/01/FM1702Q/08.JPG"/></p>
-<p>下面這個就是過冲和振鈴，如果過大，請調節Cs：
-<img alt="過沖和振鈴示意" src="https://www.dhlx.wang/images/2019/01/FM1702Q/10.PNG"/></p>
+<p><img alt="天線存在載波與接收" src="../images/2019/01/FM1702Q/05.JPG"/></p>
+<p>以下為調試過程中走過的彎路，電源供電不足時，電感前後端的波形和RX上的波形：</p>
+<p><img alt="電感前端異常波形" src="../images/2019/01/FM1702Q/06.JPG"/>
+<img alt="電感後端異常波形" src="../images/2019/01/FM1702Q/07.JPG"/>
+<img alt="RX異常波形" src="../images/2019/01/FM1702Q/08.JPG"/></p>
+<p>下面這個就是過冲和振鈴，如果過大，請調節Cs：</p>
+<p><img alt="過沖和振鈴示意" src="../images/2019/01/FM1702Q/10.PNG"/></p>
+
+
+             
+ 
+                <p id="post-share-links">
+    Like this post? Share on:
+      <a href="mailto:?subject=FM1702Q%EF%BC%88MFRC500%EF%BC%89%E5%A4%A9%E7%B6%AB%E8%AA%BF%E8%A9%A6%20&amp;body=/Electron_Technology/FM1702Q_Antenna_Debug.html" target="_blank" rel="nofollow noopener noreferrer" title="Share via Email">Email</a>
+
+                <hr />
+    <div class="author-blurb">
+        <a href="https://www.dhlx.wang/" target="_blank" rel="nofollow noopener noreferrer">
+            <img src=/images/avatars/profile_photo.jpg alt="郭世全 Avatar" title="郭世全">
+            <span class="author-name">郭世全</span>
+        </a>
+        不斷學習，不斷超越
+    </div>
+
             
-            
+
+
+
+
+
+
+
             <hr/>
             <aside>
             <nav>
             <ul class="articles-timeline">
-                <li class="previous-article">« <a href="../Travels/2017_HuiZhou.html" title="Previous: 烟花三月下徽州 春色如烟人如畫">烟花三月下徽州 春色如烟人如畫</a></li>
+                <li class="previous-article">« <a href="../Travels/2017_HuiZhou.html" title="Previous: 烟花三月下徽州 春色如烟人如畫">烟花三月下徽州 春色如烟人如畫</a></li>
             </ul>
             </nav>
             </aside>
         </div>
-        <section>
-        <div class="span2" style="float:right;font-size:0.9em;">
+        <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time pubdate="pubdate" datetime="2019-01-21T21:00:00+08:00">1月 21, 2019</time>
-
+            <time itemprop="dateCreated" datetime="2019-01-21T21:00:00+08:00">周一 21 一月 2019</time>
 <h4>Last Updated</h4>
-<time datetime="2019-02-07T21:00:00+08:00">2月 7, 2019</time>
+<time datetime="2019-02-07T21:00:00+08:00">周四 07 二月 2019</time>
 
             <h4>Category</h4>
             <a class="category-link" href="../categories.html#fm1702q-ref">FM1702Q</a>
             <h4>Tags</h4>
             <ul class="list-of-tags tags-in-article">
                 <li><a href="../tags.html#fm1702q-ref">FM1702Q
-                    <span>1</span>
+                    <span class="superscript">1</span>
 </a></li>
                 <li><a href="../tags.html#mfrc500-ref">MFRC500
-                    <span>1</span>
+                    <span class="superscript">1</span>
 </a></li>
                 <li><a href="../tags.html#mfrc520-ref">MFRC520
-                    <span>1</span>
+                    <span class="superscript">1</span>
 </a></li>
                 <li><a href="../tags.html#mifare-one-ref">Mifare One
-                    <span>1</span>
+                    <span class="superscript">1</span>
 </a></li>
             </ul>
 <h4>Stay in Touch</h4>
-    <a href="https://github.com/dihonglongxi" title="My Github Profile" class="sidebar-social-links" target="_blank">
-    <i class="fa fa-github sidebar-social-links"></i></a>
-    <a href="https://weibo.com/510838401" title="My Weibo Profile" class="sidebar-social-links" target="_blank">
-    <i class="fa fa-weibo sidebar-social-links"></i></a>
-    <a href="mailto:gsq510838401@gmail.com" title="My Email Address" class="sidebar-social-links" target="_blank">
-    <i class="fa fa-envelope sidebar-social-links"></i></a>
-        </div>
+<div id="sidebar-social-link">
+    <a href="https://github.com/dihonglongxi" title="" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="GitHub" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1B1817"/><path fill="#fff" d="M335 499c14 0 12 17 12 17H165s-2-17 12-17c13 0 16-6 16-12l-1-50c-71 16-86-28-86-28-12-30-28-37-28-37-24-16 1-16 1-16 26 2 40 26 40 26 22 39 59 28 74 22 2-17 9-28 16-35-57-6-116-28-116-126 0-28 10-51 26-69-3-6-11-32 3-67 0 0 21-7 70 26 42-12 86-12 128 0 49-33 70-26 70-26 14 35 6 61 3 67 16 18 26 41 26 69 0 98-60 120-117 126 10 8 18 24 18 48l-1 70c0 6 3 12 16 12z"/></svg>
+    </a>
+    <a href="mailto:mailto:gsq510838401@gmail.com" title="" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="Mail" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#328cff"/><path d="m250 186c-46 0-69 35-69 74 0 44 29 72 68 72 43 0 73-32 73-75 0-44-34-71-72-71zm-1-37c30 0 57 13 77 33 0-22 35-22 35 1v150c-1 10 10 16 16 9 25-25 54-128-14-187-64-56-149-47-195-15-48 33-79 107-49 175 33 76 126 99 182 76 28-12 41 26 12 39-45 19-168 17-225-82-38-68-36-185 67-248 78-46 182-33 244 32 66 69 62 197-2 246-28 23-71 1-71-32v-11c-20 20-47 32-77 32-57 0-108-51-108-108 0-58 51-110 108-110" fill="#fff"/></svg>
+    </a>
+</div>
+            
+
+
+
+
+
+            
+
+
+
+
+
         </section>
 </div>
 </article>
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe.
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides.
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
                 </div>
-                <div class="span1"></div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>                    </div>
+                    <div class="span1"></div>
+                </div>
             </div>
         </div>
-        <div id="push"></div>
-    </div>
 <footer>
-<div id="footer">
-    <ul class="footer-content">
-        <li class="elegant-power">Powered by <a href="http://getpelican.com/" title="Pelican Home Page">Pelican</a>. Theme: <a href="http://oncrashreboot.com/pelican-elegant" title="Theme Elegant Home Page">Elegant</a> by <a href="http://oncrashreboot.com" title="Talha Mansoor Home Page">Talha Mansoor</a></li>
-    </ul>
-</div>
-</footer>            <script src="https://code.jquery.com/jquery.min.js"></script>
+    <div>
+        Content licensed under <a rel="license nofollow noopener noreferrer"
+    href="http://creativecommons.org/licenses/by/4.0/" target="_blank">
+    Creative Commons Attribution 4.0 International License</a>.
+    </div>
+
+    <div>
+        <span class="site-name"><span style="color:black;">帝鴻龍曦</span></span> - 記錄生活和工作的點滴
+    </div>
+
+
+
+    <div id="fpowered">
+        Powered by: <a href="http://getpelican.com/" title="Pelican Home Page" target="_blank" rel="nofollow noopener noreferrer">Pelican</a>
+        Theme: <a href="https://elegant.oncrashreboot.com/" title="Theme Elegant Home Page" target="_blank" rel="nofollow noopener noreferrer">Elegant</a>
+        Hosted on:
+        <a href=https://www.netlify.com/ target="_blank" rel="nofollow noopener noreferrer">
+            Netlify
+        </a>
+    </div>
+</footer>            <script src="//code.jquery.com/jquery.min.js"></script>
         <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script src="../theme/js/elegant.prod.9e9d5ce754.js"></script>
         <script>
             function validateForm(query)
             {
@@ -241,8 +350,31 @@ R2/R1的值越大，RX的接收電壓也越大，黨RX值不在推薦值，應�
             }
         </script>
 
-    
+    <script>
+    (function () {
+        if (window.location.hash.match(/^#comment-\d+$/)) {
+            $('#comment_thread').collapse('show');
+        }
+    })();
+    window.onhashchange=function(){
+        if (window.location.hash.match(/^#comment-\d+$/))
+            window.location.reload(true);
+    }
+    $('#comment_thread').on('shown', function () {
+        var link = document.getElementById('comment-accordion-toggle');
+        var old_innerHTML = link.innerHTML;
+        $(link).fadeOut(200, function() {
+            $(this).text('Click here to hide comments').fadeIn(200);
+        });
+        $('#comment_thread').on('hidden', function () {
+            $(link).fadeOut(200, function() {
+                $(this).text(old_innerHTML).fadeIn(200);
+            });
+        })
+    })
+</script>
+
     </body>
     <!-- Theme: Elegant built for Pelican
-    License : http://oncrashreboot.com/pelican-elegant -->
+        License : MIT -->
 </html>
