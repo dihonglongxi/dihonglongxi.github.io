@@ -19,17 +19,17 @@
 
 <meta name="keywords" content="Linux, STM32MP157DAA1, TF-A, OPTEE, U-boot, STM32MP157DAA1, Linux, STM32MP157DAA1, TF-A, OPTEE, U-boot" />
 
-<meta property="og:title" content="移植tf-a 2.8, optee 3.19, u-boot 2022.10, linux6.1 (v23.06.21) 到正點原子(ALIENTEK) STM32MP157D 開發板  - STM32MP157D 入門學習 "/>
+<meta property="og:title" content="移植tf-a 2.8, optee 3.19, u-boot 2022.10, linux6.1 (v23.06.21) 到正點原子(ALIENTEK) STM32MP157D 開發板 "/>
 <meta property="og:url" content="../STM32MP157DAA1/Porting_v23.06.21_to_ALIENTEK_STM32MP157D.html" />
 <meta property="og:description" content="記錄移植tf-a 2.8, optee 3.19, u-boot 2022.10, linux6.1 (v23.06.21) 到正點原子(ALIENTEK) STM32MP157D 開發板的過程" />
 <meta property="og:site_name" content="帝鴻龍曦" />
 <meta property="og:article:author" content="郭世全" />
 <meta property="og:article:published_time" content="2015-07-03T16:00:00+08:00" />
 <meta property="og:article:modified_time" content="2023-07-12T21:35:00+08:00" />
-<meta name="twitter:title" content="移植tf-a 2.8, optee 3.19, u-boot 2022.10, linux6.1 (v23.06.21) 到正點原子(ALIENTEK) STM32MP157D 開發板  - STM32MP157D 入門學習 ">
+<meta name="twitter:title" content="移植tf-a 2.8, optee 3.19, u-boot 2022.10, linux6.1 (v23.06.21) 到正點原子(ALIENTEK) STM32MP157D 開發板 ">
 <meta name="twitter:description" content="記錄移植tf-a 2.8, optee 3.19, u-boot 2022.10, linux6.1 (v23.06.21) 到正點原子(ALIENTEK) STM32MP157D 開發板的過程">
 
-        <title>移植tf-a 2.8, optee 3.19, u-boot 2022.10, linux6.1 (v23.06.21) 到正點原子(ALIENTEK) STM32MP157D 開發板  - STM32MP157D 入門學習  · 帝鴻龍曦
+        <title>移植tf-a 2.8, optee 3.19, u-boot 2022.10, linux6.1 (v23.06.21) 到正點原子(ALIENTEK) STM32MP157D 開發板  · 帝鴻龍曦
 </title>
         <link rel="shortcut icon" href="../theme/images/favicon.ico" type="image/x-icon" />
         <link rel="icon" href="../theme/images/apple-touch-icon-152x152.png" type="image/png" />
@@ -83,9 +83,6 @@
         <h1>
             <a href="../STM32MP157DAA1/Porting_v23.06.21_to_ALIENTEK_STM32MP157D.html">
                 移植tf-a 2.8, optee 3.19, u-boot 2022.10, linux6.1 (v23.06.21) 到正點原子(<span class="caps">ALIENTEK</span>) <span class="caps">STM32MP157D</span>&nbsp;開發板
-                <small class="subtitle">
-                    STM32MP157D 入門學習
-                </small>
             </a>
         </h1>
     </header>
@@ -134,7 +131,6 @@
     <div class="span8 article-content">
             
             
-<p><img alt="Overclocking-brick-do-not-be-afraid-do-it-yourself-yourself-image-0" src="../images/2015/8/Overclocking-brick-do-not-be-afraid-do-it-yourself-yourself-image-0.png"/></p>
 <p>首先，本教程不是一個完整的初學者的教學手冊，需要閱讀人員，自行提前閱讀《【正點原子】STM32MP1嵌入式Linux驅動開發指南V2.0》和熟悉STM32相關工具的基本操作。</p>
 <p>其次，本文的開發環境基於Windows 11 22H2 版本的WSL2 Ubuntu 22.04進行搭建，這樣的好處是直接利用Hyper-V的高效率和文件操作不需要自行設置，加快開發環境部署。</p>
 <h1 id="1">1 準備移植程序和工具<a class="headerlink" href="#1" title="Permanent link">¶</a></h1>
@@ -958,7 +954,7 @@ $ make -f $PWD/../Makefile.sdk all
  
                 <p id="post-share-links">
     Like this post? Share on:
-      <a href="mailto:?subject=%E7%A7%BB%E6%A4%8Dtf-a%202.8%2C%20optee%203.19%2C%20u-boot%202022.10%2C%20linux6.1%20%28v23.06.21%29%20%E5%88%B0%E6%AD%A3%E9%BB%9E%E5%8E%9F%E5%AD%90%28ALIENTEK%29%20STM32MP157D%C2%A0%E9%96%8B%E7%99%BC%E6%9D%BF%20STM32MP157D%20%E5%85%A5%E9%96%80%E5%AD%B8%E7%BF%92&amp;body=/STM32MP157DAA1/Porting_v23.06.21_to_ALIENTEK_STM32MP157D.html" target="_blank" rel="nofollow noopener noreferrer" title="Share via Email">Email</a>
+      <a href="mailto:?subject=%E7%A7%BB%E6%A4%8Dtf-a%202.8%2C%20optee%203.19%2C%20u-boot%202022.10%2C%20linux6.1%20%28v23.06.21%29%20%E5%88%B0%E6%AD%A3%E9%BB%9E%E5%8E%9F%E5%AD%90%28ALIENTEK%29%20STM32MP157D%C2%A0%E9%96%8B%E7%99%BC%E6%9D%BF%20&amp;body=/STM32MP157DAA1/Porting_v23.06.21_to_ALIENTEK_STM32MP157D.html" target="_blank" rel="nofollow noopener noreferrer" title="Share via Email">Email</a>
 
                 <hr />
     <div class="author-blurb">
