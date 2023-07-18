@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="../theme/css/elegant.prod.9e9d5ce754.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="../theme/css/custom.css" media="screen">
+
+        <link rel="dns-prefetch" href="//fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+
+        <meta name="author" content="郭世全" />
+
+        <meta name="description" content="記錄移植tf-a 2.8, optee 3.19, u-boot 2022.10, linux6.1 (v23.06.21) 到正點原子(ALIENTEK) STM32MP157D 開發板的過程
+" />
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary">
+
+<meta name="keywords" content="Linux, STM32MP157DAA1, TF-A, OPTEE, U-boot, STM32MP157DAA1, Linux, STM32MP157DAA1, TF-A, OPTEE, U-boot" />
+
+<meta property="og:title" content="移植tf-a 2.8, optee 3.19, u-boot 2022.10, linux6.1 (v23.06.21) 到正點原子(ALIENTEK) STM32MP157D 開發板  - STM32MP157D 入門學習 "/>
+<meta property="og:url" content="../STM32MP157DAA1/Porting_v23.06.21_to_ALIENTEK_STM32MP157D.html" />
+<meta property="og:description" content="記錄移植tf-a 2.8, optee 3.19, u-boot 2022.10, linux6.1 (v23.06.21) 到正點原子(ALIENTEK) STM32MP157D 開發板的過程" />
+<meta property="og:site_name" content="帝鴻龍曦" />
+<meta property="og:article:author" content="郭世全" />
+<meta property="og:article:published_time" content="2015-07-03T16:00:00+08:00" />
+<meta property="og:article:modified_time" content="2023-07-12T21:35:00+08:00" />
+<meta name="twitter:title" content="移植tf-a 2.8, optee 3.19, u-boot 2022.10, linux6.1 (v23.06.21) 到正點原子(ALIENTEK) STM32MP157D 開發板  - STM32MP157D 入門學習 ">
+<meta name="twitter:description" content="記錄移植tf-a 2.8, optee 3.19, u-boot 2022.10, linux6.1 (v23.06.21) 到正點原子(ALIENTEK) STM32MP157D 開發板的過程">
+
+        <title>移植tf-a 2.8, optee 3.19, u-boot 2022.10, linux6.1 (v23.06.21) 到正點原子(ALIENTEK) STM32MP157D 開發板  - STM32MP157D 入門學習  · 帝鴻龍曦
+</title>
+        <link rel="shortcut icon" href="../theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="../theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="../theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="../theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="../theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="../theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="../theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="../theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="../theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="../theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="../theme/images/apple-touch-icon-180x180.png" type="image/png" />
+
+
+
+    </head>
+    <body>
+        <div id="content">
+            <div class="navbar navbar-static-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="../"><span class=site-name><span style="color:black;">帝鴻龍曦</span></span></a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav pull-right top-menu">
+                                <li >
+                                    <a href=
+                                       ..
+                                    >Home</a>
+                                </li>
+                                <li ><a href="../categories.html">Categories</a></li>
+                                <li ><a href="../tags.html">Tags</a></li>
+                                <li ><a href="../archives.html">Archives</a></li>
+                                <li><form class="navbar-search" action="../search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span1"></div>
+                    <div class="span10">
+<article itemscope>
+<div class="row-fluid">
+    <header class="page-header span10 offset2">
+        <h1>
+            <a href="../STM32MP157DAA1/Porting_v23.06.21_to_ALIENTEK_STM32MP157D.html">
+                移植tf-a 2.8, optee 3.19, u-boot 2022.10, linux6.1 (v23.06.21) 到正點原子(<span class="caps">ALIENTEK</span>) <span class="caps">STM32MP157D</span>&nbsp;開發板
+                <small class="subtitle">
+                    STM32MP157D 入門學習
+                </small>
+            </a>
+        </h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+    <div class="span2 table-of-content">
+        <nav>
+        <h4>Contents</h4>
+        <div class="toc">
+<ul>
+<li><a href="#1">1 準備移植程序和工具</a></li>
+<li><a href="#2">2 啓動流程和一些不明確的地方</a><ul>
+<li><a href="#21">2.1 啓動流程未清楚的地方</a></li>
+<li><a href="#22-stm32mp157d800mhz">2.2 關於STM32MP157D在800MHz運行下的情況</a></li>
+</ul>
+</li>
+<li><a href="#3">3 配置開發環境</a><ul>
+<li><a href="#31">3.1 拷貝文件到工作目錄並解壓文件</a></li>
+<li><a href="#32">3.2 安裝編譯工具鏈</a></li>
+</ul>
+</li>
+<li><a href="#4-tf-a-28">4 <span class="caps">TF</span>-A 2.8移植</a><ul>
+<li><a href="#41">4.1 解壓源碼並編譯測試</a></li>
+<li><a href="#42-makefilesdk">4.2 處理Makefile.sdk</a></li>
+<li><a href="#43">4.3 源碼移植</a><ul>
+<li><a href="#431-stm32mp157d-atkdts">4.3.1 創建stm32mp157d-atk.dts相關文件</a></li>
+<li><a href="#432">4.3.2 拼接设备树文件</a></li>
+<li><a href="#433">4.3.3 修改电源设备树</a></li>
+<li><a href="#434-emmc">4.3.4 修改EMMC设备树</a></li>
+</ul>
+</li>
+<li><a href="#44-flashlayout">4.4 修改Flashlayout文件</a></li>
+<li><a href="#45">4.5 編譯並下載測試</a><ul>
+<li><a href="#451">4.5.1 編譯</a></li>
+<li><a href="#452">4.5.2 下載測試</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#10">10 结语</a></li>
+</ul>
+</div>
+        </nav>
+    </div>
+    <div class="span8 article-content">
+            
+            
+<p><img alt="Overclocking-brick-do-not-be-afraid-do-it-yourself-yourself-image-0" src="../images/2015/8/Overclocking-brick-do-not-be-afraid-do-it-yourself-yourself-image-0.png"/></p>
+<p>首先，本教程不是一個完整的初學者的教學手冊，需要閱讀人員，自行提前閱讀《【正點原子】STM32MP1嵌入式Linux驅動開發指南V2.0》和熟悉STM32相關工具的基本操作。</p>
+<p>其次，本文的開發環境基於Windows 11 22H2 版本的WSL2 Ubuntu 22.04進行搭建，這樣的好處是直接利用Hyper-V的高效率和文件操作不需要自行設置，加快開發環境部署。</p>
+<h1 id="1">1 準備移植程序和工具<a class="headerlink" href="#1" title="Permanent link">¶</a></h1>
+<p>我們在移植的過程中主要用到以下程序和工具：</p>
+<ul>
+<li><a href="https://www.st.com/en/embedded-software/stm32mp1starter.html"><span class="caps">STM32MP1STARTER</span></a></li>
+<li><a href="https://www.st.com/en/embedded-software/stm32mp1dev.html">STM32MP1Dev</a></li>
+<li><a href="https://www.st.com/en/embedded-software/stm32mp1dev.html">Yocto_SDKx86</a></li>
+<li><a href="https://www.st.com/en/development-tools/stm32cubeprog.html">stm32cubeprog</a></li>
+</ul>
+<p>其中我們需要從【<span class="caps">STM32MP1STARTER</span>】獲取參考用的TSV，因爲新版本的固件名稱已經和正點原子的手冊中不一樣，變化比較大；然後由於現在各大廠商提供的支持越來越好，已經提供對應的開發工具包，我個人覺得沒有必要自己去一個個安裝，搭建開發環境，故在本教程中需要用到【Yocto_SDKx86】，進行開發環境的搭建；最後就是我們需要的相關源代碼包【STM32MP1Dev】和下載工具【stm32cubeprog】。</p>
+<h1 id="2">2 啓動流程和一些不明確的地方<a class="headerlink" href="#2" title="Permanent link">¶</a></h1>
+<h2 id="21">2.1 啓動流程未清楚的地方<a class="headerlink" href="#21" title="Permanent link">¶</a></h2>
+<p><img alt="Trusted_boot_chain.png" src="../images/2023/07/01/Trusted_boot_chain.png"/></p>
+<p>如上圖所示，STM32MP157系列支持兩種啓動方式，一種是安全啓動，一種是非安全啓動，但是找了許多資料，沒有查詢到第二種的方式實現，目前的資料都是第一種方式，通過 <span class="caps">ROM</span> —&gt; <span class="caps">FSBL</span> —&gt; <span class="caps">OP</span>-<span class="caps">TEE</span> —&gt; U-boot —&gt; Kernal —&gt; USer,本教程也是基於這種方式移植。</p>
+<h2 id="22-stm32mp157d800mhz">2.2 關於STM32MP157D在800MHz運行下的情況<a class="headerlink" href="#22-stm32mp157d800mhz" title="Permanent link">¶</a></h2>
+<p>按照STM32官方的分立電源手冊【<a href="https://www.st.com/resource/zh/application_note/an5256-stm32mp151-stm32mp153-and-stm32mp157-discrete-power-supply-hardware-integration-stmicroelectronics.pdf"><span class="caps">AN5256</span> <span class="caps">STM32MP151</span>、STM32MP153和STM32MP157分立电源硬件集成</a>】中的描述，個人的初略理解，STM32MP157如果要想在800Mhz運行，VDDCore應該在1.35V，但奇怪的是正點原子的板子只提供了1.2V，可測試固件可以跑到800MHz，所以現在沒有理解怎麽實現的。</p>
+<h1 id="3">3 配置開發環境<a class="headerlink" href="#3" title="Permanent link">¶</a></h1>
+<h2 id="31">3.1 拷貝文件到工作目錄並解壓文件<a class="headerlink" href="#31" title="Permanent link">¶</a></h2>
+<p>在工作目录（stm32mp1-openstlinux-6.1-yocto-mickledore-mp1-v23.06.21）准备好下载好的三个压缩包並输入下列命令进行解压</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>tar<span class="w"> </span>-xvzf<span class="w"> </span>en.SOURCES-stm32mp1-openstlinux-5.15-yocto-kirkstone-mp1-v22.06.15.tar.xz
+$<span class="w"> </span>tar<span class="w"> </span>-xvzf<span class="w"> </span>en.SDK-x86_64-stm32mp1-openstlinux-5.15-yocto-kirkstone-mp1-v22.06.15.tar.xz
+$<span class="w"> </span>tar<span class="w"> </span>-xvzf<span class="w"> </span>en.FLASH-stm32mp1-openstlinux-5.15-yocto-kirkstone-mp1-v22.06.15.tar.xz
+</code></pre></div>
+<p>得到stm32mp1-openstlinux-6.1-yocto-mickledore-mp1-v23.06.21文件夹，里面就是源码、工具和镜像包。</p>
+<div class="highlight"><pre><span></span><code>stm32mp1-openstlinux-6.1-yocto-mickledore-mp1-v23.06.21
+├─images                                                   #官方开发板镜像包
+│  └─stm32mp1
+│      └─flashlayout_st-image-weston                       #參考flashlayout TSV
+│         ├─deleteall                                      #擦除flashlayout TSV
+│         ├─extensible                                     #用於SD卡flashlayout TSV
+│         └─optee                                          #正常下載flashlayout TSV
+├─sdk                                                      #交叉编译工具链
+└─sources                                                  #源码
+    └─arm-ostl-linux-gnueabi                               
+        ├─FIP_artifacts                                    #FIP编译生成的结果存放目录
+        ├─gcnano-driver-stm32mp-6.4.13-stm32mp-r1-r0       #一个内核模块源码
+        ├─linux-stm32mp-6.1.28-stm32mp-r1-r0               #Linux源码及补丁
+        ├─optee-os-stm32mp-3.19.0-stm32mp-r1-r0            #OPTEE源码及补丁
+        ├─tf-a-stm32mp-v2.8.6-stm32mp-r1-r0                #TF-A源码及补丁
+        └─u-boot-stm32mp-v2022.10-stm32mp-r1-r0            #u-boot源码及补丁
+</code></pre></div>
+<h2 id="32">3.2 安裝編譯工具鏈<a class="headerlink" href="#32" title="Permanent link">¶</a></h2>
+<p>进入到sdk目录下，輸入下列命令進行安裝</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>./st-image-weston-openstlinux-weston-stm32mp1-x86_64-toolchain-4.2.1-openstlinux-6.1-yocto-mickledore-mp1-v23.06.21.sh
+$<span class="w"> </span>./st-image-weston-openstlinux-weston-stm32mp1-x86_64-toolchain-4.2.1-openstlinux-6.1-yocto-mickledore-mp1-v23.06.21.sh
+</code></pre></div>
+<p>過程中的提示基本都默認即可。</p>
+<p>安裝完成后，可以用以下命令測試下，輸入下令命令是否。</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span><span class="nb">source</span><span class="w"> </span>/opt/st/stm32mp1/4.2.1-openstlinux-6.1-yocto-mickledore-mp1-v23.06.21/environment-setup-cortexa7t2hf-neon-vfpv4-ostl-linux-gnueabi
+$<span class="w"> </span>arm-ostl-linux-
+</code></pre></div>
+<p>顯示如下信息，説明配置成功。</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>arm-ostl-linux-
+arm-ostl-linux-gnueabi-addr2line<span class="w">      </span>arm-ostl-linux-gnueabi-ld.gold<span class="w">        </span>arm-ostl-linux-musl-gcc-nm
+arm-ostl-linux-gnueabi-ar<span class="w">             </span>arm-ostl-linux-gnueabi-lto-dump<span class="w">       </span>arm-ostl-linux-musl-gcc-ranlib
+arm-ostl-linux-gnueabi-as<span class="w">             </span>arm-ostl-linux-gnueabi-nm<span class="w">             </span>arm-ostl-linux-musl-gcov
+arm-ostl-linux-gnueabi-c++filt<span class="w">        </span>arm-ostl-linux-gnueabi-objcopy<span class="w">        </span>arm-ostl-linux-musl-gcov-dump
+arm-ostl-linux-gnueabi-cpp<span class="w">            </span>arm-ostl-linux-gnueabi-objdump<span class="w">        </span>arm-ostl-linux-musl-gcov-tool
+arm-ostl-linux-gnueabi-dwp<span class="w">            </span>arm-ostl-linux-gnueabi-ranlib<span class="w">         </span>arm-ostl-linux-musl-gdb
+arm-ostl-linux-gnueabi-elfedit<span class="w">        </span>arm-ostl-linux-gnueabi-readelf<span class="w">        </span>arm-ostl-linux-musl-gdb-add-index
+arm-ostl-linux-gnueabi-g++<span class="w">            </span>arm-ostl-linux-gnueabi-size<span class="w">           </span>arm-ostl-linux-musl-gprof
+arm-ostl-linux-gnueabi-gcc<span class="w">            </span>arm-ostl-linux-gnueabi-strings<span class="w">        </span>arm-ostl-linux-musl-ld
+arm-ostl-linux-gnueabi-gcc-ar<span class="w">         </span>arm-ostl-linux-gnueabi-strip<span class="w">          </span>arm-ostl-linux-musl-ld.bfd
+arm-ostl-linux-gnueabi-gcc-nm<span class="w">         </span>arm-ostl-linux-musl-addr2line<span class="w">         </span>arm-ostl-linux-musl-ld.gold
+arm-ostl-linux-gnueabi-gcc-ranlib<span class="w">     </span>arm-ostl-linux-musl-ar<span class="w">                </span>arm-ostl-linux-musl-lto-dump
+arm-ostl-linux-gnueabi-gcov<span class="w">           </span>arm-ostl-linux-musl-as<span class="w">                </span>arm-ostl-linux-musl-nm
+arm-ostl-linux-gnueabi-gcov-dump<span class="w">      </span>arm-ostl-linux-musl-c++filt<span class="w">           </span>arm-ostl-linux-musl-objcopy
+arm-ostl-linux-gnueabi-gcov-tool<span class="w">      </span>arm-ostl-linux-musl-cpp<span class="w">               </span>arm-ostl-linux-musl-objdump
+arm-ostl-linux-gnueabi-gdb<span class="w">            </span>arm-ostl-linux-musl-dwp<span class="w">               </span>arm-ostl-linux-musl-ranlib
+arm-ostl-linux-gnueabi-gdb-add-index<span class="w">  </span>arm-ostl-linux-musl-elfedit<span class="w">           </span>arm-ostl-linux-musl-readelf
+arm-ostl-linux-gnueabi-gprof<span class="w">          </span>arm-ostl-linux-musl-g++<span class="w">               </span>arm-ostl-linux-musl-size
+arm-ostl-linux-gnueabi-ld<span class="w">             </span>arm-ostl-linux-musl-gcc<span class="w">               </span>arm-ostl-linux-musl-strings
+arm-ostl-linux-gnueabi-ld.bfd<span class="w">         </span>arm-ostl-linux-musl-gcc-ar<span class="w">            </span>arm-ostl-linux-musl-strip
+$<span class="w"> </span>arm-ostl-linux-
+</code></pre></div>
+<h1 id="4-tf-a-28">4 <span class="caps">TF</span>-A 2.8移植<a class="headerlink" href="#4-tf-a-28" title="Permanent link">¶</a></h1>
+<h2 id="41">4.1 解壓源碼並編譯測試<a class="headerlink" href="#41" title="Permanent link">¶</a></h2>
+<p>進入之前準備好的源碼目錄<code>tf-a-stm32mp-v2.8.6-stm32mp-r1-r0</code>，解壓並打好補丁文件。可以參考README.HOW_TO.txt文件，裡面說了怎麼解壓和打補丁，並且還說了如何編譯。</p>
+<div class="highlight"><pre><span></span><code>#解压源码
+$<span class="w"> </span><span class="nv">tar</span><span class="w"> </span><span class="o">-</span><span class="nv">xvf</span><span class="w"> </span><span class="nv">tf</span><span class="o">-</span><span class="nv">a</span><span class="o">-</span><span class="nv">stm32mp</span><span class="o">-</span><span class="nv">v2</span>.<span class="mi">8</span>.<span class="mi">6</span><span class="o">-</span><span class="nv">stm32mp</span><span class="o">-</span><span class="nv">r1</span><span class="o">-</span><span class="nv">r0</span>.<span class="nv">tar</span>.<span class="nv">xz</span>
+#进入源码目录
+$<span class="w"> </span><span class="nv">cd</span><span class="w"> </span><span class="nv">tf</span><span class="o">-</span><span class="nv">a</span><span class="o">-</span><span class="nv">stm32mp</span><span class="o">-</span><span class="nv">v2</span>.<span class="mi">8</span>.<span class="mi">6</span><span class="o">-</span><span class="nv">stm32mp</span><span class="o">-</span><span class="nv">r1</span><span class="o">/</span>
+#打补丁
+$<span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nv">p</span><span class="w"> </span><span class="nv">in</span><span class="w"> </span>`<span class="nv">ls</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="w"> </span>..<span class="cm">/*.patch`; do patch -p1 &lt; $p; done</span>
+</code></pre></div>
+<p>解壓好源碼，我們在源碼目錄執行以下命令完成編譯。<span class="caps">DEPLOYDIR</span>=$FIP_DEPLOYDIR_ROOT/arm-trusted-firmware是TF-A編譯結果存放的目錄，如果不設置就會在上一級產生deploy目錄存放編譯結果，同級目錄下生成的build目錄存放編譯中間文件。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">#设置编译器</span>
+<span class="o">$</span><span class="w"> </span><span class="n">source</span><span class="w"> </span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">st</span><span class="o">/</span><span class="n">stm32mp1</span><span class="o">/</span><span class="mf">4.2</span><span class="o">.</span><span class="mi">1</span><span class="o">-</span><span class="n">openstlinux</span><span class="o">-</span><span class="mf">6.1</span><span class="o">-</span><span class="n">yocto</span><span class="o">-</span><span class="n">mickledore</span><span class="o">-</span><span class="n">mp1</span><span class="o">-</span><span class="n">v23</span><span class="o">.</span><span class="mf">06.21</span><span class="o">/</span><span class="n">environment</span><span class="o">-</span><span class="n">setup</span><span class="o">-</span><span class="n">cortexa7t2hf</span><span class="o">-</span><span class="n">neon</span><span class="o">-</span><span class="n">vfpv4</span><span class="o">-</span><span class="n">ostl</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnueabi</span>
+<span class="c1">#设置FIP目录</span>
+<span class="o">$</span><span class="w"> </span><span class="k">export</span><span class="w"> </span><span class="n">FIP_DEPLOYDIR_ROOT</span><span class="o">=$</span><span class="n">PWD</span><span class="o">/../../</span><span class="n">FIP_artifacts</span>
+<span class="c1">#编译</span>
+<span class="o">$</span><span class="w"> </span><span class="n">make</span><span class="w"> </span><span class="o">-</span><span class="n">f</span><span class="w"> </span><span class="o">$</span><span class="n">PWD</span><span class="o">/../</span><span class="n">Makefile</span><span class="o">.</span><span class="n">sdk</span><span class="w"> </span><span class="n">all</span>
+</code></pre></div>
+<p>如果配置得當，會順利編譯完成，無報錯。</p>
+<h2 id="42-makefilesdk">4.2 處理Makefile.sdk<a class="headerlink" href="#42-makefilesdk" title="Permanent link">¶</a></h2>
+<p>備份 Makefile.sdk 以用於防止改錯和參考如何寫</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>cp<span class="w"> </span>-ivp<span class="w"> </span>Makefile.sdk<span class="w"> </span>Makefile.sdk.backup
+</code></pre></div>
+<p>然後用 <span class="caps">VS</span> Code 打開 Makefile.sdk 找到如下行</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="err">……</span>
+<span class="nv">TF_A_DEVICETREE_optee</span><span class="w"> </span><span class="o">?=</span><span class="w"> </span>stm32mp157c-ed1<span class="w"> </span>stm32mp157f-ed1<span class="w"> </span>stm32mp157a-ev1<span class="w"> </span>stm32mp157c-ev1<span class="w"> </span>stm32mp157d-ev1<span class="w"> </span>stm32mp157f-ev1<span class="w"> </span>stm32mp135f-dk<span class="w"> </span>stm32mp157a-dk1<span class="w"> </span>stm32mp157d-dk1<span class="w"> </span>stm32mp157c-dk2<span class="w"> </span>stm32mp157f-dk2<span class="w"> </span>
+<span class="err">……</span>
+<span class="nv">TF_A_DEVICETREE_optee</span><span class="w"> </span><span class="o">?=</span><span class="w"> </span>stm32mp157c-ed1<span class="w"> </span>stm32mp157f-ed1<span class="w"> </span>stm32mp157a-ev1<span class="w"> </span>stm32mp157c-ev1<span class="w"> </span>stm32mp157d-ev1<span class="w"> </span>stm32mp157f-ev1<span class="w"> </span>stm32mp135f-dk<span class="w"> </span>stm32mp157a-dk1<span class="w"> </span>stm32mp157d-dk1<span class="w"> </span>stm32mp157c-dk2<span class="w"> </span>stm32mp157f-dk2<span class="w"> </span>
+<span class="err">……</span>
+<span class="nv">TF_A_DEVICETREE_nand</span><span class="w"> </span><span class="o">?=</span><span class="w">  </span>stm32mp157a-ev1<span class="w"> </span>stm32mp157c-ev1<span class="w"> </span>stm32mp157d-ev1<span class="w"> </span>stm32mp157f-ev1
+<span class="err">……</span>
+<span class="nv">TF_A_DEVICETREE_nor</span><span class="w"> </span><span class="o">?=</span><span class="w">  </span>stm32mp157a-ev1<span class="w"> </span>stm32mp157c-ev1<span class="w"> </span>stm32mp157d-ev1<span class="w"> </span>stm32mp157f-ev1
+<span class="err">……</span>
+<span class="nv">TF_A_DEVICETREE_sdcard</span><span class="w"> </span><span class="o">?=</span><span class="w">  </span>stm32mp135f-dk<span class="w"> </span>stm32mp157a-dk1<span class="w"> </span>stm32mp157d-dk1<span class="w"> </span>stm32mp157c-dk2<span class="w"> </span>stm32mp157f-dk2<span class="w"> </span>stm32mp157c-ed1<span class="w"> </span>stm32mp157f-ed1<span class="w"> </span>stm32mp157a-ev1<span class="w"> </span>stm32mp157c-ev1<span class="w"> </span>stm32mp157d-ev1<span class="w"> </span>stm32mp157f-ev1
+<span class="err">……</span>
+<span class="nv">TF_A_DEVICETREE_uart</span><span class="w"> </span><span class="o">?=</span><span class="w">  </span>stm32mp157c-ed1<span class="w"> </span>stm32mp157f-ed1<span class="w"> </span>stm32mp157a-ev1<span class="w"> </span>stm32mp157c-ev1<span class="w"> </span>stm32mp157d-ev1<span class="w"> </span>stm32mp157f-ev1<span class="w"> </span>stm32mp135f-dk<span class="w"> </span>stm32mp157a-dk1<span class="w"> </span>stm32mp157d-dk1<span class="w"> </span>stm32mp157c-dk2<span class="w"> </span>stm32mp157f-dk2
+<span class="err">……</span>
+<span class="nv">TF_A_DEVICETREE_usb</span><span class="w"> </span><span class="o">?=</span><span class="w">  </span>stm32mp157c-ed1<span class="w"> </span>stm32mp157f-ed1<span class="w"> </span>stm32mp157a-ev1<span class="w"> </span>stm32mp157c-ev1<span class="w"> </span>stm32mp157d-ev1<span class="w"> </span>stm32mp157f-ev1<span class="w"> </span>stm32mp135f-dk<span class="w"> </span>stm32mp157a-dk1<span class="w"> </span>stm32mp157d-dk1<span class="w"> </span>stm32mp157c-dk2<span class="w"> </span>stm32mp157f-dk2
+<span class="err">……</span>
+<span class="c"># Define default make options 變更編譯器參數</span>
+<span class="nv">EXTRA_OEMAKE</span><span class="w"> </span><span class="o">?=</span><span class="w">  </span><span class="nv">PLAT</span><span class="o">=</span>stm32mp1<span class="w"> </span><span class="nv">ARCH</span><span class="o">=</span>aarch32<span class="w"> </span><span class="nv">ARM_ARCH_MAJOR</span><span class="o">=</span><span class="m">7</span><span class="w"> </span><span class="nv">CROSS_COMPILE</span><span class="o">=</span>arm-ostl-linux-gnueabi-<span class="w"> </span><span class="nv">DEBUG</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="nv">LOG_LEVEL</span><span class="o">=</span><span class="m">40</span><span class="w"> </span>
+<span class="err">……</span>
+</code></pre></div></td></tr></table></div>
+<p>根據實際需要改成自己要用的，這個名稱要和後面的設備樹名稱對應，下面以後續要用的設備樹名<code>stm32mp157d-atk.dts</code> 為例，并且編譯器參數保持默認。</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="err">……</span>
+<span class="nv">TF_A_DEVICETREE_optee</span><span class="w"> </span><span class="o">?=</span><span class="w"> </span>stm32mp157d-atk<span class="w"> </span>
+<span class="err">……</span>
+<span class="nv">TF_A_DEVICETREE_emmc</span><span class="w"> </span><span class="o">?=</span><span class="w"> </span>stm32mp157d-atk<span class="w"> </span>
+<span class="err">……</span>
+<span class="nv">TF_A_DEVICETREE_nand</span><span class="w"> </span><span class="o">?=</span><span class="w">  </span>stm32mp157d-atk
+<span class="err">……</span>
+<span class="nv">TF_A_DEVICETREE_nor</span><span class="w"> </span><span class="o">?=</span><span class="w">  </span>stm32mp157d-atk
+<span class="err">……</span>
+<span class="nv">TF_A_DEVICETREE_sdcard</span><span class="w"> </span><span class="o">?=</span><span class="w">  </span>stm32mp157d-atk
+<span class="err">……</span>
+<span class="nv">TF_A_DEVICETREE_uart</span><span class="w"> </span><span class="o">?=</span><span class="w">  </span>stm32mp157d-atk
+<span class="err">……</span>
+<span class="nv">TF_A_DEVICETREE_usb</span><span class="w"> </span><span class="o">?=</span><span class="w">  </span>stm32mp157d-atk
+<span class="err">……</span>
+<span class="c"># Define default make options 變更編譯器參數</span>
+<span class="nv">EXTRA_OEMAKE</span><span class="w"> </span><span class="o">?=</span><span class="w">  </span><span class="nv">PLAT</span><span class="o">=</span>stm32mp1<span class="w"> </span><span class="nv">ARCH</span><span class="o">=</span>aarch32<span class="w"> </span><span class="nv">ARM_ARCH_MAJOR</span><span class="o">=</span><span class="m">7</span><span class="w"> </span><span class="nv">CROSS_COMPILE</span><span class="o">=</span>arm-ostl-linux-gnueabi-<span class="w"> </span><span class="nv">DEBUG</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="nv">LOG_LEVEL</span><span class="o">=</span><span class="m">40</span><span class="w"> </span>
+<span class="err">……</span>
+</code></pre></div></td></tr></table></div>
+<p>也可以根據實際需要去掉不需要編譯鏡像選項，後續我們將要使用的有<code>TF_A_DEVICETREE_optee</code>, <code>TF_A_DEVICETREE_emmc</code>, <code>TF_A_DEVICETREE_usb</code>這三個鏡像。</p>
+<h2 id="43">4.3 源碼移植<a class="headerlink" href="#43" title="Permanent link">¶</a></h2>
+<h3 id="431-stm32mp157d-atkdts">4.3.1 創建<code>stm32mp157d-atk.dts</code>相關文件<a class="headerlink" href="#431-stm32mp157d-atkdts" title="Permanent link">¶</a></h3>
+<p>由於正點原子的 <span class="caps">STM32MP157D</span> 的開發板是基於 <span class="caps">STM32MP157D</span>-<span class="caps">EV1</span> 進行改板的，又由於 <code>stm32mp157d-ev1.dts</code> 中引用 <code>stm32mp157d-ed1.dts</code>的文件，所以我們以<code>ed1</code>的文件為<code>stm32mp157d-atk.dts</code>基底，後續將<code>ev1</code>中的差別内容融合到<code>stm32mp157d-atk.dts</code>。</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>tf-a-stm32mp-v2.8.6-stm32mp-r1<span class="se">\f</span>dts
+$<span class="w"> </span>cp<span class="w"> </span>-ivp<span class="w"> </span>stm32mp157d-ed1.dts<span class="w"> </span>stm32mp157d-atk.dts
+</code></pre></div>
+<h3 id="432">4.3.2 拼接设备树文件<a class="headerlink" href="#432" title="Permanent link">¶</a></h3>
+<p><code>stm32mp157d-ev1.dts</code> 内容如下所示，需要將fmc節點以後代碼複製到<code>stm32mp157d-atk.dts</code>文件結尾。</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nf">/</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kr">model</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"STMicroelectronics STM32MP157D eval daughter on eval mother"</span><span class="p">;</span>
+<span class="w">    </span><span class="kr">compatible</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"st,stm32mp157d-ev1"</span><span class="p">,</span><span class="w"> </span><span class="s">"st,stm32mp157d-ed1"</span><span class="p">,</span><span class="w"> </span><span class="s">"st,stm32mp157"</span><span class="p">;</span>
+
+<span class="w">    </span><span class="nf">chosen</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">stdout-path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"serial0:115200n8"</span><span class="p">;</span>
+<span class="w">    </span><span class="p">};</span>
+
+<span class="w">    </span><span class="nf">aliases</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">serial1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">usart3</span><span class="p">;</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="w">  </span><span class="p">};</span>
+
+<span class="o">&amp;</span><span class="nf">fmc</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">pinctrl-names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"default"</span><span class="p">;</span>
+<span class="w">  </span><span class="n">pinctrl-0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;&amp;</span><span class="na">fmc_pins_a</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">  </span><span class="kr">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"okay"</span><span class="p">;</span>
+
+<span class="w">  </span><span class="nf">nand-controller</span><span class="o">@</span><span class="mi">4,0</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kr">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"okay"</span><span class="p">;</span>
+
+<span class="w">    </span><span class="nf">nand</span><span class="o">@</span><span class="mi">0</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">      </span><span class="kr">reg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">      </span><span class="n">nand-on-flash-bbt</span><span class="p">;</span>
+<span class="w">      </span><span class="kr">#address-cells</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">      </span><span class="kr">#size-cells</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="w">  </span><span class="p">};</span>
+<span class="p">};</span>
+
+<span class="o">&amp;</span><span class="nf">qspi</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">pinctrl-names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"default"</span><span class="p">;</span>
+<span class="w">  </span><span class="n">pinctrl-0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;&amp;</span><span class="na">qspi_clk_pins_a</span><span class="w"> </span><span class="o">&amp;</span><span class="na">qspi_bk1_pins_a</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">  </span><span class="kr">reg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mh">0x58003000</span><span class="w"> </span><span class="mh">0x1000</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="o">&lt;</span><span class="mh">0x70000000</span><span class="w"> </span><span class="mh">0x4000000</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">  </span><span class="kr">#address-cells</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">  </span><span class="kr">#size-cells</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">  </span><span class="kr">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"okay"</span><span class="p">;</span>
+
+<span class="w">  </span><span class="nl">flash0</span><span class="p">:</span><span class="w"> </span><span class="nf">mx66l51235l</span><span class="o">@</span><span class="mi">0</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kr">compatible</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"jedec,spi-nor"</span><span class="p">;</span>
+<span class="w">    </span><span class="kr">reg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">spi-rx-bus-width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">4</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">spi-max-frequency</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">108000000</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">    </span><span class="kr">#address-cells</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">    </span><span class="kr">#size-cells</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">  </span><span class="p">};</span>
+<span class="p">};</span>
+
+<span class="o">&amp;</span><span class="nf">usart3</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">pinctrl-names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"default"</span><span class="p">;</span>
+<span class="w">  </span><span class="n">pinctrl-0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;&amp;</span><span class="na">usart3_pins_b</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">  </span><span class="n">uart-has-rtscts</span><span class="p">;</span>
+<span class="w">  </span><span class="kr">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"disabled"</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div></td></tr></table></div>
+<p><code>stm32mp157d-atk.dts</code>文件中起始節點融合為如下代碼：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nf">/</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kr">model</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Alientek STM32MP157D daughter"</span><span class="p">;</span>
+<span class="w">    </span><span class="kr">compatible</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"st,stm32mp157d-ev1"</span><span class="p">,</span><span class="s">"st,stm32mp157d-ed1"</span><span class="p">,</span><span class="w"> </span><span class="s">"st,stm32mp157"</span><span class="p">;</span>
+
+<span class="w">    </span><span class="nf">chosen</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">stdout-path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"serial0:115200n8"</span><span class="p">;</span>
+<span class="w">    </span><span class="p">};</span>
+
+<span class="w">    </span><span class="nf">memory</span><span class="o">@</span><span class="mi">c0000000</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">      </span><span class="kr">device_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"memory"</span><span class="p">;</span>
+<span class="w">      </span><span class="kr">reg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mh">0xC0000000</span><span class="w"> </span><span class="mh">0x40000000</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">};</span>
+
+<span class="w">    </span><span class="nf">aliases</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">serial0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">uart4</span><span class="p">;</span>
+<span class="w">      </span><span class="n">serial1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">usart3</span><span class="p">;</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<h3 id="433">4.3.3 修改电源设备树<a class="headerlink" href="#433" title="Permanent link">¶</a></h3>
+<p>在<code>stm32mp157d-atk.dts</code>文件中，刪除 <code>i2c4</code> 節點内的 <code>pmic: stpmic@33</code>的子節點全部内容：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="o">&amp;</span><span class="na">i2c4</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">pinctrl-names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"default"</span><span class="p">;</span>
+<span class="w">  </span><span class="n">pinctrl-0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;&amp;</span><span class="na">i2c4_pins_a</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">  </span><span class="n">i2c-scl-rising-time-ns</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">185</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">  </span><span class="n">i2c-scl-falling-time-ns</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">20</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">  </span><span class="n">clock-frequency</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">400000</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">  </span><span class="kr">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"okay"</span><span class="p">;</span>
+<span class="w">  </span><span class="cm">/* 删除这部分注释代码</span>
+<span class="cm">    pmic: stpmic@33 {</span>
+<span class="cm">      compatible = "st,stpmic1";</span>
+<span class="cm">      reg = &lt;0x33&gt;;</span>
+<span class="cm">      interrupts-extended = &lt;&amp;exti_pwr 55 IRQ_TYPE_EDGE_FALLING&gt;;</span>
+<span class="cm">      interrupt-controller;</span>
+<span class="cm">      #interrupt-cells = &lt;2&gt;;</span>
+<span class="cm">      status = "okay";</span>
+
+<span class="cm">      regulators {</span>
+<span class="cm">        // 此处代码已省略</span>
+<span class="cm">      };</span>
+<span class="cm">    };</span>
+<span class="cm">  */</span>
+<span class="p">};</span>
+
+<span class="cm">/* 删除以下这些节点</span>
+<span class="cm">  &amp;v1v2_hdmi {</span>
+<span class="cm">    // 此处代码已省略</span>
+<span class="cm">  };</span>
+
+<span class="cm">  &amp;v1v8_audio {</span>
+<span class="cm">    // 此处代码已省略</span>
+<span class="cm">  };</span>
+
+<span class="cm">  &amp;v3v3 {</span>
+<span class="cm">    // 此处代码已省略</span>
+<span class="cm">  };</span>
+
+<span class="cm">  &amp;v3v3_hdmi {</span>
+<span class="cm">    // 此处代码已省略</span>
+<span class="cm">  };</span>
+
+<span class="cm">  &amp;vdd {</span>
+<span class="cm">    // 此处代码已省略</span>
+<span class="cm">  };</span>
+
+<span class="cm">  &amp;vdda {</span>
+<span class="cm">    // 此处代码已省略</span>
+<span class="cm">  };</span>
+
+<span class="cm">  &amp;vddcore {</span>
+<span class="cm">    // 此处代码已省略</span>
+<span class="cm">  };</span>
+
+<span class="cm">  &amp;vdd_ddr {</span>
+<span class="cm">    // 此处代码已省略</span>
+<span class="cm">  };</span>
+
+<span class="cm">  &amp;vdd_usb {</span>
+<span class="cm">    // 此处代码已省略</span>
+<span class="cm">  };</span>
+
+<span class="cm">  &amp;vref_ddr {</span>
+<span class="cm">    // 此处代码已省略</span>
+<span class="cm">  };</span>
+
+<span class="cm">  &amp;vtt_ddr {</span>
+<span class="cm">    // 此处代码已省略</span>
+<span class="cm">  };</span>
+<span class="cm">*/</span>
+</code></pre></div></td></tr></table></div>
+<p>刪除后代碼如下所示：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="o">&amp;</span><span class="na">i2c4</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">pinctrl-names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"default"</span><span class="p">;</span>
+<span class="w">  </span><span class="n">pinctrl-0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;&amp;</span><span class="na">i2c4_pins_a</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">  </span><span class="n">i2c-scl-rising-time-ns</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">185</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">  </span><span class="n">i2c-scl-falling-time-ns</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">20</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">  </span><span class="n">clock-frequency</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">400000</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">  </span><span class="kr">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"okay"</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div></td></tr></table></div>
+<p>然後在起始節點中增加分立電源配置，代碼如下：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nf">/</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kr">model</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Alientek STM32MP157D daughter"</span><span class="p">;</span>
+<span class="w">  </span><span class="kr">compatible</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"st,stm32mp157d-ev1"</span><span class="p">,</span><span class="s">"st,stm32mp157d-ed1"</span><span class="p">,</span><span class="w"> </span><span class="s">"st,stm32mp157"</span><span class="p">;</span>
+
+<span class="w">  </span><span class="nf">chosen</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">stdout-path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"serial0:115200n8"</span><span class="p">;</span>
+<span class="w">  </span><span class="p">};</span>
+
+<span class="w">  </span><span class="nf">memory</span><span class="o">@</span><span class="mi">c0000000</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kr">device_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"memory"</span><span class="p">;</span>
+<span class="w">    </span><span class="kr">reg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mh">0xC0000000</span><span class="w"> </span><span class="mh">0x40000000</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">  </span><span class="p">};</span>
+
+<span class="w">  </span><span class="nf">aliases</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">serial0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">uart4</span><span class="p">;</span>
+<span class="w">    </span><span class="n">serial1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">usart3</span><span class="p">;</span>
+<span class="w">  </span><span class="p">};</span>
+
+<span class="w">  </span><span class="nl">vin</span><span class="p">:</span><span class="w"> </span><span class="nf">vin</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kr">compatible</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"regulator-fixed"</span><span class="p">;</span>
+<span class="w">    </span><span class="n">regulator-name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"vin"</span><span class="p">;</span>
+<span class="w">    </span><span class="n">regulator-min-microvolt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">5000000</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">regulator-max-microvolt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">5000000</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">regulator-always-on</span><span class="p">;</span>
+<span class="w">  </span><span class="p">};</span>
+
+<span class="w">  </span><span class="nl">vddcore</span><span class="p">:</span><span class="w"> </span><span class="nf">regulator-vddcore</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kr">compatible</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"regulator-fixed"</span><span class="p">;</span>
+<span class="w">    </span><span class="n">regulator-name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"vddcore"</span><span class="p">;</span>
+<span class="w">    </span><span class="n">regulator-min-microvolt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">1200000</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">regulator-max-microvolt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">1350000</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">        </span><span class="n">regulator-off-in-suspend</span><span class="p">;</span>
+<span class="w">    </span><span class="n">regulator-always-on</span><span class="p">;</span>
+<span class="w">  </span><span class="p">};</span>
+
+<span class="w">  </span><span class="nl">v3v3</span><span class="p">:</span><span class="w"> </span><span class="nf">regulator-3p3v</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kr">compatible</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"regulator-fixed"</span><span class="p">;</span>
+<span class="w">    </span><span class="n">regulator-name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"v3v3"</span><span class="p">;</span>
+<span class="w">    </span><span class="n">regulator-min-microvolt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">3300000</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">regulator-max-microvolt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">3300000</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">        </span><span class="n">regulator-off-in-suspend</span><span class="p">;</span>
+<span class="w">    </span><span class="n">regulator-always-on</span><span class="p">;</span>
+<span class="w">  </span><span class="p">};</span>
+
+<span class="w">  </span><span class="nl">vdd</span><span class="p">:</span><span class="w"> </span><span class="nf">regulator-vdd</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kr">compatible</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"regulator-fixed"</span><span class="p">;</span>
+<span class="w">    </span><span class="n">regulator-name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"vdd"</span><span class="p">;</span>
+<span class="w">    </span><span class="n">regulator-min-microvolt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">3300000</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">regulator-max-microvolt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">3300000</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">        </span><span class="n">regulator-off-in-suspend</span><span class="p">;</span>
+<span class="w">    </span><span class="n">regulator-always-on</span><span class="p">;</span>
+<span class="w">  </span><span class="p">};</span>
+
+<span class="w">  </span><span class="nl">vdd_usb</span><span class="p">:</span><span class="w"> </span><span class="nf">regulator-vdd-usb</span><span class="cm"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kr">compatible</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"regulator-fixed"</span><span class="p">;</span>
+<span class="w">    </span><span class="n">regulator-name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"vdd_usb"</span><span class="p">;</span>
+<span class="w">    </span><span class="n">regulator-min-microvolt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">3300000</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">regulator-max-microvolt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">3300000</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">        </span><span class="n">regulator-off-in-suspend</span><span class="p">;</span>
+<span class="w">    </span><span class="n">regulator-always-on</span><span class="p">;</span>
+<span class="w">  </span><span class="p">};</span>
+<span class="p">};</span>
+</code></pre></div></td></tr></table></div>
+<p>最後需要在平臺配置文件<code>plat/st/stm32mp1/stm32mp1_def.h</code>中修改分立電源數量:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="cp">#define PLAT_NB_FIXED_REGS      U(2)</span>
+<span class="c1">//改为</span>
+<span class="cp">#define PLAT_NB_FIXED_REGS      U(5)</span>
+</code></pre></div></td></tr></table></div>
+<h3 id="434-emmc">4.3.4 修改EMMC设备树<a class="headerlink" href="#434-emmc" title="Permanent link">¶</a></h3>
+<p>這個部分沒有變化，完全參考《【正點原子】STM32MP1嵌入式Linux驅動開發指南V2.0》中操作即可，修改前的代碼如下所示：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="o">&amp;</span><span class="na">sdmmc1</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">pinctrl-names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"default"</span><span class="p">;</span>
+<span class="w">  </span><span class="n">pinctrl-0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;&amp;</span><span class="na">sdmmc1_b4_pins_a</span><span class="w"> </span><span class="o">&amp;</span><span class="na">sdmmc1_dir_pins_a</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">  </span><span class="n">disable-wp</span><span class="p">;</span>
+<span class="w">  </span><span class="n">st</span><span class="p">,</span><span class="n">sig-dir</span><span class="p">;</span>
+<span class="w">  </span><span class="n">st</span><span class="p">,</span><span class="n">neg-edge</span><span class="p">;</span>
+<span class="w">  </span><span class="n">st</span><span class="p">,</span><span class="n">use-ckin</span><span class="p">;</span>
+<span class="w">  </span><span class="n">bus-width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">4</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">  </span><span class="n">vmmc-supply</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;&amp;</span><span class="na">vdd_sd</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">  </span><span class="n">sd-uhs-sdr12</span><span class="p">;</span>
+<span class="w">  </span><span class="n">sd-uhs-sdr25</span><span class="p">;</span>
+<span class="w">  </span><span class="n">sd-uhs-sdr50</span><span class="p">;</span>
+<span class="w">  </span><span class="n">sd-uhs-ddr50</span><span class="p">;</span>
+<span class="w">  </span><span class="kr">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"okay"</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="o">&amp;</span><span class="na">sdmmc2</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">pinctrl-names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"default"</span><span class="p">;</span>
+<span class="w">  </span><span class="n">pinctrl-0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;&amp;</span><span class="na">sdmmc2_b4_pins_a</span><span class="w"> </span><span class="o">&amp;</span><span class="na">sdmmc2_d47_pins_a</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">  </span><span class="n">non-removable</span><span class="p">;</span>
+<span class="w">  </span><span class="n">no-sd</span><span class="p">;</span>
+<span class="w">  </span><span class="n">no-sdio</span><span class="p">;</span>
+<span class="w">  </span><span class="n">st</span><span class="p">,</span><span class="n">neg-edge</span><span class="p">;</span>
+<span class="w">  </span><span class="n">bus-width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">8</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">  </span><span class="n">vmmc-supply</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;&amp;</span><span class="na">v3v3</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">  </span><span class="n">vqmmc-supply</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;&amp;</span><span class="na">vdd</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">  </span><span class="n">mmc-ddr-3_3v</span><span class="p">;</span>
+<span class="w">  </span><span class="kr">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"okay"</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div></td></tr></table></div>
+<p>修改后的代碼如下所示：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="o">&amp;</span><span class="na">sdmmc1</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">pinctrl-names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"default"</span><span class="p">;</span>
+<span class="w">  </span><span class="n">pinctrl-0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;&amp;</span><span class="na">sdmmc1_b4_pins_a</span><span class="w"> </span><span class="o">&amp;</span><span class="na">sdmmc1_dir_pins_a</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">st</span><span class="p">,</span><span class="n">neg-edge</span><span class="p">;</span><span class="w"> </span>
+<span class="w">    </span><span class="n">broken-cd</span><span class="p">;</span>
+<span class="w">    </span><span class="n">bus-width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">4</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">vmmc-supply</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;&amp;</span><span class="na">v3v3</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">  </span><span class="kr">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"okay"</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="o">&amp;</span><span class="na">sdmmc2</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">pinctrl-names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"default"</span><span class="p">;</span>
+<span class="w">  </span><span class="n">pinctrl-0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;&amp;</span><span class="na">sdmmc2_b4_pins_a</span><span class="w"> </span><span class="o">&amp;</span><span class="na">sdmmc2_d47_pins_a</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">  </span><span class="n">non-removable</span><span class="p">;</span>
+<span class="w">  </span><span class="n">st</span><span class="p">,</span><span class="n">neg-edge</span><span class="p">;</span>
+<span class="w">  </span><span class="n">bus-width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">8</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">  </span><span class="n">vmmc-supply</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;&amp;</span><span class="na">v3v3</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">  </span><span class="n">vqmmc-supply</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;&amp;</span><span class="na">v3v3</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">  </span><span class="kr">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"okay"</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div></td></tr></table></div>
+<h2 id="44-flashlayout">4.4 修改Flashlayout文件<a class="headerlink" href="#44-flashlayout" title="Permanent link">¶</a></h2>
+<p>由於正點原子的 <span class="caps">STM32MP157D</span> 的開發板是基於 <span class="caps">STM32MP157D</span>-<span class="caps">EV1</span> 進行改板的，所以在上述 Flashlayout 文件夾中找到 optee 文件夾中找到 “FlashLayout_emmc_stm32mp157d-ev1-optee.tsv” 複製到一個下載目錄中。</p>
+<div class="highlight"><pre><span></span><code>#Opt    Id  Name    Type    IP  Offset  Binary
+-   0x01    fsbl-boot   Binary  none    0x0 arm-trusted-firmware/tf-a-stm32mp157d-ev1-usb.stm32
+-   0x03    fip-boot    FIP none    0x0 fip/fip-stm32mp157d-ev1-optee.bin
+P   0x04    fsbl1   Binary  mmc1    boot1   arm-trusted-firmware/tf-a-stm32mp157d-ev1-emmc.stm32
+P   0x05    fsbl2   Binary  mmc1    boot2   arm-trusted-firmware/tf-a-stm32mp157d-ev1-emmc.stm32
+P   0x06    metadata1   FWU_MDATA   mmc1    0x00080000  arm-trusted-firmware/metadata.bin
+P   0x07    metadata2   FWU_MDATA   mmc1    0x00100000  arm-trusted-firmware/metadata.bin
+P   0x08    fip-a   FIP mmc1    0x00180000  fip/fip-stm32mp157d-ev1-optee.bin
+PED 0x09    fip-b   FIP mmc1    0x00580000  none
+PED 0x0A    u-boot-env  ENV mmc1    0x00980000  none
+P   0x10    bootfs  System  mmc1    0x00A00000  st-image-bootfs-openstlinux-weston-stm32mp1.ext4
+P   0x11    vendorfs    FileSystem  mmc1    0x04A00000  st-image-vendorfs-openstlinux-weston-stm32mp1.ext4
+P   0x12    rootfs  FileSystem  mmc1    0x05A00000  st-image-weston-openstlinux-weston-stm32mp1.ext4
+P   0x13    userfs  FileSystem  mmc1    0xC5A00000  st-image-userfs-openstlinux-weston-stm32mp1.ext4
+</code></pre></div>
+<p>在測試TF-A的移植中我們只用第一行和第二行即可，即USB模擬串口的TF-A的固件下載到STM32MP157中即可測試。</p>
+<h2 id="45">4.5 編譯並下載測試<a class="headerlink" href="#45" title="Permanent link">¶</a></h2>
+<h3 id="451">4.5.1 編譯<a class="headerlink" href="#451" title="Permanent link">¶</a></h3>
+<p>由於TF-A的SP-MIN是被TF-A的BL2加載併運行的，STM32MP157使用了FIP將BL32(<span class="caps">SP</span>-<span class="caps">MIN</span>)和BL33(U-Boot)打包在一起，我們需要復制一份U-Boot改成自己的開發闆。</p>
+<div class="highlight"><pre><span></span><code>#進入FIP目錄下的u-boot目錄
+$ cd ../../FIP_artifacts/u-boot/
+#複製U-boot
+$ cp u-boot-stm32mp157d-ev1.dtb u-boot-stm32mp157d-atk.dtb
+#返回TF-A源碼目錄
+$ cd ../../tf-a-stm32mp-v2.8.6-stm32mp-r1-r0/tf-a-stm32mp-v2.8.6-stm32mp-r1/
+#編譯
+$ make -f $PWD/../Makefile.sdk all
+</code></pre></div>
+<p>編譯完成后會顯示如下結尾：</p>
+<div class="highlight"><pre><span></span><code><span class="o">[</span><span class="n">fiptool</span><span class="o">]</span><span class="w"> </span><span class="k">Create</span><span class="w"> </span><span class="n">fip</span><span class="o">-</span><span class="n">stm32mp157d</span><span class="o">-</span><span class="n">atk</span><span class="o">-</span><span class="n">optee</span><span class="p">.</span><span class="n">bin</span><span class="w"> </span><span class="n">fip</span><span class="w"> </span><span class="nc">binary</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="s1">'FIP_DEPLOYDIR_FIP'</span><span class="w"> </span><span class="n">folder</span><span class="p">...</span>
+<span class="o">[</span><span class="n">fiptool</span><span class="o">]</span><span class="w"> </span><span class="n">Done</span>
+</code></pre></div>
+<h3 id="452">4.5.2 下載測試<a class="headerlink" href="#452" title="Permanent link">¶</a></h3>
+<p>flashlayout如下所示：</p>
+<div class="highlight"><pre><span></span><code>#Opt    Id  Name      Type  IP  Offset  Binary
+-   0x01    fsbl-boot   Binary  none    0x0   arm-trusted-firmware/tf-a-stm32mp157d-atk-usb.stm32
+-   0x03    fip-boot    FIP none    0x0   fip/fip-stm32mp157d-atk-trusted.bin
+</code></pre></div>
+<p>如果不會編寫，請參考<a href="https://wiki.stmicroelectronics.cn/stm32mpu/wiki/STM32CubeProgrammer_flashlayout"> STM32CubeProgrammer_flashlayout <span class="caps">WIKI</span></a>。</p>
+<p>用STM32CubeProg打開燒寫腳本，註意二進制文件把目錄設置對，設置好闆子併連接OTG和串口，點擊下載。板子一直重啟，那是因為U-boot不對。從串口打印信息上可以看到BL2把BL32(<span class="caps">SP</span>-<span class="caps">MIN</span>)啟動起來，<span class="caps">SP</span>-MIN正常運行，最終U-Boot啟動。</p>
+<div class="highlight"><pre><span></span><code><span class="n">NOTICE</span><span class="p">:</span><span class="w">  </span><span class="n">CPU</span><span class="p">:</span><span class="w"> </span><span class="n">STM32MP157DAA</span><span class="w"> </span><span class="n">Rev</span><span class="o">.</span><span class="n">Z</span><span class="o">&lt;</span>\<span class="n">r</span><span class="o">&gt;&lt;</span>\<span class="n">n</span><span class="o">&gt;</span>
+<span class="n">NOTICE</span><span class="p">:</span><span class="w">  </span><span class="n">Model</span><span class="p">:</span><span class="w"> </span><span class="n">Alientek</span><span class="w"> </span><span class="n">STM32MP157D</span><span class="w"> </span><span class="n">daughter</span><span class="o">&lt;</span>\<span class="n">r</span><span class="o">&gt;&lt;</span>\<span class="n">n</span><span class="o">&gt;</span>
+<span class="n">INFO</span><span class="p">:</span><span class="w">    </span><span class="n">Reset</span><span class="w"> </span><span class="n">reason</span><span class="w"> </span><span class="p">(</span><span class="mh">0x15</span><span class="p">):</span><span class="o">&lt;</span>\<span class="n">r</span><span class="o">&gt;&lt;</span>\<span class="n">n</span><span class="o">&gt;</span>
+<span class="n">INFO</span><span class="p">:</span><span class="w">      </span><span class="n">Power</span><span class="o">-</span><span class="n">on</span><span class="w"> </span><span class="n">Reset</span><span class="w"> </span><span class="p">(</span><span class="n">rst_por</span><span class="p">)</span><span class="o">&lt;</span>\<span class="n">r</span><span class="o">&gt;&lt;</span>\<span class="n">n</span><span class="o">&gt;</span>
+<span class="n">INFO</span><span class="p">:</span><span class="w">    </span><span class="n">FCONF</span><span class="p">:</span><span class="w"> </span><span class="n">Reading</span><span class="w"> </span><span class="n">TB_FW</span><span class="w"> </span><span class="n">firmware</span><span class="w"> </span><span class="n">configuration</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">from</span><span class="p">:</span><span class="w"> </span><span class="mh">0x2ffe2000</span><span class="o">&lt;</span>\<span class="n">r</span><span class="o">&gt;&lt;</span>\<span class="n">n</span><span class="o">&gt;</span>
+<span class="n">INFO</span><span class="p">:</span><span class="w">    </span><span class="n">FCONF</span><span class="p">:</span><span class="w"> </span><span class="n">Reading</span><span class="w"> </span><span class="n">firmware</span><span class="w"> </span><span class="n">configuration</span><span class="w"> </span><span class="n">information</span><span class="w"> </span><span class="k">for</span><span class="p">:</span><span class="w"> </span><span class="n">stm32mp_io</span><span class="o">&lt;</span>\<span class="n">r</span><span class="o">&gt;&lt;</span>\<span class="n">n</span><span class="o">&gt;</span>
+<span class="n">INFO</span><span class="p">:</span><span class="w">    </span><span class="n">Using</span><span class="w"> </span><span class="n">USB</span><span class="o">&lt;</span>\<span class="n">r</span><span class="o">&gt;&lt;</span>\<span class="n">n</span><span class="o">&gt;</span>
+<span class="n">INFO</span><span class="p">:</span><span class="w">      </span><span class="n">Instance</span><span class="w"> </span><span class="mi">2</span><span class="o">&lt;</span>\<span class="n">r</span><span class="o">&gt;&lt;</span>\<span class="n">n</span><span class="o">&gt;</span>
+<span class="n">INFO</span><span class="p">:</span><span class="w">    </span><span class="n">Boot</span><span class="w"> </span><span class="n">used</span><span class="w"> </span><span class="n">partition</span><span class="w"> </span><span class="n">fsbl1</span><span class="o">&lt;</span>\<span class="n">r</span><span class="o">&gt;&lt;</span>\<span class="n">n</span><span class="o">&gt;</span>
+<span class="n">NOTICE</span><span class="p">:</span><span class="w">  </span><span class="n">BL2</span><span class="p">:</span><span class="w"> </span><span class="n">v2</span><span class="o">.</span><span class="mi">8</span><span class="o">-</span><span class="n">stm32mp1</span><span class="o">-</span><span class="n">r1</span><span class="o">.</span><span class="mi">0</span><span class="p">(</span><span class="n">debug</span><span class="p">):()</span><span class="o">&lt;</span>\<span class="n">r</span><span class="o">&gt;&lt;</span>\<span class="n">n</span><span class="o">&gt;</span>
+<span class="n">NOTICE</span><span class="p">:</span><span class="w">  </span><span class="n">BL2</span><span class="p">:</span><span class="w"> </span><span class="n">Built</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">14</span><span class="p">:</span><span class="mi">09</span><span class="p">:</span><span class="mi">42</span><span class="p">,</span><span class="w"> </span><span class="n">Jul</span><span class="w"> </span><span class="mi">11</span><span class="w"> </span><span class="mi">2023</span><span class="o">&lt;</span>\<span class="n">r</span><span class="o">&gt;&lt;</span>\<span class="n">n</span><span class="o">&gt;</span>
+<span class="n">INFO</span><span class="p">:</span><span class="w">    </span><span class="n">BL2</span><span class="p">:</span><span class="w"> </span><span class="n">Doing</span><span class="w"> </span><span class="n">platform</span><span class="w"> </span><span class="n">setup</span><span class="o">&lt;</span>\<span class="n">r</span><span class="o">&gt;&lt;</span>\<span class="n">n</span><span class="o">&gt;</span>
+<span class="n">INFO</span><span class="p">:</span><span class="w">    </span><span class="n">RAM</span><span class="p">:</span><span class="w"> </span><span class="n">DDR3</span><span class="o">-</span><span class="n">DDR3L</span><span class="w"> </span><span class="mi">32</span><span class="n">bits</span><span class="w"> </span><span class="mi">533000</span><span class="n">kHz</span><span class="o">&lt;</span>\<span class="n">r</span><span class="o">&gt;&lt;</span>\<span class="n">n</span><span class="o">&gt;</span>
+<span class="n">INFO</span><span class="p">:</span><span class="w">    </span><span class="n">Memory</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x40000000</span><span class="w"> </span><span class="p">(</span><span class="mi">1024</span><span class="w"> </span><span class="n">MB</span><span class="p">)</span><span class="o">&lt;</span>\<span class="n">r</span><span class="o">&gt;&lt;</span>\<span class="n">n</span><span class="o">&gt;</span>
+<span class="n">INFO</span><span class="p">:</span><span class="w">    </span><span class="n">DFU</span><span class="w"> </span><span class="n">USB</span><span class="w"> </span><span class="n">START</span><span class="o">...&lt;</span>\<span class="n">r</span><span class="o">&gt;&lt;</span>\<span class="n">n</span><span class="o">&gt;</span>
+<span class="n">INFO</span><span class="p">:</span><span class="w">    </span><span class="n">phase</span><span class="w"> </span><span class="n">ID</span><span class="w"> </span><span class="p">:</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="n">Manifestation</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="n">c714d1fa</span><span class="o">&lt;</span>\<span class="n">r</span><span class="o">&gt;&lt;</span>\<span class="n">n</span><span class="o">&gt;</span>
+<span class="n">INFO</span><span class="p">:</span><span class="w">    </span><span class="n">Send</span><span class="w"> </span><span class="n">detach</span><span class="w"> </span><span class="n">request</span><span class="o">&lt;</span>\<span class="n">r</span><span class="o">&gt;&lt;</span>\<span class="n">n</span><span class="o">&gt;</span>
+<span class="n">INFO</span><span class="p">:</span><span class="w">    </span><span class="n">Receive</span><span class="w"> </span><span class="n">DFU</span><span class="w"> </span><span class="n">Detach</span><span class="o">&lt;</span>\<span class="n">r</span><span class="o">&gt;&lt;</span>\<span class="n">n</span><span class="o">&gt;</span>
+<span class="n">INFO</span><span class="p">:</span><span class="w">    </span><span class="n">DFU</span><span class="w"> </span><span class="n">USB</span><span class="w"> </span><span class="n">STOP</span><span class="o">...&lt;</span>\<span class="n">r</span><span class="o">&gt;&lt;</span>\<span class="n">n</span><span class="o">&gt;</span>
+<span class="n">INFO</span><span class="p">:</span><span class="w">    </span><span class="n">BL2</span><span class="p">:</span><span class="w"> </span><span class="n">Loading</span><span class="w"> </span><span class="n">image</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="mi">1</span><span class="o">&lt;</span>\<span class="n">r</span><span class="o">&gt;&lt;</span>\<span class="n">n</span><span class="o">&gt;</span>
+<span class="n">INFO</span><span class="p">:</span><span class="w">    </span><span class="n">Loading</span><span class="w"> </span><span class="n">image</span><span class="w"> </span><span class="n">id</span><span class="o">=</span><span class="mi">1</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="n">address</span><span class="w"> </span><span class="mh">0x2ffff000</span><span class="o">&lt;</span>\<span class="n">r</span><span class="o">&gt;&lt;</span>\<span class="n">n</span><span class="o">&gt;</span>
+<span class="n">INFO</span><span class="p">:</span><span class="w">    </span><span class="n">Image</span><span class="w"> </span><span class="n">id</span><span class="o">=</span><span class="mi">1</span><span class="w"> </span><span class="n">loaded</span><span class="p">:</span><span class="w"> </span><span class="mh">0x2ffff000</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mh">0x2ffff1ea</span><span class="o">&lt;</span>\<span class="n">r</span><span class="o">&gt;&lt;</span>\<span class="n">n</span><span class="o">&gt;</span>
+<span class="n">INFO</span><span class="p">:</span><span class="w">    </span><span class="n">FCONF</span><span class="p">:</span><span class="w"> </span><span class="n">Reading</span><span class="w"> </span><span class="n">FW_CONFIG</span><span class="w"> </span><span class="n">firmware</span><span class="w"> </span><span class="n">configuration</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">from</span><span class="p">:</span><span class="w"> </span><span class="mh">0x2ffff000</span><span class="o">&lt;</span>\<span class="n">r</span><span class="o">&gt;&lt;</span>\<span class="n">n</span><span class="o">&gt;</span>
+<span class="n">INFO</span><span class="p">:</span><span class="w">    </span><span class="n">FCONF</span><span class="p">:</span><span class="w"> </span><span class="n">Reading</span><span class="w"> </span><span class="n">firmware</span><span class="w"> </span><span class="n">configuration</span><span class="w"> </span><span class="n">information</span><span class="w"> </span><span class="k">for</span><span class="p">:</span><span class="w"> </span><span class="n">dyn_cfg</span><span class="o">&lt;</span>\<span class="n">r</span><span class="o">&gt;&lt;</span>\<span class="n">n</span><span class="o">&gt;</span>
+<span class="n">INFO</span><span class="p">:</span><span class="w">    </span><span class="n">FCONF</span><span class="p">:</span><span class="w"> </span><span class="n">Reading</span><span class="w"> </span><span class="n">firmware</span><span class="w"> </span><span class="n">configuration</span><span class="w"> </span><span class="n">information</span><span class="w"> </span><span class="k">for</span><span class="p">:</span><span class="w"> </span><span class="n">stm32mp1_firewall</span><span class="o">&lt;</span>\<span class="n">r</span><span class="o">&gt;&lt;</span>\<span class="n">n</span><span class="o">&gt;</span>
+<span class="n">INFO</span><span class="p">:</span><span class="w">    </span><span class="n">BL2</span><span class="p">:</span><span class="w"> </span><span class="n">Loading</span><span class="w"> </span><span class="n">image</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="mi">4</span><span class="o">&lt;</span>\<span class="n">r</span><span class="o">&gt;&lt;</span>\<span class="n">n</span><span class="o">&gt;</span>
+<span class="n">INFO</span><span class="p">:</span><span class="w">    </span><span class="n">Loading</span><span class="w"> </span><span class="n">image</span><span class="w"> </span><span class="n">id</span><span class="o">=</span><span class="mi">4</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="n">address</span><span class="w"> </span><span class="mh">0xfe000000</span><span class="o">&lt;</span>\<span class="n">r</span><span class="o">&gt;&lt;</span>\<span class="n">n</span><span class="o">&gt;</span>
+<span class="n">INFO</span><span class="p">:</span><span class="w">    </span><span class="n">Image</span><span class="w"> </span><span class="n">id</span><span class="o">=</span><span class="mi">4</span><span class="w"> </span><span class="n">loaded</span><span class="p">:</span><span class="w"> </span><span class="mh">0xfe000000</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mh">0xfe00001c</span><span class="o">&lt;</span>\<span class="n">r</span><span class="o">&gt;&lt;</span>\<span class="n">n</span><span class="o">&gt;</span>
+<span class="n">INFO</span><span class="p">:</span><span class="w">    </span><span class="n">OPTEE</span><span class="w"> </span><span class="n">ep</span><span class="o">=</span><span class="mh">0xfe000000</span><span class="o">&lt;</span>\<span class="n">r</span><span class="o">&gt;&lt;</span>\<span class="n">n</span><span class="o">&gt;</span>
+<span class="n">INFO</span><span class="p">:</span><span class="w">    </span><span class="n">OPTEE</span><span class="w"> </span><span class="n">header</span><span class="w"> </span><span class="n">info</span><span class="p">:</span><span class="o">&lt;</span>\<span class="n">r</span><span class="o">&gt;&lt;</span>\<span class="n">n</span><span class="o">&gt;</span>
+<span class="n">INFO</span><span class="p">:</span><span class="w">          </span><span class="n">magic</span><span class="o">=</span><span class="mh">0x4554504f</span><span class="o">&lt;</span>\<span class="n">r</span><span class="o">&gt;&lt;</span>\<span class="n">n</span><span class="o">&gt;</span>
+<span class="n">INFO</span><span class="p">:</span><span class="w">          </span><span class="n">version</span><span class="o">=</span><span class="mh">0x2</span><span class="o">&lt;</span>\<span class="n">r</span><span class="o">&gt;&lt;</span>\<span class="n">n</span><span class="o">&gt;</span>
+<span class="n">INFO</span><span class="p">:</span><span class="w">          </span><span class="n">arch</span><span class="o">=</span><span class="mh">0x0</span><span class="o">&lt;</span>\<span class="n">r</span><span class="o">&gt;&lt;</span>\<span class="n">n</span><span class="o">&gt;</span>
+<span class="n">INFO</span><span class="p">:</span><span class="w">          </span><span class="n">flags</span><span class="o">=</span><span class="mh">0x0</span><span class="o">&lt;</span>\<span class="n">r</span><span class="o">&gt;&lt;</span>\<span class="n">n</span><span class="o">&gt;</span>
+<span class="n">INFO</span><span class="p">:</span><span class="w">          </span><span class="n">nb_images</span><span class="o">=</span><span class="mh">0x1</span><span class="o">&lt;</span>\<span class="n">r</span><span class="o">&gt;&lt;</span>\<span class="n">n</span><span class="o">&gt;</span>
+<span class="n">INFO</span><span class="p">:</span><span class="w">    </span><span class="n">BL2</span><span class="p">:</span><span class="w"> </span><span class="n">Loading</span><span class="w"> </span><span class="n">image</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="mi">8</span><span class="o">&lt;</span>\<span class="n">r</span><span class="o">&gt;&lt;</span>\<span class="n">n</span><span class="o">&gt;</span>
+<span class="n">INFO</span><span class="p">:</span><span class="w">    </span><span class="n">Loading</span><span class="w"> </span><span class="n">image</span><span class="w"> </span><span class="n">id</span><span class="o">=</span><span class="mi">8</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="n">address</span><span class="w"> </span><span class="mh">0xfe000000</span><span class="o">&lt;</span>\<span class="n">r</span><span class="o">&gt;&lt;</span>\<span class="n">n</span><span class="o">&gt;</span>
+<span class="n">INFO</span><span class="p">:</span><span class="w">    </span><span class="n">Image</span><span class="w"> </span><span class="n">id</span><span class="o">=</span><span class="mi">8</span><span class="w"> </span><span class="n">loaded</span><span class="p">:</span><span class="w"> </span><span class="mh">0xfe000000</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mh">0xfe035b68</span><span class="o">&lt;</span>\<span class="n">r</span><span class="o">&gt;&lt;</span>\<span class="n">n</span><span class="o">&gt;</span>
+<span class="n">INFO</span><span class="p">:</span><span class="w">    </span><span class="n">BL2</span><span class="p">:</span><span class="w"> </span><span class="n">Skip</span><span class="w"> </span><span class="n">loading</span><span class="w"> </span><span class="n">image</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="mi">9</span><span class="o">&lt;</span>\<span class="n">r</span><span class="o">&gt;&lt;</span>\<span class="n">n</span><span class="o">&gt;</span>
+<span class="n">INFO</span><span class="p">:</span><span class="w">    </span><span class="n">BL2</span><span class="p">:</span><span class="w"> </span><span class="n">Loading</span><span class="w"> </span><span class="n">image</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="mi">2</span><span class="o">&lt;</span>\<span class="n">r</span><span class="o">&gt;&lt;</span>\<span class="n">n</span><span class="o">&gt;</span>
+<span class="n">INFO</span><span class="p">:</span><span class="w">    </span><span class="n">Loading</span><span class="w"> </span><span class="n">image</span><span class="w"> </span><span class="n">id</span><span class="o">=</span><span class="mi">2</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="n">address</span><span class="w"> </span><span class="mh">0xc0500000</span><span class="o">&lt;</span>\<span class="n">r</span><span class="o">&gt;&lt;</span>\<span class="n">n</span><span class="o">&gt;</span>
+<span class="n">INFO</span><span class="p">:</span><span class="w">    </span><span class="n">Image</span><span class="w"> </span><span class="n">id</span><span class="o">=</span><span class="mi">2</span><span class="w"> </span><span class="n">loaded</span><span class="p">:</span><span class="w"> </span><span class="mh">0xc0500000</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mh">0xc0521628</span><span class="o">&lt;</span>\<span class="n">r</span><span class="o">&gt;&lt;</span>\<span class="n">n</span><span class="o">&gt;</span>
+<span class="n">INFO</span><span class="p">:</span><span class="w">    </span><span class="n">BL2</span><span class="p">:</span><span class="w"> </span><span class="n">Skip</span><span class="w"> </span><span class="n">loading</span><span class="w"> </span><span class="n">image</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="mi">16</span><span class="o">&lt;</span>\<span class="n">r</span><span class="o">&gt;&lt;</span>\<span class="n">n</span><span class="o">&gt;</span>
+<span class="n">INFO</span><span class="p">:</span><span class="w">    </span><span class="n">BL2</span><span class="p">:</span><span class="w"> </span><span class="n">Loading</span><span class="w"> </span><span class="n">image</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="mi">5</span><span class="o">&lt;</span>\<span class="n">r</span><span class="o">&gt;&lt;</span>\<span class="n">n</span><span class="o">&gt;</span>
+<span class="n">INFO</span><span class="p">:</span><span class="w">    </span><span class="n">Loading</span><span class="w"> </span><span class="n">image</span><span class="w"> </span><span class="n">id</span><span class="o">=</span><span class="mi">5</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="n">address</span><span class="w"> </span><span class="mh">0xc0100000</span><span class="o">&lt;</span>\<span class="n">r</span><span class="o">&gt;&lt;</span>\<span class="n">n</span><span class="o">&gt;</span>
+<span class="n">INFO</span><span class="p">:</span><span class="w">    </span><span class="n">Image</span><span class="w"> </span><span class="n">id</span><span class="o">=</span><span class="mi">5</span><span class="w"> </span><span class="n">loaded</span><span class="p">:</span><span class="w"> </span><span class="mh">0xc0100000</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mh">0xc01f5d3c</span><span class="o">&lt;</span>\<span class="n">r</span><span class="o">&gt;&lt;</span>\<span class="n">n</span><span class="o">&gt;</span>
+<span class="n">NOTICE</span><span class="p">:</span><span class="w">  </span><span class="n">BL2</span><span class="p">:</span><span class="w"> </span><span class="n">Booting</span><span class="w"> </span><span class="n">BL32</span><span class="o">&lt;</span>\<span class="n">r</span><span class="o">&gt;&lt;</span>\<span class="n">n</span><span class="o">&gt;</span>
+<span class="n">INFO</span><span class="p">:</span><span class="w">    </span><span class="n">Entry</span><span class="w"> </span><span class="n">point</span><span class="w"> </span><span class="n">address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xfe000000</span><span class="o">&lt;</span>\<span class="n">r</span><span class="o">&gt;&lt;</span>\<span class="n">n</span><span class="o">&gt;</span>
+<span class="n">INFO</span><span class="p">:</span><span class="w">    </span><span class="n">SPSR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x1d3</span><span class="o">&lt;</span>\<span class="n">r</span><span class="o">&gt;&lt;</span>\<span class="n">n</span><span class="o">&gt;</span>
+<span class="n">I</span><span class="o">/</span><span class="n">TC</span><span class="p">:</span><span class="w"> </span><span class="n">Early</span><span class="w"> </span><span class="n">console</span><span class="w"> </span><span class="n">on</span><span class="w"> </span><span class="n">UART</span><span class="c1">#4&lt;\r&gt;&lt;\n&gt;</span>
+<span class="n">I</span><span class="o">/</span><span class="n">TC</span><span class="p">:</span><span class="w"> </span><span class="o">&lt;</span>\<span class="n">r</span><span class="o">&gt;&lt;</span>\<span class="n">n</span><span class="o">&gt;</span>
+<span class="n">I</span><span class="o">/</span><span class="n">TC</span><span class="p">:</span><span class="w"> </span><span class="n">Embedded</span><span class="w"> </span><span class="n">DTB</span><span class="w"> </span><span class="n">found</span><span class="o">&lt;</span>\<span class="n">r</span><span class="o">&gt;&lt;</span>\<span class="n">n</span><span class="o">&gt;</span>
+<span class="n">I</span><span class="o">/</span><span class="n">TC</span><span class="p">:</span><span class="w"> </span><span class="n">OP</span><span class="o">-</span><span class="n">TEE</span><span class="w"> </span><span class="n">version</span><span class="p">:</span><span class="w"> </span><span class="mf">3.19</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="n">dev</span><span class="w"> </span><span class="p">(</span><span class="n">gcc</span><span class="w"> </span><span class="n">version</span><span class="w"> </span><span class="mf">12.2</span><span class="o">.</span><span class="mi">0</span><span class="w"> </span><span class="p">(</span><span class="n">GCC</span><span class="p">))</span><span class="w"> </span><span class="c1">#1 Fri Oct 14 19:00:05 UTC 2022 arm&lt;\r&gt;&lt;\n&gt;</span>
+<span class="n">I</span><span class="o">/</span><span class="n">TC</span><span class="p">:</span><span class="w"> </span><span class="n">WARNING</span><span class="p">:</span><span class="w"> </span><span class="n">This</span><span class="w"> </span><span class="n">OP</span><span class="o">-</span><span class="n">TEE</span><span class="w"> </span><span class="n">configuration</span><span class="w"> </span><span class="n">might</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">insecure</span><span class="o">!&lt;</span>\<span class="n">r</span><span class="o">&gt;&lt;</span>\<span class="n">n</span><span class="o">&gt;</span>
+<span class="n">I</span><span class="o">/</span><span class="n">TC</span><span class="p">:</span><span class="w"> </span><span class="n">WARNING</span><span class="p">:</span><span class="w"> </span><span class="n">Please</span><span class="w"> </span><span class="n">check</span><span class="w"> </span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">optee</span><span class="o">.</span><span class="n">readthedocs</span><span class="o">.</span><span class="n">io</span><span class="o">/</span><span class="n">en</span><span class="o">/</span><span class="n">latest</span><span class="o">/</span><span class="n">architecture</span><span class="o">/</span><span class="n">porting_guidelines</span><span class="o">.</span><span class="n">html</span><span class="o">&lt;</span>\<span class="n">r</span><span class="o">&gt;&lt;</span>\<span class="n">n</span><span class="o">&gt;</span>
+<span class="n">I</span><span class="o">/</span><span class="n">TC</span><span class="p">:</span><span class="w"> </span><span class="n">Primary</span><span class="w"> </span><span class="n">CPU</span><span class="w"> </span><span class="n">initializing</span><span class="o">&lt;</span>\<span class="n">r</span><span class="o">&gt;&lt;</span>\<span class="n">n</span><span class="o">&gt;</span>
+<span class="n">E</span><span class="o">/</span><span class="n">TC</span><span class="p">:</span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="n">Panic</span><span class="o">&lt;</span>\<span class="n">r</span><span class="o">&gt;&lt;</span>\<span class="n">n</span><span class="o">&gt;</span>
+</code></pre></div>
+<h1 id="10">10 结语<a class="headerlink" href="#10" title="Permanent link">¶</a></h1>
+<p>關於具體的流程及操作，我在這裡就不多做敘述了，官方文檔和正點原子的手冊中說的已經非常清楚。本次移植過程也是個人摸索得出的，如果有不盡完善的地方，歡迎您提出，我進行驗證更正。</p>
+
+
+             
+ 
+                <p id="post-share-links">
+    Like this post? Share on:
+      <a href="mailto:?subject=%E7%A7%BB%E6%A4%8Dtf-a%202.8%2C%20optee%203.19%2C%20u-boot%202022.10%2C%20linux6.1%20%28v23.06.21%29%20%E5%88%B0%E6%AD%A3%E9%BB%9E%E5%8E%9F%E5%AD%90%28ALIENTEK%29%20STM32MP157D%C2%A0%E9%96%8B%E7%99%BC%E6%9D%BF%20STM32MP157D%20%E5%85%A5%E9%96%80%E5%AD%B8%E7%BF%92&amp;body=/STM32MP157DAA1/Porting_v23.06.21_to_ALIENTEK_STM32MP157D.html" target="_blank" rel="nofollow noopener noreferrer" title="Share via Email">Email</a>
+
+                <hr />
+    <div class="author-blurb">
+        <a href="https://www.dhlx.wang/" target="_blank" rel="nofollow noopener noreferrer">
+            <img src=/images/avatars/profile_photo.jpg alt="郭世全 Avatar" title="郭世全">
+            <span class="author-name">郭世全</span>
+        </a>
+        不斷學習，不斷超越
+    </div>
+
+            
+
+
+
+
+
+
+
+            <hr/>
+            <aside>
+            <nav>
+            <ul class="articles-timeline">
+                <li class="previous-article">« <a href="../STM32F411VET6/Simple_transplant_IAP_STSW-STM32067_to_STM32F411VET6.html" title="Previous: 简单移植IAP（STSW-STM32067）到STM32F411VET6">简单移植IAP（STSW-STM32067）到STM32F411VET6</a></li>
+                <li class="next-article"><a href="../STM32F411VET6/Porting_AN4657_STM32Cube_IAP_using_UART_to_STM32F411VET6.html" title="Next: 移植AN4657到STM32F411VET6 - STM32Cube IAP using UART">移植AN4657到STM32F411VET6 <small class="subtitle">STM32Cube IAP using UART</small></a> »</li>
+            </ul>
+            </nav>
+            </aside>
+        </div>
+        <section id="article-sidebar" class="span2">
+            <h4>Published</h4>
+            <time itemprop="dateCreated" datetime="2015-07-03T16:00:00+08:00">周五 03 七月 2015</time>
+<h4>Last Updated</h4>
+<time datetime="2023-07-12T21:35:00+08:00">周三 12 七月 2023</time>
+
+            <h4>Category</h4>
+            <a class="category-link" href="../categories.html#stm32mp157daa1-ref">STM32MP157DAA1</a>
+            <h4>Tags</h4>
+            <ul class="list-of-tags tags-in-article">
+                <li><a href="../tags.html#linux-ref">Linux
+                    <span class="superscript">1</span>
+</a></li>
+                <li><a href="../tags.html#optee-ref">OPTEE
+                    <span class="superscript">1</span>
+</a></li>
+                <li><a href="../tags.html#stm32mp157daa1-ref">STM32MP157DAA1
+                    <span class="superscript">1</span>
+</a></li>
+                <li><a href="../tags.html#tf-a-ref">TF-A
+                    <span class="superscript">1</span>
+</a></li>
+                <li><a href="../tags.html#u-boot-ref">U-boot
+                    <span class="superscript">1</span>
+</a></li>
+            </ul>
+<h4>Stay in Touch</h4>
+<div id="sidebar-social-link">
+    <a href="https://github.com/dihonglongxi" title="" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="GitHub" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1B1817"/><path fill="#fff" d="M335 499c14 0 12 17 12 17H165s-2-17 12-17c13 0 16-6 16-12l-1-50c-71 16-86-28-86-28-12-30-28-37-28-37-24-16 1-16 1-16 26 2 40 26 40 26 22 39 59 28 74 22 2-17 9-28 16-35-57-6-116-28-116-126 0-28 10-51 26-69-3-6-11-32 3-67 0 0 21-7 70 26 42-12 86-12 128 0 49-33 70-26 70-26 14 35 6 61 3 67 16 18 26 41 26 69 0 98-60 120-117 126 10 8 18 24 18 48l-1 70c0 6 3 12 16 12z"/></svg>
+    </a>
+    <a href="mailto:mailto:gsq510838401@gmail.com" title="" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="Mail" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#328cff"/><path d="m250 186c-46 0-69 35-69 74 0 44 29 72 68 72 43 0 73-32 73-75 0-44-34-71-72-71zm-1-37c30 0 57 13 77 33 0-22 35-22 35 1v150c-1 10 10 16 16 9 25-25 54-128-14-187-64-56-149-47-195-15-48 33-79 107-49 175 33 76 126 99 182 76 28-12 41 26 12 39-45 19-168 17-225-82-38-68-36-185 67-248 78-46 182-33 244 32 66 69 62 197-2 246-28 23-71 1-71-32v-11c-20 20-47 32-77 32-57 0-108-51-108-108 0-58 51-110 108-110" fill="#fff"/></svg>
+    </a>
+</div>
+            
+
+
+
+
+
+            
+
+
+
+
+
+        </section>
+</div>
+</article>
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe.
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides.
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>                    </div>
+                    <div class="span1"></div>
+                </div>
+            </div>
+        </div>
+<footer>
+    <div>
+        Content licensed under <a rel="license nofollow noopener noreferrer"
+    href="http://creativecommons.org/licenses/by/4.0/" target="_blank">
+    Creative Commons Attribution 4.0 International License</a>.
+    </div>
+
+    <div>
+        <span class="site-name"><span style="color:black;">帝鴻龍曦</span></span> - 記錄生活和工作的點滴
+    </div>
+
+
+
+    <div id="fpowered">
+        Powered by: <a href="http://getpelican.com/" title="Pelican Home Page" target="_blank" rel="nofollow noopener noreferrer">Pelican</a>
+        Theme: <a href="https://elegant.oncrashreboot.com/" title="Theme Elegant Home Page" target="_blank" rel="nofollow noopener noreferrer">Elegant</a>
+        Hosted on:
+        <a href=https://www.netlify.com/ target="_blank" rel="nofollow noopener noreferrer">
+            Netlify
+        </a>
+    </div>
+</footer>            <script src="//code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script src="../theme/js/elegant.prod.9e9d5ce754.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+    <script>
+    (function () {
+        if (window.location.hash.match(/^#comment-\d+$/)) {
+            $('#comment_thread').collapse('show');
+        }
+    })();
+    window.onhashchange=function(){
+        if (window.location.hash.match(/^#comment-\d+$/))
+            window.location.reload(true);
+    }
+    $('#comment_thread').on('shown', function () {
+        var link = document.getElementById('comment-accordion-toggle');
+        var old_innerHTML = link.innerHTML;
+        $(link).fadeOut(200, function() {
+            $(this).text('Click here to hide comments').fadeIn(200);
+        });
+        $('#comment_thread').on('hidden', function () {
+            $(link).fadeOut(200, function() {
+                $(this).text(old_innerHTML).fadeIn(200);
+            });
+        })
+    })
+</script>
+
+    </body>
+    <!-- Theme: Elegant built for Pelican
+        License : MIT -->
+</html>
